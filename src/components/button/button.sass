@@ -1,0 +1,28 @@
+.btn
+  font-family: inherit
+  font-size: 1.1rem
+  font-weight: bold
+  border: none
+  outline: none
+  border-radius: 2em
+  background: var(--colorText)
+  color: var(--colorBackground)
+  padding: .8em
+  text-decoration: none
+  width: calc(100% - (var(--sizePadding) * 2))
+  transition: all .3s ease
+
+  &.next, &.prev
+    display: flex
+    border-radius: 50%
+    width: 3em
+    height: 3em
+    padding: 0
+    align-items: center
+    justify-content: center
+
+  a
+    text-decoration: none
+  
+  i
+    font-size: inherit

@@ -1,0 +1,103 @@
+// ==========================================
+// external
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css')
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons')
+@import url('https://use.typekit.net/wny2zvq.css')
+
+
+// ==========================================
+// global
+*
+  box-sizing: border-box
+
+html, body
+  height: 100%
+
+html
+  font-size: 62.5%
+  font-family: 'interstate', sans-serif
+
+  // variables for everyone
+  --colorAccent: #FFD98E
+  --colorBackground: #FFFFFF
+  --colorPale: #F5F5F5
+  --colorDim: #E9E9E9
+  --colorText: #000000
+  --colorTextDim: #8D8D8D
+  --colorTextSecondary: #BCBCBC
+  --colorTextError: #EC7272
+  
+  --sizePadding: 3rem
+
+  // Tablet: 480px
+  // Laptop: 960px
+  // Wide: 1200px
+  // UltraWide: 1600px
+
+body
+  font-size: 1.6rem
+  line-height: 1.6
+  overscroll-behavior: none
+
+
+// ==========================================
+// typography
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6
+  font-weight: bold
+  line-height: 1
+
+h1, .h1
+  font-size: 3.1rem
+  font-weight: 900
+
+h2, .h2
+  font-size: 2.6rem
+
+h3, .h3
+  font-size: 2.2rem
+
+h4, .h4
+  font-size: 1.9rem
+
+h5, .h5
+  font-size: 1.7rem
+
+h6, .h6
+  font-size: 1.6rem
+
+
+// ==========================================
+// layout
+.app
+  height: 100%
+
+.wrapper
+  width: 100%
+  max-width: 1000px
+  margin: 0 auto
+  padding: var(--sizePadding)
+
+
+// ==========================================
+// media query helpers
+.media-phone
+  @media screen and (min-width: 480px)
+    display: none !important
+
+.media-tablet
+  @media screen and (max-width: 480px)
+    display: none !important
+
+.hidden
+  display: none !important
+
+
+// ==========================================
+// element overrides
+a
+  text-decoration: none
+  color: inherit
+
+  &:hover
+    text-decoration: underline

@@ -1,0 +1,39 @@
+// ==========================================
+// onboarding item styles
+.items
+  .onboarding
+    padding-top: 6rem
+    padding-bottom: 12rem
+    justify-content: flex-start
+    align-items: center
+    text-align: center
+
+    h2
+      margin-bottom: 1em
+    
+    p
+      font-size: 1.2em
+      line-height: 1.4
+    
+    @media screen and (min-width: 480px)
+      padding-top: 0
+      padding-bottom: 0
+
+      .wrapper
+        flex-direction: row
+        align-items: center
+
+      img
+        max-width: 50vw
+        flex: 1
+      
+      .content
+        text-align: left
+        flex: 2
+      
+      &:nth-of-type(2n + 1)
+        .wrapper
+          flex-direction: row-reverse
+        
+        .content
+          text-align: right

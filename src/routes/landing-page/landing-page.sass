@@ -1,0 +1,195 @@
+// ==========================================
+// landing page styles
+.landing-page
+  height: 100%
+  position: relative
+  overflow: hidden
+  --cWidth: 100%
+
+  footer
+    background: var(--colorAccent)
+    text-align: center
+    padding: 2em 0
+
+    a
+      text-decoration: underline
+
+  .highlights
+    padding: 2em 0
+    margin-top: 6em
+    background: var(--colorPale)
+
+    .wrapper
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      font-size: 1.2em
+    
+    h3
+      margin-bottom: 1em
+    
+    ul li
+      margin-bottom: 0.5em
+
+      span
+        display: inline-block
+        text-align: right
+        width: 2em
+        margin-right: 0.5em
+
+  @media screen and (min-width: 480px)
+    position: static
+    overflow-x: hidden
+    overflow-y: initial
+
+  .btn.next, .btn.fill
+    font-size: 1.2em
+    position: absolute
+    bottom: 3rem
+    left: 50%
+    transform: translateX(-50%)
+
+    @media screen and (min-width: 480px)
+      display: none
+
+  nav
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    z-index: 10
+    pointer-events: none
+
+    .wrapper
+      display: flex
+      justify-content: space-between
+      align-items: center
+      pointer-events: all
+      padding-top: 0
+      padding-bottom: 0
+      height: 8rem
+
+    .btn
+      font-size: .8em
+      background: var(--colorDim)
+      color: var(--colorText)
+      
+      i
+        margin-left: 0.3em
+    
+    a
+      text-decoration: none
+
+    .links
+      li
+        display: inline-block
+        margin-left: 2em
+        text-align: right
+
+      a
+        color: var(--colorTextDim)
+    
+  .items
+    height: 100%
+    transition: all .6s ease
+    width: var(--cWidth)
+
+    
+    @for $i from 1 through 3
+      &.pos-#{$i}
+        transform: translate3d(-#{100 * $i}vw, 0, 0)
+
+      @media screen and (min-width: 480px)
+        transform: none
+        transition: none
+
+  article
+    height: 100%
+    width: 100vw
+    position: relative
+    overflow: hidden
+    float: left
+    opacity: 0
+    transition: transform .4s ease, opacity .4s ease
+
+    .wrapper
+      height: 100%
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: space-between
+
+    img
+      display: block
+      width: 120%
+
+    &.active
+      opacity: 1
+
+    &.hero
+      .wrapper
+        padding-top: 6em
+      
+      h1, .h1
+        font-size: 3.7rem
+      
+      p
+        margin-top: 2em
+        width: 60%
+        font-size: 1.2em
+
+      img
+        position: absolute
+        width: 110%
+        left: 50%
+        transform: translateX(-50%)
+        bottom: 5em
+        z-index: -1
+    
+  @media screen and (min-width: 480px)
+    nav .links a
+      color: inherit
+      font-weight: bold
+
+    .items
+      width: 100%
+
+    .ft
+      display: block
+      padding: 3em 0 1em
+      text-align: center
+      font-weight: 300
+      text-transform: uppercase
+      color: var(--colorTextDim)
+
+    article
+      height: initial
+      float: none
+      opacity: 1
+
+      &.hero
+        height: 60%
+        justify-content: space-between
+        background: var(--colorPale)
+
+        .wrapper
+          justify-content: center
+          padding-top: var(--sizePadding)
+          position: relative
+        
+        h1, .h1
+          font-size: 4.6rem
+          width: 60%
+
+        img
+          bottom: -1em
+          width: 50%
+          left: initial
+          right: 0
+          min-width: 25em
+          transform: none
+          z-index: 0
+
+      .wrapper
+        align-items: flex-start
