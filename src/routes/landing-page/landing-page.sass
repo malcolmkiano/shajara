@@ -148,9 +148,10 @@
         z-index: -1
     
   @media screen and (min-width: 480px)
-    nav .links a
-      color: inherit
-      font-weight: bold
+    nav
+      .links a
+        color: inherit
+        font-weight: bold
 
     .items
       width: 100%
@@ -165,11 +166,14 @@
 
     article
       height: initial
+      width: 100%
       float: none
       opacity: 1
 
       &.hero
-        height: 60%
+        height: 100%
+        min-height: 28em
+        max-height: 50em
         justify-content: space-between
         background: var(--colorPale)
 
@@ -181,6 +185,10 @@
         h1, .h1
           font-size: 4.6rem
           width: 60%
+        
+        h1, .h1, p
+          position: relative
+          z-index: 1
 
         img
           bottom: -1em
