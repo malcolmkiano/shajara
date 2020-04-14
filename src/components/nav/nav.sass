@@ -1,0 +1,39 @@
+nav
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  pointer-events: none
+
+  .wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center
+    pointer-events: all
+    padding-top: 0
+    padding-bottom: 0
+    height: 8rem
+
+  .btn
+    font-size: .8em
+    background: var(--colorDim)
+    color: var(--colorText)
+    
+    i
+      margin-left: 0.3em
+  
+  a
+    font-weight: bold
+
+    &.logo::before
+      display: none
+
+  .links
+    li
+      display: inline-block
+      margin-left: 2em
+      text-align: right
+
+      a
+        color: var(--colorTextDim)

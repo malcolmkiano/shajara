@@ -1,0 +1,51 @@
+// ==========================================
+// input styles
+.input
+  position: relative
+  margin-bottom: 2em
+
+  .error
+    display: inline-block
+    color: var(--colorTextError)
+    font-size: 0.9em
+    margin-top: 0.5em
+    line-height: 1
+
+  input
+    width: 100%
+    font-family: inherit
+    font-size: inherit
+    border: none
+    outline: none
+    border-radius: 0
+    padding: .6em 0
+    border-bottom: 1px solid var(--colorTextSecondary)
+    transition: all .2s ease
+
+    & + label
+      position: absolute
+      left: 0
+      top: .6em
+      color: var(--colorTextSecondary)
+      pointer-events: none
+      transition: all .2s ease
+
+      span
+        opacity: 0.8
+        user-select: none
+        display: inline-block
+        margin-left: 0.2em
+        color: var(--colorTextError)
+    
+    &:focus
+      border-color: var(--colorText)
+
+      & + label
+        color: var(--colorText)
+
+    &:focus, &.dirty
+      & + label
+        top: -1em
+        font-size: 0.9em
+    
+    

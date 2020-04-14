@@ -9,7 +9,8 @@
   color: var(--colorBackground)
   padding: .8em
   text-decoration: none
-  width: calc(100% - (var(--sizePadding) * 2))
+  width: 100%
+  overflow: hidden
   transition: all .3s ease
 
   &.next, &.prev
@@ -20,9 +21,20 @@
     padding: 0
     align-items: center
     justify-content: center
+  
+  &.link
+    padding: 0
+
+    a
+      padding: .8em
 
   a
+    display: inline-block
+    width: 100%
     text-decoration: none
+
+    &:before
+      display: none
   
   i
     font-size: inherit

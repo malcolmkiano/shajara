@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Swipeable } from 'react-swipeable'
 import './landing-page.sass'
 
 import { HeroImage, StoryImage, MoodImage, CustomizeImage } from '../../images'
-import { Button, OnboardingItem, Dots } from '../../components'
+import { Nav, Button, OnboardingItem, Dots } from '../../components'
 
-class LandingPage extends React.Component {
+export default class LandingPage extends React.Component {
   state = {
     step: 0,
     onboardingItems: [
@@ -35,16 +36,13 @@ class LandingPage extends React.Component {
     }
   }
 
-  skipOnboarding() {
-    localStorage.setItem('onboarding', true)
-  }
-
-  handleSwipe = direction => {
+  handleSwipe = e => {
+    const direction = e.dir;
     if (direction === 'Right') {
       if (this.state.step > 0) {
         this.setState({ step: this.state.step - 1 })
       }
-    } else {
+    } else if (direction === 'Left') {
       if (this.state.step < this.state.onboardingItems.length) {
         this.setState({ step: this.state.step + 1 })
       }
@@ -65,6 +63,7 @@ class LandingPage extends React.Component {
     const buttonType = currentlyOnboarding ? 'next' : 'fill'
 
     // user on page zero?
+    const isLast = !!(step === onboardingItems.length)
     const isZero = step === 0 ? 'active' : ''
     const buttonContent = !!isZero ? 'Get Started' : (
       <Link to="/register">Register</Link>
@@ -72,10 +71,10 @@ class LandingPage extends React.Component {
 
     // top left link
     const leftLink = !!isZero ? (
-      <Link to="/" className="h3">Shajara</Link>
+      <Link to="/" className="h3 logo">Shajara</Link>
     ) : (
-      <Button type="prev" onClick={() => this.goToPage(this.state.step - 1)}/>
-    )
+        <Button type="prev" onClick={() => this.goToPage(this.state.step - 1)} />
+      )
 
     // width of carousel
     const carouselWidth = (onboardingItems.length + 1) * 100
@@ -93,19 +92,17 @@ class LandingPage extends React.Component {
 
         <h1 className="hidden">Shajara</h1>
 
-        <nav>
-          <div className="wrapper">
-            {leftLink}
-            <ul className="links">
-              <li className="media-tablet"><Link to="/register">Register</Link></li>
-              <li><Link to="/login" onClick={this.skipOnboarding}>Log In</Link></li>
-            </ul>
-          </div>
-        </nav>
+        <Nav>
+          {leftLink}
+          <ul className="links">
+            <li className="media-tablet"><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Log In</Link></li>
+          </ul>
+        </Nav>
 
         <div className={`items pos-${step}`} style={{ '--cWidth': `${carouselWidth}vw` }}>
           <article className={`hero ${isZero}`}>
-            <div className="wrapper">
+            <Swipeable className="wrapper" onSwiped={this.handleSwipe}>
               <h2 className="h1">The better way to keep track of your&nbsp;days.</h2>
               <div className="media-tablet">
                 <p>
@@ -113,7 +110,7 @@ class LandingPage extends React.Component {
                 </p>
               </div>
               <img draggable="false" src={HeroImage} alt="Person thinking about apples, school, work, and other things" />
-            </div>
+            </Swipeable>
           </article>
 
           <h2 className="media-tablet ft">Features</h2>
@@ -157,15 +154,16 @@ class LandingPage extends React.Component {
 
         </div>
 
-        {currentlyOnboarding || (step === onboardingItems.length)
+        {currentlyOnboarding || (!!isLast)
           ? <Dots count={onboardingItems.length} active={step} />
           : ''}
 
         <Button
           type={buttonType}
+          hasLink={isLast}
           onClick={(!!isZero || !!currentlyOnboarding)
             ? () => this.goToPage(this.state.step + 1)
-            : ()=>null}>
+            : () => null}>
           {buttonContent}
         </Button>
 
@@ -173,5 +171,3 @@ class LandingPage extends React.Component {
     )
   }
 }
-
-export default LandingPage
