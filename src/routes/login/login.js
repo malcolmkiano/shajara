@@ -4,6 +4,7 @@ import './login.sass'
 
 import { Nav, Button, Input } from '../../components'
 import { validateField, API, TokenService } from '../../utils'
+import { LoginImage } from '../../images'
 
 export default class Register extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ export default class Register extends Component {
       />
     ))
     return (
-      <section className="login">
+      <section className="login form-view">
         <Nav>
           <Link to="/" className="h3 logo">Shajara</Link>
           <ul className="links">
@@ -90,20 +91,26 @@ export default class Register extends Component {
           </ul>
         </Nav>
 
-        <form
-          className="wrapper"
-          spellCheck="false"
-          autoComplete="false"
-          onSubmit={this.handleSubmit}>
-          <h2>Welcome back!</h2>
-          <p>Please fill in the form to sign in to your Shajara&nbsp;account.</p>
-
-          <div className="fields">
-            {fields}
+        <article className="form-content">
+          <div className="artwork alt media-tablet">
+            <img src={LoginImage} alt="Woman sitting at a table, holding a pencil"/>
           </div>
 
-          <Button type="fill">Log In</Button>
-        </form>
+          <form
+            className="wrapper"
+            spellCheck="false"
+            autoComplete="off"
+            onSubmit={this.handleSubmit}>
+            <h2>Welcome back!</h2>
+            <p>Please fill in the form to sign in to your Shajara&nbsp;account.</p>
+
+            <div className="fields">
+              {fields}
+            </div>
+
+            <Button type="fill">Log In</Button>
+          </form>
+        </article>
       </section>
     )
   }

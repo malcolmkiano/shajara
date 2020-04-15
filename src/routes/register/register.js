@@ -4,6 +4,7 @@ import './register.sass'
 
 import { Nav, Button, Input } from '../../components'
 import { validateField, API, TokenService } from '../../utils'
+import { RegisterImage } from '../../images'
 
 export default class Register extends Component {
   constructor(props) {
@@ -105,7 +106,7 @@ export default class Register extends Component {
       />
     ))
     return (
-      <section className="register">
+      <section className="register form-view">
         <Nav>
           <Link to="/" className="h3 logo">Shajara</Link>
           <ul className="links">
@@ -113,22 +114,28 @@ export default class Register extends Component {
           </ul>
         </Nav>
 
-        <form
-          className="wrapper"
-          spellCheck="false"
-          autoComplete="false"
-          onSubmit={this.handleSubmit}>
-          <h2>Hello there!</h2>
-          <p>Please fill in the form to create a Shajara&nbsp;account.</p>
-
-          <div className="fields">
-            {fields}
+        <article className="form-content">
+          <div className="artwork media-tablet">
+            <img src={RegisterImage} alt="Man sitting down, holding a pencil"/>
           </div>
 
-          <p className="disclaimer">By creating an account, you agree to let us securely store your information for use only in this application.</p>
+          <form
+            className="wrapper"
+            spellCheck="false"
+            autoComplete="off"
+            onSubmit={this.handleSubmit}>
+            <h2>Hello there!</h2>
+            <p>Please fill in the form to create a Shajara&nbsp;account.</p>
 
-          <Button type="fill">Create Account</Button>
-        </form>
+            <div className="fields">
+              {fields}
+            </div>
+
+            <p className="disclaimer">By creating an account, you agree to let us securely store your information for use only in this application.</p>
+
+            <Button type="fill">Create Account</Button>
+          </form>
+        </article>
       </section>
     )
   }
