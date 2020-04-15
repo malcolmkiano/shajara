@@ -29,6 +29,8 @@ export default class LandingPage extends React.Component {
   }
 
   componentDidMount() {
+    document.title = 'Shajara - Journal App'
+
     window.onresize = () => {
       if (this.state.step > 0) {
         this.setState({ step: 0 })

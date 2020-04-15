@@ -5,6 +5,10 @@ import './dashboard.sass'
 import { TokenService } from '../../utils'
 
 export default class Dashboard extends Component {
+  componentDidMount() {
+    document.title = 'Dashboard - Shajara - Journal App'
+  }
+
   handleLogOut = () => {
     TokenService.clearAuthToken()
   }
@@ -15,7 +19,7 @@ export default class Dashboard extends Component {
         <div className="wrapper">
           <h2>Dashboard</h2>
           <p>Insert your app here.</p>
-          <Link onClick={this.handleLogOut} to="/">Log Out</Link>
+          <Link onClick={this.handleLogOut} to="/login">Log Out</Link>
         </div>
       </section>
     )

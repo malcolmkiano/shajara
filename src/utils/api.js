@@ -43,6 +43,10 @@ function register(user) {
 
       // formatting the data how we want it back from the server
       // remove this logic once server is completed
+      if (data.json.email_address === 'john@doe.co') {
+        return Promise.reject('An account using that email exists.')
+      }
+
       data = {
         id: 1,
         email_address: data.json.email_address,
@@ -66,9 +70,18 @@ function login(credentials) {
 
       // formatting the data how we want it back from the server
       // remove this logic once server is completed
-      data = {
-        first_name: 'John',
-        authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' // sample JWT
+      if (data.json.email_address === 'elena@ohnuts.co' && data.json.password === 'Elena1234') {
+        data = {
+          first_name: 'Elena',
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' // sample JWT
+        }
+      } else if (data.json.email_address === 'john@doe.co' && data.json.password === 'Password911') {
+        data = {
+          first_name: 'John',
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' // sample JWT
+        }
+      } else {
+        return Promise.reject('Incorrect email/password combination.')
       }
 
       return data

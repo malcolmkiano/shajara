@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import './register.sass'
 
-import { Nav, Button, Input } from '../../components'
-import { validateField, API, TokenService } from '../../utils'
+import { Nav, AuthForm } from '../../components'
+import { API, TokenService } from '../../utils'
 import { RegisterImage } from '../../images'
 
 export default class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      error: null,
       fields: [
         {
           label: 'First Name',
@@ -17,8 +17,8 @@ export default class Register extends Component {
           value: '',
           type: 'text',
           required: true,
-          pattern: /\S\w+/,
-          format: 'Must have no spaces or numeric characters',
+          pattern: /^[A-Za-z'-]{2,30}$/,
+          format: 'Must include 2 - 30 characters with no spaces or numeric characters',
           error: null
         },
         {
@@ -38,35 +38,26 @@ export default class Register extends Component {
           type: 'password',
           required: true,
           pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,72}$/,
-          format: 'Must include at least 8 characters with 1 or more uppercase and 1 or more numbers',
+          format: 'Must include 8 - 72 characters with 1 or more uppercase and 1 or more numbers',
           error: null
         }
       ]
     }
   }
 
-  handleSubmit = e => {
-    e.preventDefault()
+  componentDidMount() {
+    document.title = 'Register - Shajara - Journal App'
+  }
 
-    const { fields } = this.state
-    if (fields.some(field => !!field.error)) {
-      const { id } = fields.find(field => !!field.error)
-      document.querySelector(`#${id}`).focus()
-      return false
-    }
-
-    const newUser = {}
-    fields.forEach(field => {
-      newUser[field.id] = field.value
-    })
+  handleCreateAccount = newUser => {
 
     // send the info up to the server
     API.register(newUser)
       .then(() => {
 
-        // handle the data that came back
+        // automatically log the user in
         API.login({
-          emailAddress: newUser.emailAddress,
+          email_address: newUser.email_address,
           password: newUser.password
         })
           .then(res => {
@@ -75,36 +66,26 @@ export default class Register extends Component {
             const { first_name, authToken } = res
             TokenService.saveAuthInfo(first_name, authToken)
 
-            // callback for successful registration
+            // callback for successful login
             this.props.history.push('/dashboard');
 
+          })
+          .catch(err => {
+            this.setState({
+              error: 'Something went wrong. Please try again in a few moments.'
+            })
           })
         
       })
       .catch(err => {
-        console.log(err)
+        this.setState({
+          error: err
+        })
       })
 
   }
 
-  handleChange = e => {
-    const { fields } = this.state
-    const index = fields.findIndex(f => f.id === e.target.id)
-    fields[index] = validateField(fields[index], e.target.value)
-
-    this.setState({
-      fields: fields
-    })
-  }
-
   render() {
-    const fields = this.state.fields.map(field => (
-      <Input
-        key={field.id}
-        {...field}
-        onChange={this.handleChange}
-      />
-    ))
     return (
       <section className="register form-view">
         <Nav>
@@ -114,28 +95,15 @@ export default class Register extends Component {
           </ul>
         </Nav>
 
-        <article className="form-content">
-          <div className="artwork media-tablet">
-            <img src={RegisterImage} alt="Man sitting down, holding a pencil"/>
-          </div>
-
-          <form
-            className="wrapper"
-            spellCheck="false"
-            autoComplete="off"
-            onSubmit={this.handleSubmit}>
-            <h2>Hello there!</h2>
-            <p>Please fill in the form to create a Shajara&nbsp;account.</p>
-
-            <div className="fields">
-              {fields}
-            </div>
-
-            <p className="disclaimer">By creating an account, you agree to let us securely store your information for use only in this application.</p>
-
-            <Button type="fill">Create Account</Button>
-          </form>
-        </article>
+        <AuthForm
+          title="Hello there!"
+          description="Please fill in the form to create a Shajara&nbsp;account."
+          image={RegisterImage}
+          fields={this.state.fields}
+          error={this.state.error}
+          buttonText="Create Account"
+          disclaimer="By creating an account, you agree to let us securely store your information for use only in this application."
+          onSubmit={this.handleCreateAccount}/>
       </section>
     )
   }
