@@ -111,7 +111,7 @@ export default class LandingPage extends React.Component {
                   Shajara lets you take down your daily thoughts and mood in a beautiful way. Get in touch with your personal development, and read and relive your great memories!
                 </p>
               </div>
-              <img draggable="false" src={HeroImage} alt="Person thinking about apples, school, work, and other things" />
+              <HeroImage />
             </Swipeable>
           </article>
 

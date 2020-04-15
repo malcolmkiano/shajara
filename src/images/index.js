@@ -1,10 +1,10 @@
 // bring in the images
-import HeroImage from './hero.svg'
-import StoryImage from './story.svg'
-import MoodImage from './mood.svg'
-import CustomizeImage from './customize.svg'
-import LoginImage from './login.svg'
-import RegisterImage from './register.svg'
+import { ReactComponent as HeroImage } from './hero.svg'
+import { ReactComponent as StoryImage } from './story.svg'
+import { ReactComponent as MoodImage } from './mood.svg'
+import { ReactComponent as CustomizeImage } from './customize.svg'
+import { ReactComponent as LoginImage } from './login.svg'
+import { ReactComponent as RegisterImage } from './register.svg'
 
 
 // send them out

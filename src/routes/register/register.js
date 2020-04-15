@@ -98,7 +98,7 @@ export default class Register extends Component {
         <AuthForm
           title="Hello there!"
           description="Please fill in the form to create a Shajara&nbsp;account."
-          image={RegisterImage}
+          Image={RegisterImage}
           fields={this.state.fields}
           error={this.state.error}
           buttonText="Create Account"

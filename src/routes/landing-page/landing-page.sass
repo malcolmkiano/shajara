@@ -86,9 +86,9 @@
       align-items: center
       justify-content: space-between
 
-    img
+    svg
       display: block
-      width: 120%
+      height: 40vh
 
     &.active
       opacity: 1
@@ -105,12 +105,13 @@
         width: 60%
         font-size: 1.2em
 
-      img
+      svg
         position: absolute
+        height: initial
         width: 110%
         left: 50%
         transform: translateX(-50%)
-        bottom: 5em
+        bottom: 3em
         z-index: -1
     
   @media screen and (min-width: 480px)
@@ -151,7 +152,7 @@
           position: relative
           z-index: 1
 
-        img
+        svg
           bottom: -1em
           width: 50%
           left: initial
