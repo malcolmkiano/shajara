@@ -1,11 +1,16 @@
 import config from '../config'
+import SVR from './server-data'
+
+const REGISTER_ENDPOINT = '/post'
+const LOGIN_ENDPOINT = '/post'
+const ENTRIES_ENDPOINT = '/uuid'
 
 /**
  * abstracts making API calls with error handling built in
  */
-function makeRequest(options) {
-  let error;
-  return fetch(config.API_ENDPOINT, options)
+function makeRequest(url, options) {
+  let error
+  return fetch(config.API_ENDPOINT + url, options)
     .then(res => {
       if (!res.ok) error.code = res.status
       if (!res.headers.get('content-type').includes('json')) {
@@ -25,6 +30,16 @@ function makeRequest(options) {
     })
 }
 
+function fakeRequest(url, options) {
+  return new Promise((resolve, reject) => {
+    setTimeout( function() {
+      resolve({
+        json: options.body ? JSON.parse(options.body) : {}
+      })
+    }, 300)
+  })
+}
+
 
 /**
  * creates a new user account on the server
@@ -34,7 +49,7 @@ function makeRequest(options) {
  * @param {string} user.password the user's password
  */
 function register(user) {
-  return makeRequest({
+  return fakeRequest(REGISTER_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user)
@@ -60,8 +75,14 @@ function register(user) {
 }
 
 
+/**
+ * gets an authorization token from the server
+ * @param {Object} credentials user credentials to log in
+ * @param {string} credentials.email_address the user's email address
+ * @param {string} credentials.password the user's password
+ */
 function login(credentials) {
-  return makeRequest({
+  return fakeRequest(LOGIN_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
@@ -73,12 +94,12 @@ function login(credentials) {
       if (data.json.email_address === 'elena@ohnuts.co' && data.json.password === 'Elena1234') {
         data = {
           first_name: 'Elena',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' // sample JWT
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5e' // sample JWT
         }
       } else if (data.json.email_address === 'john@doe.co' && data.json.password === 'Password911') {
         data = {
           first_name: 'John',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' // sample JWT
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5j' // sample JWT
         }
       } else {
         return Promise.reject('Incorrect email/password combination.')
@@ -90,7 +111,30 @@ function login(credentials) {
 }
 
 
+/**
+ * gets all user entried given a user token
+ * @param {string} authToken JWT to include in request header
+ */
+function getEntries(authToken) {
+  return fakeRequest(ENTRIES_ENDPOINT, {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${authToken}` }
+  })
+    .then(data => {
+      
+      // formatting the data how we want it back from the server
+      // remove this logic once server is completed
+      data = SVR[authToken]
+
+      return data
+
+    })
+}
+
+
 export default {
   register,
-  login
+  login,
+  getEntries,
+  makeRequest
 }

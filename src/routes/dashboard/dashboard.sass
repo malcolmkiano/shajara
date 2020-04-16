@@ -1,0 +1,15 @@
+.dashboard
+  height: 100%
+  background: var(--colorBackground)
+  display: flex
+  flex-direction: column
+  position: relative
+
+  article
+    flex: 1 // to account for tab bar
+    overflow-y: auto
+    max-width: 800px
+
+  @media screen and (min-width: 480px)
+    flex-direction: row-reverse
+    width: 100%

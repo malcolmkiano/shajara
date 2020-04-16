@@ -1,0 +1,43 @@
+.entry
+  background: var(--colorPale)
+  border-radius: .5em
+  margin: 1em 0
+  padding: .8em
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  &::before
+    display: none
+  
+  &:hover
+    background: var(--colorDim)
+
+  .date
+    width: 12%
+    max-width: 3em
+    font-size: 0.8em
+    font-weight: 300
+    line-height: 1
+    text-align: center
+    margin-right: 1rem
+
+    strong
+      font-size: 1.5em
+      font-weight: bold
+      display: block
+
+
+  .preview
+    width: 100%
+    line-height: 1.2
+    max-height: (1.2 * 2em) // 2 lines
+    overflow: hidden
+    position: relative
+
+  &.today
+    margin-bottom: 2em
+    padding: 1em
+    font-size: 1.1em
+
+  

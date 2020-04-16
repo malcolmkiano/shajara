@@ -1,7 +1,6 @@
 // ==========================================
 // external
-@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css')
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons')
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css')
 @import url('https://use.typekit.net/wny2zvq.css')
 
 
@@ -13,6 +12,8 @@
 html, body
   height: 100%
   width: 100%
+  margin: 0
+  padding: 0
   position: fixed
   overflow: hidden
 
@@ -22,6 +23,7 @@ html
 
   // variables for everyone
   --colorAccent: #FFD98E
+  --colorAccentDark: #FEB931
   --colorHighlight1: #5584B4
   --colorHighlight2: #A76D99
   --colorBackground: #FFFFFF
@@ -33,6 +35,7 @@ html
   --colorTextError: #EC7272
   
   --sizePadding: 3rem
+  --sizeMaxWidth: 1000px
 
   // Tablet: 480px
   // Laptop: 960px
@@ -51,6 +54,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6
   font-weight: bold
   line-height: 1
+  margin: 0
 
 h1, .h1
   font-size: 3.1rem
@@ -82,7 +86,7 @@ h6, .h6
 
 .wrapper
   width: 100%
-  max-width: 1000px
+  max-width: var(--sizeMaxWidth)
   margin: 0 auto
   padding: var(--sizePadding)
 
@@ -98,7 +102,7 @@ h6, .h6
 
 
 // ==========================================
-// media query targets / helpers
+// media query targets & helpers
 .media-phone
   @media screen and (min-width: 480px)
     display: none !important

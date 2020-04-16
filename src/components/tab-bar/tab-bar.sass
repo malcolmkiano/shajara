@@ -1,0 +1,57 @@
+.tab-bar
+  display: flex
+  align-items: center
+  background: var(--colorBackground)
+  box-shadow: 0 0rem 3em var(--colorDim)
+  position: relative
+  z-index: 2 
+
+  a
+    flex: 1
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 1.5em 0
+    color: var(--colorTextDim)
+    transition: all .3s ease
+
+    &::before
+      display: none
+
+    svg
+      height: 1.3em
+      width: 1.3em
+      fill: currentColor
+      opacity: 0.5
+    
+    &.active
+      color: var(--colorAccentDark)
+
+      svg
+        opacity: 1
+  
+  @media screen and (min-width: 480px)
+    background: var(--colorPale)
+    flex-direction: column
+    width: 20em
+    box-shadow: none
+    padding: 0
+    padding-top: 15vh
+
+    a
+      flex: initial
+      padding: 1.5em
+      width: 100%
+      justify-content: flex-start
+      margin-bottom: 1rem
+      font-weight: bold
+
+      &:hover
+        background: var(--colorDim)
+
+      &.active
+        background: var(--colorAccentDark)
+        color: var(--colorBackground)
+
+      svg
+        margin-right: 1.5em

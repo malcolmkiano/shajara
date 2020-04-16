@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-
 import './button.sass'
+
+import { NextArrow, PrevArrow } from '../../images'
 
 export default class Button extends Component {
   render() {
     let content = this.props.children
     const { type, hasLink } = this.props
-    const validTypes = { next: 'arrow_forward_ios', prev: 'arrow_back_ios' }
-    if (type && Object.keys(validTypes).includes(type)) content = (
-      <i className="material-icons">{validTypes[type]}</i>
-    );
+    const validTypes = { next: NextArrow, prev: PrevArrow }
+    if (type && Object.keys(validTypes).includes(type)) {
+      const Arrow = validTypes[type]
+      content = (<Arrow />)
+    }
 
     if (!content) content = 'Forgetting something?'
     return (

@@ -39,7 +39,7 @@ export default class LandingPage extends React.Component {
   }
 
   handleSwipe = e => {
-    const direction = e.dir;
+    const direction = e.dir
     if (direction === 'Right') {
       if (this.state.step > 0) {
         this.setState({ step: this.state.step - 1 })

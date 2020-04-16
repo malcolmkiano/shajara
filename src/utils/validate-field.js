@@ -13,8 +13,8 @@ export default function validateField(field, value) {
     }
   }
 
-  validated.value = value;
-  validated.error = error;
+  validated.value = value
+  validated.error = error
 
-  return validated;
+  return validated
 }

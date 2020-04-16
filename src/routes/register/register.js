@@ -67,7 +67,7 @@ export default class Register extends Component {
             TokenService.saveAuthInfo(first_name, authToken)
 
             // callback for successful login
-            this.props.history.push('/dashboard');
+            this.props.history.push('/dashboard')
 
           })
           .catch(err => {
