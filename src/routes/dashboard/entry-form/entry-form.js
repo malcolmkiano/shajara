@@ -15,7 +15,8 @@ export default class EntryForm extends Component {
       text: '',
       id: null,
     },
-    saved: true
+    saved: true,
+    loading: false
   }
 
   static contextType = AppContext
@@ -47,6 +48,9 @@ export default class EntryForm extends Component {
     const { entry } = this.state
     const { id, text } = entry
 
+    // set loading
+    this.setState({ loading: true })
+
     if (id) {
       // if there is an ID in the state,
       // entry already exists on server and needs to be updated
@@ -54,7 +58,8 @@ export default class EntryForm extends Component {
         .then(() => {
           this.context.onEditEntry(id, text)
           this.setState({
-            saved: true
+            saved: true,
+            loading: false
           })
         })
     } else {
@@ -64,7 +69,8 @@ export default class EntryForm extends Component {
           this.context.onCreateEntry(newEntry)
           this.setState({
             entry: newEntry,
-            saved: true
+            saved: true,
+            loading: false
           })
         })
     }
@@ -97,7 +103,7 @@ export default class EntryForm extends Component {
     let subtitle = m(d).format('MMM D, YYYY')
 
     // grab the entry out of state
-    const { entry, saved } = this.state
+    const { entry, saved, loading } = this.state
 
     return (
       <form className="wrapper entry-form" onSubmit={this.handleSave}>
@@ -113,12 +119,16 @@ export default class EntryForm extends Component {
           <Button
             type="save"
             htmlType="submit"
-            variant={`alt ${!isToday ? 'invisible' : ''}`}
+            variant={`accent ${!isToday ? 'invisible' : ''}`}
             disabled={saved || !entry.text}
             onClick={this.handleSave} />
         </div>
 
         <p className="subtitle">{subtitle}</p>
+
+        <div className={`loading-bar ${loading ? 'loading' : ''}`}>
+        </div>
+
         <textarea
           autoFocus={isToday}
           placeholder="Write something"

@@ -34,6 +34,17 @@
     @media screen and (hover: hover)
       &:hover
         background: var(--colorTextSecondary)
+  
+  &.accent
+    background: var(--colorAccentDark)
+    color: var(--colorBackground)
+
+    &:disabled
+      background: var(--colorTextSecondary)
+    
+    @media screen and (hover: hover)
+      &:hover
+        background: var(--colorAccent)
 
   &.next, &.prev, &.close, &.save
     display: flex
@@ -64,5 +75,5 @@
     fill: currentColor
   
   &:disabled
-    opacity: 0.5
+    opacity: 0.4
     pointer-events: none

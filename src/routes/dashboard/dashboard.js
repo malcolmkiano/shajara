@@ -92,7 +92,7 @@ export default class Dashboard extends Component {
 
     return (
       <AppContext.Provider value={contextValues}>
-        <section className="dashboard">
+        <section className={`dashboard ${loading ? 'loading' : ''}`}>
 
           <Route path="/dashboard/:tab*/entry/:date" component={EntryForm} />
 

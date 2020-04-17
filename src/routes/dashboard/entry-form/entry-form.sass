@@ -4,6 +4,7 @@
   display: flex
   flex-direction: column
   animation: growIn .2s ease forwards
+  position: relative
   
   .top-bar
     display: flex
@@ -34,6 +35,30 @@
     outline: none
     background: none
     line-height: inherit
+  
+  .loading-bar
+    opacity: 0
+    overflow: hidden
+    position: relative
+    transition: opacity .2s ease
+
+    &::before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+
+    &.loading
+      opacity: 1
+      margin-top: 2em
+      margin-bottom: -1em
+      height: 0.1em
+
+      &::before
+        width: 100%
+        height: .1em
+        background: var(--colorAccentDark)
+        animation: slide 1s ease infinite
 
 @keyframes growIn
   0%
@@ -42,3 +67,16 @@
   100%
     opacity: 1
     transform: scale(1)
+
+@keyframes slide
+  0%, 100%
+    transform: translate3d(0,0,0)
+  49.97%
+    transform: translate3d(100%,0,0)
+  50.03%
+    transform: translate3d(-100%,0,0)
+
+@keyframes leave
+  100%
+    height: 0
+    margin: 0

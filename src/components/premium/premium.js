@@ -8,7 +8,7 @@ export default class Premium extends Component {
   render() {
     return (
       <div className="premium">
-        <p>This is a <b>PREMIUM</b> <PremiumIcon className="premium" /> feature.</p>
+        <p>This is a <b>PREMIUM</b> <PremiumIcon className="crown" /> feature.</p>
         <PremiumImage />
         <Button
           onClick={() => alert('"Premium" just means I haven\'t made this feature yet.')}>

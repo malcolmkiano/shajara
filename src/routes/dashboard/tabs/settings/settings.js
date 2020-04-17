@@ -16,7 +16,7 @@ export default class Settings extends Component {
     return (
       <article className="wrapper settings">
         <h2>Settings</h2>
-        <p className="centered">Changing app settings is for nerds.</p>
+        <p className="centered">Cool options coming soon!</p>
         <Button type="fill" variant="alt" hasLink={true}>
           <Link onClick={this.props.onLogOut} to="/login">Log Out</Link>
         </Button>

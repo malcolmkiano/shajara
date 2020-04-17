@@ -8,6 +8,11 @@
   position: relative
   --sizeDashPadding: 10vh
 
+  &.loading
+    article, form
+      transition: all 1s ease !important
+      opacity: 0
+
   article, form
     flex: 1
     padding-top: var(--sizeDashPadding)
@@ -22,7 +27,3 @@
   @media screen and (min-width: 480px)
     flex-direction: row-reverse
     width: 100%
-
-    article, form
-      max-width: initial
-      background: var(--colorDim)

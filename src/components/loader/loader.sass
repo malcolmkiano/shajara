@@ -1,9 +1,9 @@
 .loader
   position: absolute
   top: 0
-  left: 0
   right: 0
-  bottom: 0
+  height: 100%
+  width: 100%
   background: var(--colorBackground)
   display: flex
   align-items: center
@@ -24,20 +24,24 @@
     border-radius: 50%
     opacity: 0.75
     animation: spin .5s linear infinite
-    transition: all .2s ease
   
   &.complete
     opacity: 0
     pointer-events: none
-
-    span
-      opacity: 0
   
   &.out
     display: none
 
     span
       animation: none
+
+  @media screen and (min-width: 480px)
+    span
+      height: 3em
+      width: 3em
+      position: absolute
+      top: 2em
+      right: 2em
   
   @keyframes spin
     0%
