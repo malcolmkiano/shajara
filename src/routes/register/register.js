@@ -61,7 +61,7 @@ export default class Register extends Component {
           password: newUser.password
         })
           .then(res => {
-            
+
             // save the auth info in localStorage
             const { first_name, authToken } = res
             TokenService.saveAuthInfo(first_name, authToken)
@@ -75,7 +75,7 @@ export default class Register extends Component {
               error: 'Something went wrong. Please try again in a few moments.'
             })
           })
-        
+
       })
       .catch(err => {
         this.setState({
@@ -103,7 +103,7 @@ export default class Register extends Component {
           error={this.state.error}
           buttonText="Create Account"
           disclaimer="By creating an account, you agree to let us securely store your information for use only in this application."
-          onSubmit={this.handleCreateAccount}/>
+          onSubmit={this.handleCreateAccount} />
       </section>
     )
   }

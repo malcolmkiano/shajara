@@ -6,6 +6,7 @@ const LOGIN_ENDPOINT = '/post'
 const ENTRIES_ENDPOINT = '/uuid'
 let FN = null
 
+
 /**
  * abstracts making API calls with error handling built in
  */
@@ -29,16 +30,6 @@ function makeRequest(url, options) {
 
       return data
     })
-}
-
-function fakeRequest(url, options) {
-  return new Promise((resolve, reject) => {
-    setTimeout( function() {
-      resolve({
-        json: options.body ? JSON.parse(options.body) : {}
-      })
-    }, 150)
-  })
 }
 
 
@@ -133,7 +124,7 @@ function getEntries(authToken) {
     headers: { 'Authorization': `Bearer ${authToken}` }
   })
     .then(data => {
-      
+
       // formatting the data how we want it back from the server
       // remove this logic once server is completed
       data = SVR[authToken]
@@ -141,6 +132,17 @@ function getEntries(authToken) {
       return data
 
     })
+}
+
+// remove once API is developed
+function fakeRequest(url, options) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      resolve({
+        json: options.body ? JSON.parse(options.body) : {}
+      })
+    }, 150)
+  })
 }
 
 

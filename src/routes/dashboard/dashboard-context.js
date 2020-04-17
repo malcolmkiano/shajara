@@ -6,7 +6,7 @@ const AppContext = React.createContext({
   entries: [], // to hold the journal entries from the server
   onCreateEntry: () => null, // to hold the callback function for entry creation
   onEditEntry: () => null, // to hold the callback function for entry editing (current day only)
-  onOpenEntry:  () => null // to do stuff when an entry is clicked
+  onOpenEntry: () => null // to do stuff when an entry is clicked
 })
 
 export default AppContext

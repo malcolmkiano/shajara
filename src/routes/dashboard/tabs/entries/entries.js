@@ -18,7 +18,7 @@ export default class Entries extends Component {
     return moment().isSame(this.state.month, 'month')
   }
 
-  changeMonth(n=-1) {
+  changeMonth(n = -1) {
     const m = moment(this.state.month).add(n, 'months')
     this.setState({
       month: m
@@ -31,7 +31,7 @@ export default class Entries extends Component {
 
   render() {
     const { onEntryOpen, entries } = this.context
-    
+
     // grab all the entries for the selected month
     const list = EntryService.getMonth(entries, this.state.month).map(e => {
       const entry = EntryService.makeComponent(e, onEntryOpen)
@@ -62,7 +62,7 @@ export default class Entries extends Component {
           entries={list}
           EmptyImage={StoryImage}
           showText="No entries this month" />
-        
+
       </article>
     )
   }

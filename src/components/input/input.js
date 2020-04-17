@@ -4,7 +4,7 @@ import './input.sass'
 export default class Input extends Component {
   render() {
     const props = { ...this.props }
-    const unsafeFields = [ 'id', 'label', 'error', 'format', 'placeholder', 'pattern' ]
+    const unsafeFields = ['id', 'label', 'error', 'format', 'placeholder', 'pattern']
     unsafeFields.forEach(field => { delete props[field] })
 
     return (
@@ -12,7 +12,7 @@ export default class Input extends Component {
         <input
           {...props}
           className={!!props.value.trim() ? 'dirty' : ''}
-          id={this.props.id}/>
+          id={this.props.id} />
         <label htmlFor={this.props.id}>
           {this.props.label || 'Label'}
           {!!this.props.required ? (<span>*</span>) : ''}

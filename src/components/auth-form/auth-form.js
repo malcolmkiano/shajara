@@ -54,7 +54,7 @@ export default class AuthForm extends Component {
     const { error, fields } = this.state
     const { title, description, Image, buttonText, disclaimer, imageBG } = this.props
     return (
-      <article className="form-content">
+      <article className="auth-form form-content">
         <div className={`artwork media-tablet ${imageBG}`}>
           <Image />
         </div>

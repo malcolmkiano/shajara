@@ -60,13 +60,13 @@ export default class Home extends Component {
         </p>
 
         {entry}
-        
+
         <EntryList
           title="Your Entries"
           entries={list}
           EmptyImage={WriteImage}
           showText="You haven't made any entries yet" />
-        
+
       </article>
     )
   }

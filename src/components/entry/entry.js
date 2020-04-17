@@ -8,8 +8,8 @@ export default class Entry extends Component {
     const mDate = !!content ? moment(content.date) : moment()
     const preview = type === 'today'
       ? (!!first)
-      ? 'Write your first entry'
-      : (content && 'Continue today\'s entry') || 'Write something'
+        ? 'Write your first entry'
+        : (content && 'Continue today\'s entry') || 'Write something'
       : content.text
 
     return (

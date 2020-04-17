@@ -41,7 +41,7 @@ export default class Register extends Component {
     // send the info up to the server
     API.login(credentials)
       .then(res => {
-        
+
         // save the auth info in localStorage
         const { first_name, authToken } = res
         TokenService.saveAuthInfo(first_name, authToken)
@@ -76,7 +76,7 @@ export default class Register extends Component {
           fields={this.state.fields}
           error={this.state.error}
           buttonText="Log In"
-          onSubmit={this.handleLogin}/>
+          onSubmit={this.handleLogin} />
       </section>
     )
   }

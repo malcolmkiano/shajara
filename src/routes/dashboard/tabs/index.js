@@ -2,13 +2,13 @@
 import { HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon } from '../../../images'
 
 // tab components
-import { default as  Home } from './home/'
+import { default as Home } from './home/'
 import { default as Entries } from './entries'
 import { default as Moods } from './moods'
 import { default as Search } from './search'
 import { default as Settings } from './settings'
 
-const withBase = (path='') => '/dashboard/' + path
+const withBase = (path = '') => '/dashboard/' + path
 const tabs = [
   { route: withBase(), component: Home, title: 'Home', icon: HomeIcon, exact: true },
   { route: withBase('entries'), component: Entries, title: 'Entries', icon: EntriesIcon },
