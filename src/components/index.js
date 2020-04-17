@@ -8,4 +8,6 @@ export { default as AuthForm } from './auth-form'
 export { default as TabBar } from './tab-bar'
 export { default as Entry } from './entry'
 export { default as EntryList } from './entry-list'
+export { default as Loader } from './loader'
+
 export { default as Premium } from './premium'

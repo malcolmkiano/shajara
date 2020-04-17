@@ -3,9 +3,9 @@ import { Switch, Route } from 'react-router-dom'
 import './dashboard.sass'
 
 import { API, TokenService } from '../../utils'
-import { TabBar } from '../../components'
+import { Loader, TabBar } from '../../components'
 import AppContext from './dashboard-context'
-import { tabs } from './tabs'
+import tabs from './tabs'
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export default class Dashboard extends Component {
     this.state = {
       user_name: TokenService.getUserName(),
       token: TokenService.getAuthToken(),
-      entries: []
+      entries: [],
+      loading: true
     }
   }
 
@@ -21,7 +22,8 @@ export default class Dashboard extends Component {
     API.getEntries(this.state.token)
       .then(data => {
         this.setState({
-          entries: data
+          entries: data,
+          loading: false
         })
       })
       .catch(err => {
@@ -47,9 +49,8 @@ export default class Dashboard extends Component {
     })
 
     // set up the context values
-    const contextValues = {
-      ...this.state
-    }
+    const { user_name, entries, loading } = this.state
+    const contextValues = { user_name, entries }
 
     return (
       <AppContext.Provider value={contextValues}>
@@ -58,7 +59,7 @@ export default class Dashboard extends Component {
             {routes}
           </Switch>
 
-          {/* <EntryForm {...this.props} /> */}
+          <Loader status={loading} />
           <TabBar tabs={tabs} location={location} />
         </section>
       </AppContext.Provider>

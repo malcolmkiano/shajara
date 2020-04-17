@@ -1,0 +1,42 @@
+.loader
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: var(--colorBackground)
+  display: flex
+  align-items: center
+  justify-content: center
+  opacity: 1
+  transition: all .5s ease
+
+  span
+    display: block
+    height: 10vmax
+    width: 10vmax
+    border-width: .5em
+    border-style: solid
+    border-top-color: var(--colorAccentDark)
+    border-left-color: var(--colorAccentDark)
+    border-right-color: transparent
+    border-bottom-color: transparent
+    border-radius: 50%
+    opacity: 0.75
+    animation: spin .5s linear infinite
+  
+  &.complete
+    opacity: 0
+    pointer-events: none
+  
+  &.out
+    display: none
+
+    span
+      animation: none
+  
+  @keyframes spin
+    0%
+      transform: rotate(0)
+    100%
+      transform: rotate(360deg)

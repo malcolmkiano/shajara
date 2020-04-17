@@ -141,7 +141,7 @@ function fakeRequest(url, options) {
       resolve({
         json: options.body ? JSON.parse(options.body) : {}
       })
-    }, 150)
+    }, 500)
   })
 }
 

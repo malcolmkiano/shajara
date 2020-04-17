@@ -17,4 +17,4 @@ const tabs = [
   { route: withBase('settings'), component: Settings, title: 'Settings', icon: SettingsIcon }
 ]
 
-export { tabs }
+export default tabs
