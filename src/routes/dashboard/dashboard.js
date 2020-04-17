@@ -36,12 +36,11 @@ export default class Dashboard extends Component {
   render() {
 
     // set up the different routes
-    const { match } = this.props
     const location = this.props.location.pathname
     const routes = tabs.map(tab => {
       const Child = tab.component
       return (
-        <Route key={tab.route} path={tab.route}>
+        <Route key={tab.route} exact={!!tab.exact} path={tab.route}>
           <Child onLogOut={this.handleLogOut} />
         </Route>
       )
@@ -49,8 +48,7 @@ export default class Dashboard extends Component {
 
     // set up the context values
     const contextValues = {
-      ...this.state,
-      match
+      ...this.state
     }
 
     return (

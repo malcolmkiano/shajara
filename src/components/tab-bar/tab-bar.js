@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import './tab-bar.sass'
-
 import { Link } from 'react-router-dom'
+import './tab-bar.sass'
 
 export default class TabBar extends Component {
   render() {
@@ -16,6 +15,7 @@ export default class TabBar extends Component {
         <Link key={tab.route} to={tab.route} className={activeState}>
           <Icon />
           <span className="media-tablet">{tab.title}</span>
+          {/* { !!tab.premium ? (<PremiumIcon className="premium"/>) : '' } */}
         </Link>
       )
     })

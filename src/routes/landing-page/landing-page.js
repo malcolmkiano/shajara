@@ -75,7 +75,7 @@ export default class LandingPage extends React.Component {
     const leftLink = !!isZero ? (
       <Link to="/" className="h3 logo">Shajara</Link>
     ) : (
-        <Button type="prev" onClick={() => this.goToPage(this.state.step - 1)} />
+        <Button type="prev" variant="alt" onClick={() => this.goToPage(this.state.step - 1)} />
       )
 
     // width of carousel

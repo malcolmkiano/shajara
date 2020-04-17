@@ -3,7 +3,6 @@
   font-size: 1.1rem
   font-weight: bold
   border: none
-  outline: none
   border-radius: 2em
   cursor: pointer
   background: var(--colorText)
@@ -14,6 +13,24 @@
   white-space: nowrap
   overflow: hidden
   transition: all .3s ease
+
+  &:active
+    color: var(--colorAccent)
+
+  @media screen and (hover: hover)
+    &:hover
+      color: var(--colorAccent)
+
+  &.alt
+    background: var(--colorDim)
+    color: var(--colorText)
+
+    &:active
+      background: var(--colorTextSecondary)
+
+    @media screen and (hover: hover)
+      &:hover
+        background: var(--colorTextSecondary)
 
   &.next, &.prev
     display: flex
@@ -42,3 +59,7 @@
     height: 1em
     width: 1em
     fill: currentColor
+  
+  &:disabled
+    opacity: 0.5
+    pointer-events: none

@@ -13,7 +13,8 @@
     justify-content: center
     padding: 1.5em 0
     color: var(--colorTextDim)
-    transition: all .3s ease
+    transition: all .2s ease
+    position: relative
 
     &::before
       display: none
@@ -23,6 +24,14 @@
       width: 1.3em
       fill: currentColor
       opacity: 0.5
+
+      &.premium
+        fill: var(--colorTextDim)
+        position: absolute
+        margin-left: .6em
+        margin-top: -.6em
+        height: .9em
+        opacity: 1
     
     &.active
       color: var(--colorAccentDark)
@@ -36,14 +45,13 @@
     width: 20em
     box-shadow: none
     padding: 0
-    padding-top: 15vh
+    padding-top: var(--sizeDashPadding)
 
     a
       flex: initial
       padding: 1.5em
       width: 100%
       justify-content: flex-start
-      margin-bottom: 1rem
       font-weight: bold
 
       &:hover

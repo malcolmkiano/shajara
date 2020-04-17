@@ -4,6 +4,7 @@ import SVR from './server-data'
 const REGISTER_ENDPOINT = '/post'
 const LOGIN_ENDPOINT = '/post'
 const ENTRIES_ENDPOINT = '/uuid'
+let FN = null
 
 /**
  * abstracts making API calls with error handling built in
@@ -36,7 +37,7 @@ function fakeRequest(url, options) {
       resolve({
         json: options.body ? JSON.parse(options.body) : {}
       })
-    }, 300)
+    }, 150)
   })
 }
 
@@ -61,6 +62,8 @@ function register(user) {
       if (data.json.email_address === 'john@doe.co') {
         return Promise.reject('An account using that email exists.')
       }
+
+      FN = data.json.first_name
 
       data = {
         id: 1,
@@ -91,18 +94,27 @@ function login(credentials) {
 
       // formatting the data how we want it back from the server
       // remove this logic once server is completed
-      if (data.json.email_address === 'elena@ohnuts.co' && data.json.password === 'Elena1234') {
-        data = {
-          first_name: 'Elena',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5e' // sample JWT
+      if (data.json.email_address === 'elena@ohnuts.co') {
+        if (data.json.password === 'Elena1234') {
+          data = {
+            first_name: 'Elena',
+            authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5e' // sample JWT for Elena
+          }
+        } else {
+          return Promise.reject('Incorrect email/password combination.')
         }
+
       } else if (data.json.email_address === 'john@doe.co' && data.json.password === 'Password911') {
         data = {
           first_name: 'John',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5j' // sample JWT
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5j' // sample JWT for John
         }
+
       } else {
-        return Promise.reject('Incorrect email/password combination.')
+        data = {
+          first_name: FN || 'friend',
+          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5b' // sample JWT for anyone else
+        }
       }
 
       return data

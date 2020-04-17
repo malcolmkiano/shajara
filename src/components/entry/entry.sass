@@ -1,8 +1,13 @@
 .entry
   background: var(--colorPale)
   border-radius: .5em
+  border: none
+  text-align: left
+  font-family: inherit
+  font-size: inherit
   margin: 1em 0
   padding: .8em
+  cursor: pointer
   display: flex
   align-items: center
   justify-content: space-between
@@ -36,8 +41,14 @@
     position: relative
 
   &.today
+    width: 100%
     margin-bottom: 2em
     padding: 1em
     font-size: 1.1em
+
+    .preview
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
 
   
