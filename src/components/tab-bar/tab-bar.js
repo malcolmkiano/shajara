@@ -12,7 +12,7 @@ export default class TabBar extends Component {
       const activeState = this.props.location === tab.route ? 'active' : ''
 
       return (
-        <Link key={tab.route} to={tab.route} className={activeState}>
+        <Link key={tab.route} to={tab.route} className={activeState} onClick={this.props.onClick}>
           <Icon />
           <span className="media-tablet">{tab.title}</span>
           {/* { !!tab.premium ? (<PremiumIcon className="premium"/>) : '' } */}

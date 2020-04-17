@@ -11,6 +11,8 @@ import { ReactComponent as PremiumImage } from './premium.svg'
 // button icons
 import { ReactComponent as NextArrow } from './arrow-next.svg'
 import { ReactComponent as PrevArrow } from './arrow-prev.svg'
+import { ReactComponent as CloseIcon } from './close.svg'
+import { ReactComponent as SaveIcon } from './save.svg'
 
 // tab icons
 import { ReactComponent as HomeIcon } from './tab-home.svg'
@@ -30,7 +32,7 @@ export {
   LoginImage, RegisterImage, WriteImage, PremiumImage,
 
   // button icons
-  NextArrow, PrevArrow,
+  NextArrow, PrevArrow, CloseIcon, SaveIcon,
 
   // tab icons
   HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon,

@@ -23,14 +23,12 @@ function getMonth(entries, date = m()) {
 
 
 /**
- * returns a list of entries not including today
+ * returns a list of entries for the week
  * @param {[]} entries array of entries to search through
- * @param {number} [limit] number of entries to return
  */
-function getNotToday(entries, limit = 7) {
+function getWeek(entries) {
   return getMonth(entries).filter(e => (
-    !m().isSame(e.date, 'day') &&
-    !m(e.date).isBefore(m().subtract(limit, 'days'))
+    !m(e.date).isBefore(m().subtract(7, 'days'))
   ))
 }
 
@@ -56,20 +54,19 @@ function sort(entries) {
  * @param {function} onClick The function to call when the entry is clicked
  * @param {Boolean} isToday add custom class if entry is today's
  */
-function makeComponent(entry, onClick, isToday = false, isFirst = false) {
+function makeComponent(entry, onClick, isToday = false) {
   return (
     <Entry
       type={isToday ? 'today' : ''}
       onClick={onClick}
-      content={entry}
-      first={isFirst} />
+      content={entry} />
   )
 }
 
 
 export default {
   getToday,
+  getWeek,
   getMonth,
-  getNotToday,
   makeComponent
 }

@@ -1,9 +1,13 @@
 import config from '../config'
+import TokenService from './token-service'
 import SVR from './server-data'
 
-const REGISTER_ENDPOINT = '/post'
-const LOGIN_ENDPOINT = '/post'
-const ENTRIES_ENDPOINT = '/uuid'
+// temporary
+import { v4 as uuid } from 'uuid'
+
+const REGISTER_ENDPOINT = '/users'
+const LOGIN_ENDPOINT = '/login'
+const ENTRIES_ENDPOINT = '/entries'
 let FN = null
 
 
@@ -30,6 +34,16 @@ function makeRequest(url, options) {
 
       return data
     })
+}
+
+
+function makeSecureRequest(url, options={}) {
+  const authToken = TokenService.getAuthToken()
+  options.headers = {
+    ...options.headers,
+    'Authorization': `Bearer ${authToken}`
+  }
+  return fakeRequest(url, options)
 }
 
 
@@ -116,23 +130,64 @@ function login(credentials) {
 
 /**
  * gets all user entried given a user token
- * @param {string} authToken JWT to include in request header
  */
-function getEntries(authToken) {
-  return fakeRequest(ENTRIES_ENDPOINT, {
-    method: 'GET',
-    headers: { 'Authorization': `Bearer ${authToken}` }
-  })
+function getEntries() {
+  return makeSecureRequest(ENTRIES_ENDPOINT)
     .then(data => {
 
       // formatting the data how we want it back from the server
       // remove this logic once server is completed
-      data = SVR[authToken]
+      data = SVR[TokenService.getAuthToken()]
 
       return data
 
     })
 }
+
+
+/**
+ * creates a new entry on the server
+ * @param {{}} entry the new entry object
+ */
+function createEntry(entry) {
+  const authToken = TokenService.getAuthToken()
+  return fakeRequest(ENTRIES_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    body: JSON.stringify(entry)
+  })
+    .then(data => {
+
+      // formatting the data how we want it back from the server
+      // remove this logic once server is completed
+      data = {
+        id: uuid(),
+        text: entry.text,
+        date: new Date().toISOString()
+      }
+
+      return data
+
+    })
+}
+
+
+/**
+ * updates an entry on the server
+ * @param {string} id the id of the entry to be updated
+ * @param {string} text the new content of the entry
+ */
+function updateEntry(id, text) {
+  const authToken = TokenService.getAuthToken()
+  return fakeRequest(`${ENTRIES_ENDPOINT}/${id}`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    body: JSON.stringify({ text })
+  })
+}
+
+
+
 
 // remove once API is developed
 function fakeRequest(url, options) {
@@ -150,5 +205,8 @@ export default {
   register,
   login,
   getEntries,
+  createEntry,
+  updateEntry,
+
   makeRequest
 }

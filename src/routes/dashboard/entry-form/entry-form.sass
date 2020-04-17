@@ -1,0 +1,44 @@
+// ==========================================
+// entry form styles
+.entry-form
+  display: flex
+  flex-direction: column
+  animation: growIn .2s ease forwards
+  
+  .top-bar
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
+    
+    .btn
+      font-size: 1rem
+
+      &.invisible
+        opacity: 0
+        pointer-events: none
+
+  .subtitle
+    margin: -.5em
+    line-height: 1
+    text-align: center
+    color: var(--colorTextDim)
+  
+  textarea
+    font-family: inherit
+    font-size: 1.1em
+    margin-top: 2em
+    width: 100%
+    flex: 1
+    resize: none
+    border: none
+    outline: none
+    background: none
+    line-height: inherit
+
+@keyframes growIn
+  0%
+    opacity: 0
+    transform: scale(.95)
+  100%
+    opacity: 1
+    transform: scale(1)

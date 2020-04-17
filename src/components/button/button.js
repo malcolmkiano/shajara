@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import './button.sass'
 
-import { NextArrow, PrevArrow } from '../../images'
+import { NextArrow, PrevArrow, CloseIcon, SaveIcon } from '../../images'
 
 export default class Button extends Component {
   render() {
     let content = this.props.children
-    const { type, hasLink, variant, disabled } = this.props
-    const validTypes = { next: NextArrow, prev: PrevArrow }
+    const { type, htmlType, hasLink, variant, disabled } = this.props
+    const validTypes = {
+      next: NextArrow,
+      prev: PrevArrow,
+      close: CloseIcon,
+      save: SaveIcon
+    }
+
     if (type && Object.keys(validTypes).includes(type)) {
       const Arrow = validTypes[type]
       content = (<Arrow />)
@@ -15,7 +21,7 @@ export default class Button extends Component {
 
     if (!content) content = 'Forgetting something?'
     return (
-      <button disabled={disabled} className={`btn ${type} ${variant} ${hasLink ? 'link' : ''}`} onClick={this.props.onClick}>
+      <button type={htmlType} disabled={disabled} className={`btn ${type} ${variant} ${hasLink ? 'link' : ''}`} onClick={this.props.onClick}>
         {content}
       </button>
     )

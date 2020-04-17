@@ -38,7 +38,7 @@ export default class Home extends Component {
 
     // grab all other entries (except today)
     // only for the past 7 days
-    const list = EntryService.getNotToday(entries).map(e => {
+    const list = EntryService.getWeek(entries).map(e => {
       const entry = EntryService.makeComponent(e, onEntryOpen)
       return (
         <li key={e.id}>
@@ -48,7 +48,7 @@ export default class Home extends Component {
     })
 
     // today's entry component
-    const entry = EntryService.makeComponent(entryToday, onEntryOpen, true, !list.length)
+    const entry = EntryService.makeComponent(entryToday, onEntryOpen, true)
 
     return (
       <article className="wrapper home">

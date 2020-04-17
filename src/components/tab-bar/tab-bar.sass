@@ -4,9 +4,10 @@
   display: flex
   align-items: center
   background: var(--colorBackground)
-  box-shadow: 0 0rem 3em var(--colorDim)
+  box-shadow: 0 0 .5em var(--colorDim)
   position: relative
-  z-index: 2 
+  z-index: 2
+  transition: all .2s ease
 
   a
     flex: 1
@@ -26,14 +27,6 @@
       width: 1.3em
       fill: currentColor
       opacity: 0.5
-
-      &.premium
-        fill: var(--colorTextDim)
-        position: absolute
-        margin-left: .6em
-        margin-top: -.6em
-        height: .9em
-        opacity: 1
     
     &.active
       color: var(--colorAccentDark)
@@ -42,9 +35,11 @@
         opacity: 1
   
   @media screen and (min-width: 480px)
-    background: var(--colorPale)
+    background: var(--colorTextSecondary)
+    color: var(--color)
     flex-direction: column
-    width: 20em
+    flex: 1
+    max-width: 25em
     box-shadow: none
     padding: 0
     padding-top: var(--sizeDashPadding)
@@ -53,11 +48,12 @@
       flex: initial
       padding: 1.5em
       width: 100%
+      color: inherit
       justify-content: flex-start
       font-weight: bold
 
       &:hover
-        background: var(--colorDim)
+        background: var(--colorAccent)
 
       &.active
         background: var(--colorAccentDark)

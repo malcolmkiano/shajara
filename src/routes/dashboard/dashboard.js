@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import m from 'moment'
 import './dashboard.sass'
 
 import { API, TokenService } from '../../utils'
 import { Loader, TabBar } from '../../components'
+import EntryForm from './entry-form'
 import AppContext from './dashboard-context'
 import tabs from './tabs'
 
@@ -12,14 +14,13 @@ export default class Dashboard extends Component {
     super(props)
     this.state = {
       user_name: TokenService.getUserName(),
-      token: TokenService.getAuthToken(),
       entries: [],
       loading: true
     }
   }
 
   componentDidMount() {
-    API.getEntries(this.state.token)
+    API.getEntries()
       .then(data => {
         this.setState({
           entries: data,
@@ -31,12 +32,43 @@ export default class Dashboard extends Component {
       })
   }
 
+  handleEntryCreated = entry => {
+    const { entries } = this.state
+    entries.push(entry)
+
+    this.setState({
+      entries: entries
+    })
+  }
+
+  handleEntryEdited = (id, text) => {
+    const { entries } = this.state
+    const index =entries.findIndex(e => e.id === id)
+    entries[index].text = text
+
+    this.setState({
+      entries: entries
+    })
+  }
+
+  handleEntryOpened = (id = null) => {
+    const entry = id
+      ? this.state.entries.find(e => e.id === id)
+      : null
+
+    const d = (entry && entry.date) || new Date()
+    const date = m(d).format('YYYY-MM-DD')
+    const { url } = this.props.match
+    const dest = `${url}/entry/${date}`
+
+    this.props.history.push(dest)
+  }
+
   handleLogOut = () => {
     TokenService.clearAuthToken()
   }
 
   render() {
-
     // set up the different routes
     const location = this.props.location.pathname
     const routes = tabs.map(tab => {
@@ -50,17 +82,26 @@ export default class Dashboard extends Component {
 
     // set up the context values
     const { user_name, entries, loading } = this.state
-    const contextValues = { user_name, entries }
+    const contextValues = {
+      user_name,
+      entries,
+      onEntryOpen: this.handleEntryOpened,
+      onCreateEntry: this.handleEntryCreated,
+      onEditEntry: this.handleEntryEdited
+    }
 
     return (
       <AppContext.Provider value={contextValues}>
         <section className="dashboard">
+
+          <Route path="/dashboard/:tab*/entry/:date" component={EntryForm} />
+
           <Switch>
             {routes}
           </Switch>
 
           <Loader status={loading} />
-          <TabBar tabs={tabs} location={location} />
+          <TabBar tabs={tabs} location={location} onClick={this.closeEntry} />
         </section>
       </AppContext.Provider>
     )

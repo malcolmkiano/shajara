@@ -24,10 +24,14 @@
     border-radius: 50%
     opacity: 0.75
     animation: spin .5s linear infinite
+    transition: all .2s ease
   
   &.complete
     opacity: 0
     pointer-events: none
+
+    span
+      opacity: 0
   
   &.out
     display: none
