@@ -37,8 +37,8 @@ export default class Register extends Component {
           value: '',
           type: 'password',
           required: true,
-          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,72}$/,
-          format: 'Must include 8 - 72 characters with 1 or more uppercase and 1 or more numbers',
+          pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])+/,
+          format: 'Must include 8 - 72 characters with at least 1 uppercase, 1 lowercase and 1 number',
           error: null
         }
       ]
@@ -72,14 +72,14 @@ export default class Register extends Component {
           })
           .catch(err => {
             this.setState({
-              error: 'Something went wrong. Please try again in a few moments.'
+              error: err.message
             })
           })
 
       })
       .catch(err => {
         this.setState({
-          error: err
+          error: err.message
         })
       })
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import './settings.sass'
 
 import { Button } from '../../../../components'
@@ -14,11 +13,11 @@ export default class Settings extends Component {
 
   render() {
     return (
-      <article className="wrapper settings">
+      <article className="wrapper settings centered">
         <h2>Settings</h2>
-        <p className="centered">Cool options coming soon!</p>
-        <Button type="fill" variant="alt" hasLink={true}>
-          <Link onClick={this.props.onLogOut} to="/login">Log Out</Link>
+        <p>Cool options coming soon!</p>
+        <Button type="fill" variant="alt" onClick={this.props.onLogOut}>
+          Log Out
         </Button>
       </article>
     )

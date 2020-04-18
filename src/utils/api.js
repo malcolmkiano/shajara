@@ -1,34 +1,31 @@
 import config from '../config'
 import TokenService from './token-service'
-import SVR from './server-data'
 
-// temporary
-import { v4 as uuid } from 'uuid'
 
 const REGISTER_ENDPOINT = '/users'
-const LOGIN_ENDPOINT = '/login'
+const LOGIN_ENDPOINT = '/auth/login'
 const ENTRIES_ENDPOINT = '/entries'
-let FN = null
 
 
 /**
  * abstracts making API calls with error handling built in
  */
 function makeRequest(url, options) {
-  let error
+  let error;
   return fetch(config.API_ENDPOINT + url, options)
     .then(res => {
-      if (!res.ok) error.code = res.status
-      if (!res.headers.get('content-type').includes('json')) {
+      if (!res.ok) error = { code: res.status }
+      if (res.status !== 204 &&
+          !res.headers.get('content-type').includes('json')) {
         error.message = res.statusText
         return Promise.reject(error)
       }
 
-      return res.json()
+      return res.status !== 204 && res.json()
     })
     .then(data => {
       if (error) {
-        error.message = data.message
+        error.message = data.error
         return Promise.reject(error)
       }
 
@@ -39,11 +36,13 @@ function makeRequest(url, options) {
 
 function makeSecureRequest(url, options={}) {
   const authToken = TokenService.getAuthToken()
+
+  if (!options.headers) options.headers = {}
   options.headers = {
     ...options.headers,
     'Authorization': `Bearer ${authToken}`
   }
-  return fakeRequest(url, options)
+  return makeRequest(url, options)
 }
 
 
@@ -55,31 +54,11 @@ function makeSecureRequest(url, options={}) {
  * @param {string} user.password the user's password
  */
 function register(user) {
-  return fakeRequest(REGISTER_ENDPOINT, {
+  return makeRequest(REGISTER_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user)
   })
-    .then(data => {
-
-      // formatting the data how we want it back from the server
-      // remove this logic once server is completed
-      if (data.json.email_address === 'john@doe.co') {
-        return Promise.reject('An account using that email exists.')
-      }
-
-      FN = data.json.first_name
-
-      data = {
-        id: 1,
-        email_address: data.json.email_address,
-        first_name: data.json.first_name,
-        date_created: new Date().toISOString()
-      }
-
-      return data
-
-    })
 }
 
 
@@ -90,41 +69,11 @@ function register(user) {
  * @param {string} credentials.password the user's password
  */
 function login(credentials) {
-  return fakeRequest(LOGIN_ENDPOINT, {
+  return makeRequest(LOGIN_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
   })
-    .then(data => {
-
-      // formatting the data how we want it back from the server
-      // remove this logic once server is completed
-      if (data.json.email_address === 'elena@ohnuts.co') {
-        if (data.json.password === 'Elena1234') {
-          data = {
-            first_name: 'Elena',
-            authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5e' // sample JWT for Elena
-          }
-        } else {
-          return Promise.reject('Incorrect email/password combination.')
-        }
-
-      } else if (data.json.email_address === 'john@doe.co' && data.json.password === 'Password911') {
-        data = {
-          first_name: 'John',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5j' // sample JWT for John
-        }
-
-      } else {
-        data = {
-          first_name: FN || 'friend',
-          authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5b' // sample JWT for anyone else
-        }
-      }
-
-      return data
-
-    })
 }
 
 
@@ -133,15 +82,6 @@ function login(credentials) {
  */
 function getEntries() {
   return makeSecureRequest(ENTRIES_ENDPOINT)
-    .then(data => {
-
-      // formatting the data how we want it back from the server
-      // remove this logic once server is completed
-      data = SVR[TokenService.getAuthToken()]
-
-      return data
-
-    })
 }
 
 
@@ -150,53 +90,24 @@ function getEntries() {
  * @param {{}} entry the new entry object
  */
 function createEntry(entry) {
-  const authToken = TokenService.getAuthToken()
-  return fakeRequest(ENTRIES_ENDPOINT, {
+  return makeSecureRequest(ENTRIES_ENDPOINT, {
     method: 'POST',
-    headers: { 'Authorization': `Bearer ${authToken}` },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(entry)
   })
-    .then(data => {
-
-      // formatting the data how we want it back from the server
-      // remove this logic once server is completed
-      data = {
-        id: uuid(),
-        text: entry.text,
-        date: new Date().toISOString()
-      }
-
-      return data
-
-    })
 }
 
 
 /**
  * updates an entry on the server
  * @param {string} id the id of the entry to be updated
- * @param {string} text the new content of the entry
+ * @param {{}} entry object with data to update
  */
-function updateEntry(id, text) {
-  const authToken = TokenService.getAuthToken()
-  return fakeRequest(`${ENTRIES_ENDPOINT}/${id}`, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${authToken}` },
-    body: JSON.stringify({ text })
-  })
-}
-
-
-
-
-// remove once API is developed
-function fakeRequest(url, options) {
-  return new Promise((resolve, reject) => {
-    setTimeout(function () {
-      resolve({
-        json: options.body ? JSON.parse(options.body) : {}
-      })
-    }, 500)
+function updateEntry(id, entry) {
+  return makeSecureRequest(`${ENTRIES_ENDPOINT}/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(entry)
   })
 }
 

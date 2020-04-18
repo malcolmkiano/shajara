@@ -59,7 +59,7 @@ function makeComponent(entry, onClick, isToday = false) {
     <Entry
       type={isToday ? 'today' : ''}
       onClick={onClick}
-      content={entry} />
+      item={entry} />
   )
 }
 

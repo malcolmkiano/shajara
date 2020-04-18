@@ -6,11 +6,19 @@
   background: var(--colorBackground)
   box-shadow: 0 0 .5em var(--colorDim)
   position: relative
-  z-index: 2
+  z-index: 4
+  margin: 0
+  padding: 0
+  list-style: none
   transition: all .2s ease
 
-  a
+  li
     flex: 1
+    margin: 0
+    padding: 0
+    width: 100%
+
+  a
     display: flex
     align-items: center
     justify-content: center
@@ -40,11 +48,12 @@
     flex: 1
     max-width: 25em
     box-shadow: none
-    padding: 0
     padding-top: var(--sizeDashPadding)
 
-    a
+    li
       flex: initial
+
+    a
       padding: 1.5em
       width: 100%
       justify-content: flex-start

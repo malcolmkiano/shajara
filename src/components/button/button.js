@@ -6,7 +6,7 @@ import { NextArrow, PrevArrow, CloseIcon, SaveIcon } from '../../images'
 export default class Button extends Component {
   render() {
     let content = this.props.children
-    const { type, htmlType, hasLink, variant, disabled } = this.props
+    const { type, htmlType, hasLink, variant, disabled, title } = this.props
     const validTypes = {
       next: NextArrow,
       prev: PrevArrow,
@@ -21,7 +21,12 @@ export default class Button extends Component {
 
     if (!content) content = 'Forgetting something?'
     return (
-      <button type={htmlType} disabled={disabled} className={`btn ${type} ${variant} ${hasLink ? 'link' : ''}`} onClick={this.props.onClick}>
+      <button
+        type={htmlType}
+        disabled={disabled}
+        title={title}
+        className={`btn ${type} ${variant} ${hasLink ? 'link' : ''}`}
+        onClick={this.props.onClick}>
         {content}
       </button>
     )

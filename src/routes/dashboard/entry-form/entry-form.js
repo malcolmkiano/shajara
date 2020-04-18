@@ -4,19 +4,19 @@ import m from 'moment'
 import './entry-form.sass'
 
 import { Button } from '../../../components'
-// import { API } from '../../../utils'
 import AppContext from '../dashboard-context'
-import { API } from '../../../utils'
 
 export default class EntryForm extends Component {
-  state = {
-    entry: {
-      date: new Date().toISOString(),
-      text: '',
-      id: null,
-    },
-    saved: true,
-    loading: false
+  constructor(props){
+    super(props)
+    this.state = {
+      entry: {
+        date_created: new Date().toISOString(),
+        content: '',
+        id: null,
+      },
+      saved: true
+    }
   }
 
   static contextType = AppContext
@@ -24,65 +24,42 @@ export default class EntryForm extends Component {
   componentDidMount() {
     const { entries } = this.context
     const d = this.props.match.params.date
-
-    let entry = entries.find(e => m(e.date).isSame(d, 'day'))
     const isToday = m().isSame(d, 'day')
+    let title = isToday ? 'Today' : m(d).format('dddd')
+    document.title = `${title} - Shajara - Journal App`
 
-    // no entry at selected date (not today)
-    if (!entry && !isToday) {
-      alert('Something went wrong. Please try again later')
-      this.props.history.goBack()
-    } else {
-
-      if (entry) {
-        this.setState({
-          entry: entry
-        })
-      }
-
+    let entry = entries.find(e => m(e.date_created).isSame(d, 'day'))
+    if (!entry) entry = {
+      date_created: new Date().toISOString(),
+      content: '',
+      id: null,
     }
+
+    this.setState({
+      entry: entry
+    })    
   }
 
   handleSave = e => {
     e.preventDefault()
     const { entry } = this.state
-    const { id, text } = entry
-
-    // set loading
-    this.setState({ loading: true })
-
-    if (id) {
+    if (entry.id) {
       // if there is an ID in the state,
       // entry already exists on server and needs to be updated
-      API.updateEntry(id, text)
-        .then(() => {
-          this.context.onEditEntry(id, text)
-          this.setState({
-            saved: true,
-            loading: false
-          })
-        })
+      this.props.onEditEntry(entry.id, entry)
     } else {
       // otherwise, create a new entry
-      API.createEntry(entry)
-        .then(newEntry => {
-          this.context.onCreateEntry(newEntry)
-          this.setState({
-            entry: newEntry,
-            saved: true,
-            loading: false
-          })
-        })
+      this.props.onCreateEntry(entry)
     }
   }
 
   handleUpdate = e => {
-    const text = e.target.value
-    if (text !== this.state.entry.text) {
+    const content = e.target.value
+    if (content !== this.state.entry.content) {
       this.setState({
         entry: {
           ...this.state.entry,
-          text: text
+          content: content
         },
         saved: false
       })
@@ -91,7 +68,10 @@ export default class EntryForm extends Component {
 
   handleClose = e => {
     e.preventDefault()
-    this.props.history.goBack()
+
+    // I REALLY DON'T LIKE THIS BUT IT'S THE ONLY
+    // WAY I COULD ACHIEVE THE EFFECT (without causing the user to lose their data)
+    document.querySelector('a').click()
   }
 
   render() {
@@ -103,7 +83,7 @@ export default class EntryForm extends Component {
     let subtitle = m(d).format('MMM D, YYYY')
 
     // grab the entry out of state
-    const { entry, saved, loading } = this.state
+    const { entry, saved } = this.state
 
     return (
       <form className="wrapper entry-form" onSubmit={this.handleSave}>
@@ -112,6 +92,7 @@ export default class EntryForm extends Component {
             type="close"
             htmlType="button"
             variant="alt"
+            title="Close entry"
             onClick={this.handleClose} />
 
           <h2>{title}</h2>
@@ -120,23 +101,24 @@ export default class EntryForm extends Component {
             type="save"
             htmlType="submit"
             variant={`accent ${!isToday ? 'invisible' : ''}`}
-            disabled={saved || !entry.text}
+            title="Save entry"
+            disabled={saved || !entry.content}
             onClick={this.handleSave} />
         </div>
 
         <p className="subtitle">{subtitle}</p>
 
-        <div className={`loading-bar ${loading ? 'loading' : ''}`}>
-        </div>
-
         <textarea
           autoFocus={isToday}
           placeholder="Write something"
           onChange={this.handleUpdate}
-          value={entry.text}>
+          value={entry.content}
+          rows="1">
         </textarea>
 
-        <Prompt when={isToday && !saved} message="You have unsaved changes. Are you sure you want to leave?" />
+        <Prompt
+          when={isToday && !saved}
+          message="You have unsaved changes. Are you sure you want to leave?" />
       </form>
     )
   }

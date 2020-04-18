@@ -85,7 +85,7 @@ export default class AuthForm extends Component {
             <p className="disclaimer">{disclaimer}</p>
           ) : ''}
 
-          <Button type="fill">{buttonText}</Button>
+          <Button htmlType="submit" type="fill">{buttonText}</Button>
         </form>
       </article>
     )

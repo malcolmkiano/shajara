@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import './entry.sass'
 
 export default class Entry extends Component {
-  handleClick = () => {
-    if (this.props.content) {
-      this.props.onClick(this.props.content.id)
-    } else {
-      this.props.onClick()
-    }
-  }
-
   render() {
-    const { content, type } = this.props
-    const mDate = !!content ? moment(content.date) : moment()
+    const { item, type } = this.props
+    const mDate = !!item ? moment(item.date) : moment()
+    const url = mDate.format('YYYY-MM-DD');
     const preview = type === 'today'
-      ? (content && 'Continue today\'s entry') || 'Write something'
-      : content.text
+      ? (item && 'Continue today\'s entry') || 'Write something'
+      : item.content
 
     return (
-      <button className={`entry ${type}`} onClick={this.handleClick}>
+      <Link to={`/dashboard/entry/${url}`} className={`entry ${type}`}>
         {type !== 'today' ? (
           <span className="date">
             {mDate.format('ddd')}
@@ -29,7 +23,7 @@ export default class Entry extends Component {
         <span className="preview">
           {preview}
         </span>
-      </button>
+      </Link>
     )
   }
 }

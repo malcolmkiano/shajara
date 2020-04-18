@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import m from 'moment'
 import './dashboard.sass'
 
 import { API, TokenService } from '../../utils'
-import { Loader, TabBar } from '../../components'
+import { Loader, TabBar, Popup } from '../../components'
 import EntryForm from './entry-form'
 import AppContext from './dashboard-context'
 import tabs from './tabs'
@@ -15,7 +14,10 @@ export default class Dashboard extends Component {
     this.state = {
       user_name: TokenService.getUserName(),
       entries: [],
-      loading: true
+      loading: true,
+
+      message: null,
+      error: false
     }
   }
 
@@ -28,44 +30,68 @@ export default class Dashboard extends Component {
         })
       })
       .catch(err => {
-        console.log(err)
+
+        let message = err.message
+        if (err.code === 401) message = 'Could not log you in'
+
+        this.setState({
+          message: message,
+          error: true
+        })
       })
   }
 
   handleEntryCreated = entry => {
-    const { entries } = this.state
-    entries.push(entry)
+    API.createEntry(entry)
+      .then(newEntry => {
+        const { entries } = this.state
+        entries.push(newEntry)
 
-    this.setState({
-      entries: entries
-    })
+        this.setState({
+          entries: entries,
+          message: 'Entry saved successfully',
+          error: false
+        })
+      })
+      .catch(err => {
+        this.setState({
+          message: err.message,
+          error: true
+        })
+      })
   }
 
-  handleEntryEdited = (id, text) => {
-    const { entries } = this.state
-    const index =entries.findIndex(e => e.id === id)
-    entries[index].text = text
+  handleEntryEdited = (id, entry) => {
+    API.updateEntry(id, entry)
+      .then(() => {
+        const { entries } = this.state
+        const index = entries.findIndex(e => e.id === id)
+        entries[index] = entry
 
-    this.setState({
-      entries: entries
-    })
-  }
-
-  handleEntryOpened = (id = null) => {
-    const entry = id
-      ? this.state.entries.find(e => e.id === id)
-      : null
-
-    const d = (entry && entry.date) || new Date()
-    const date = m(d).format('YYYY-MM-DD')
-    const { url } = this.props.match
-    const dest = `${url}/entry/${date}`
-
-    this.props.history.push(dest)
+        this.setState({
+          entries: entries,
+          message: 'Entry saved successfully',
+          error: false
+        })
+      })
+      .catch(err => {
+        this.setState({
+          message: err.message,
+          error: true
+        })
+      })
   }
 
   handleLogOut = () => {
     TokenService.clearAuthToken()
+    window.location.reload()
+  }
+
+  clearMessage = () => {
+    this.setState({
+      message: null,
+      isError: false
+    })
   }
 
   render() {
@@ -81,24 +107,31 @@ export default class Dashboard extends Component {
     })
 
     // set up the context values
-    const { user_name, entries, loading } = this.state
+    const { user_name, entries, loading, message, error } = this.state
     const contextValues = {
       user_name,
-      entries,
-      onEntryOpen: this.handleEntryOpened,
-      onCreateEntry: this.handleEntryCreated,
-      onEditEntry: this.handleEntryEdited
+      entries
     }
 
     return (
       <AppContext.Provider value={contextValues}>
         <section className={`dashboard ${loading ? 'loading' : ''}`}>
 
-          <Route path="/dashboard/:tab*/entry/:date" component={EntryForm} />
-
           <Switch>
             {routes}
+            <Route path="/dashboard/entry/:date" component={props => (
+              <EntryForm
+                {...props}
+                onCreateEntry={this.handleEntryCreated}
+                onEditEntry={this.handleEntryEdited} />
+            )} />
           </Switch>
+
+          <Popup
+            message={message}
+            isError={error}
+            autoDismiss={!error}
+            onDismiss={message === 'Could not log you in' ? this.handleLogOut : this.clearMessage} />
 
           <Loader status={loading} />
           <TabBar tabs={tabs} location={location} onClick={this.closeEntry} />

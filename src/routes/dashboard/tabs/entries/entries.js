@@ -47,6 +47,7 @@ export default class Entries extends Component {
           <Button
             type="prev"
             variant="alt"
+            title="Previous month"
             onClick={() => this.changeMonth()} />
 
           <h2>{date}</h2>
@@ -54,6 +55,7 @@ export default class Entries extends Component {
           <Button
             type="next"
             variant="alt"
+            title="Next month"
             disabled={this.isCurrentMonth()}
             onClick={() => this.changeMonth(1)} />
         </div>

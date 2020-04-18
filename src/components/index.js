@@ -9,5 +9,6 @@ export { default as TabBar } from './tab-bar'
 export { default as Entry } from './entry'
 export { default as EntryList } from './entry-list'
 export { default as Loader } from './loader'
+export { default as Popup } from './popup'
 
 export { default as Premium } from './premium'

@@ -1,0 +1,52 @@
+.popup
+  position: fixed
+  top: -8em
+  left: 50%
+  transform: translateX(-50%)
+  background: var(--colorText)
+  color: var(--colorBackground)
+  margin-top: 1em
+  padding: 0 1em
+  max-width: 80%
+  border-radius: .3em
+  display: inline-flex
+  align-items: flex-start
+  font-weight: bold
+  font-size: 0.9em
+  justify-content: space-between
+  opacity: 0.9
+  z-index: 25
+  pointer-events: none
+  transition: all .5s ease
+
+  &.error
+    color: var(--colorTextError)
+  
+  p
+    flex: 1
+
+  .btn
+    font-size: 1rem
+    margin-top: 1rem
+    margin-right: -.5rem
+    padding: 0
+  
+  &.visible
+    top: 0
+    pointer-events: all
+
+  @media screen and (min-width: 480px)
+    top: initial !important
+    left: initial
+    bottom: 1em
+    right: -25%
+    transform: none
+    width: 25%
+    align-items: center
+    font-size: 1em
+
+    .btn
+      margin-top: 0
+
+    &.visible
+      right: 1em

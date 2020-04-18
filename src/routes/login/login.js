@@ -38,7 +38,6 @@ export default class Register extends Component {
 
   handleLogin = credentials => {
 
-    // send the info up to the server
     API.login(credentials)
       .then(res => {
 
@@ -52,7 +51,7 @@ export default class Register extends Component {
       })
       .catch(err => {
         this.setState({
-          error: err
+          error: err.message
         })
       })
 
