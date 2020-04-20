@@ -10,7 +10,7 @@
     width: 1.5em
     cursor: pointer
     fill: var(--colorTextSecondary)
-    transition: all .2s ease
+    transition: all .1s ease
 
     &:hover
       fill: var(--colorTextDim)
@@ -30,8 +30,28 @@
       padding: 0
 
       input
-        display: none
+        height: 0
+        width: 0
+        position: absolute
+        top: -999px
+        left: -999px
+        overflow: hidden
+
+        @media (hover: hover)
+          &:focus + label svg
+            fill: var(--colorTextDim)
+            border: 1px solid var(--colorAccent)
       
         &:checked + label svg
-          opacity: 1
           fill: var(--colorAccentDark)
+  
+  &.disabled
+    svg
+      cursor: default
+      fill: var(--colorTextDim) !important
+
+    li
+      display: none
+    
+      &.selected
+        display: block

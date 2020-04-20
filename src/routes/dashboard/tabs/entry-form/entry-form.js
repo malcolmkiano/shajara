@@ -102,10 +102,7 @@ export default class EntryForm extends Component {
 
   handleClose = (e = null) => {
     if (e) e.preventDefault()
-
-    // I REALLY DON'T LIKE THIS BUT IT'S THE ONLY
-    // WAY I COULD ACHIEVE THE EFFECT (without causing the user to lose their data)
-    document.querySelector('a').click()
+    this.props.history.goBack()
   }
 
   render() {
@@ -144,6 +141,7 @@ export default class EntryForm extends Component {
           <p className="subtitle">{subtitle}</p>
 
           <MoodSelector
+            disabled={!isToday}
             onChange={this.handleUpdate}
             mood={entry.mood} />
         </header>

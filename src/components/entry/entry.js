@@ -17,7 +17,7 @@ export default class Entry extends Component {
       { image: Mood5, title: 'Great' }
     ]
 
-    const mDate = !!item ? moment(item.date) : moment()
+    const mDate = !!item ? moment(item.date_created) : moment()
     const url = mDate.format('YYYY-MM-DD');
     const preview = type === 'today'
       ? (item && 'Continue today\'s entry') || 'Write something'

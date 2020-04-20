@@ -8,7 +8,7 @@ import { Entry } from '../components'
  * @param {[]} entries array of entries to search through
 */
 function getToday(entries) {
-  return entries.filter(e => m().isSame(e.date, 'day'))[0]
+  return entries.filter(e => m().isSame(e.date_created, 'day'))[0]
 }
 
 
@@ -18,7 +18,7 @@ function getToday(entries) {
  * @param {Date} [date] the date to get the month data from
  */
 function getMonth(entries, date = m()) {
-  return sort(entries).filter(e => m(e.date).isSame(date, 'month'))
+  return sort(entries).filter(e => m(e.date_created).isSame(date, 'month'))
 }
 
 
@@ -28,7 +28,7 @@ function getMonth(entries, date = m()) {
  */
 function getWeek(entries) {
   return getMonth(entries).filter(e => (
-    !m(e.date).isBefore(m().subtract(7, 'days'))
+    !m(e.date_created).isBefore(m().subtract(7, 'days'))
   ))
 }
 
@@ -39,7 +39,7 @@ function getWeek(entries) {
  */
 function sort(entries) {
   return [...entries].sort((a, b) => {
-    return !!(m(a.date).isBefore(b.date, 'day')) // if second date is before current date
+    return !!(m(a.date_created).isBefore(b.date, 'day')) // if second date is before current date
       ? 1 // put second date first
       : -1 // put first date first
 

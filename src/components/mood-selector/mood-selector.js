@@ -39,30 +39,31 @@ export default class MoodSelector extends Component {
     ]
 
     const { current } = this.state
+    const { disabled } = this.props
 
     const moodList = moods.map((mood, index) => {
       const i = index + 1
       const MoodImage = mood.image
 
       return (
-        <li key={i}>
+        <li key={i} className={current === i ? 'selected' : ''}>
           <input
             type="radio"
             checked={current === i}
-            onChange={this.handleChange}
+            onChange={!disabled ? this.handleChange : () => {}}
             name="mood"
             id={`mood-${i}`}
             value={i} />
 
           <label htmlFor={`mood-${i}`}>
-            <MoodImage title={mood.title} />
+            <MoodImage title={`${mood.title} mood`} />
           </label>
         </li>
       )
     })
 
     return (
-      <div className="mood-selector">
+      <div className={`mood-selector ${disabled ? 'disabled' : ''}`}>
         <ul className="mood-list">
           {moodList}
         </ul>
