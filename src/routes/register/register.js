@@ -85,6 +85,12 @@ export default class Register extends Component {
 
   }
 
+  handleClearError = () => {
+    this.setState({
+      error: null
+    })
+  }
+
   render() {
     return (
       <section className="register form-view">
@@ -100,6 +106,7 @@ export default class Register extends Component {
           description="Please fill in the form to create a Shajara&nbsp;account."
           Image={RegisterImage}
           fields={this.state.fields}
+          onClearError={this.handleClearError}
           error={this.state.error}
           buttonText="Create Account"
           disclaimer="By creating an account, you agree to let us securely store your information for use only in this application."

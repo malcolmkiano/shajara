@@ -26,8 +26,10 @@ export default class AuthForm extends Component {
     const index = fields.findIndex(f => f.id === e.target.id)
     fields[index] = validateField(fields[index], e.target.value)
 
+    // clear the error if there is one
+    if (this.state.error) this.props.onClearError()
+
     this.setState({
-      error: null,
       fields: fields
     })
   }

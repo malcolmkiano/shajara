@@ -9,6 +9,7 @@ export default class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      error: null,
       fields: [
         {
           label: 'Email Address',
@@ -57,6 +58,12 @@ export default class Register extends Component {
 
   }
 
+  handleClearError = () => {
+    this.setState({
+      error: null
+    })
+  }
+
   render() {
     return (
       <section className="login form-view">
@@ -72,6 +79,7 @@ export default class Register extends Component {
           description="Please fill in the form to sign in to your Shajara&nbsp;account."
           Image={LoginImage}
           imageBG="alt"
+          onClearError={this.handleClearError}
           fields={this.state.fields}
           error={this.state.error}
           buttonText="Log In"
