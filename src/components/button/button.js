@@ -25,7 +25,7 @@ export default class Button extends Component {
         type={htmlType}
         disabled={disabled}
         title={title}
-        className={`btn ${type} ${variant} ${hasLink ? 'link' : ''}`}
+        className={`btn ${type || ''} ${variant || ''} ${hasLink ? 'link' : ''}`}
         onClick={this.props.onClick}>
         {content}
       </button>

@@ -1,11 +1,12 @@
+// ==========================================
+// popup styles
 .popup
   position: fixed
-  top: -8em
+  top: 0
   left: 50%
-  transform: translateX(-50%)
+  transform: translate(-50%, -100%)
   background: var(--colorText)
   color: var(--colorBackground)
-  margin-top: 1em
   padding: 0 1em
   max-width: 80%
   border-radius: .3em
@@ -32,7 +33,7 @@
     padding: 0
   
   &.visible
-    top: 0
+    transform: translate(-50%, 1em)
     pointer-events: all
 
   @media screen and (min-width: 480px)
@@ -49,4 +50,5 @@
       margin-top: 0
 
     &.visible
+      transform: none
       right: 1em

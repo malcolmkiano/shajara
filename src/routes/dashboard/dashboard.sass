@@ -5,12 +5,13 @@
   background: var(--colorBackground)
   display: flex
   flex-direction: column
+  justify-content: flex-end
   position: relative
-  --sizeDashPadding: 10vh
+  --sizeDashPadding: 5vh
 
   &.loading
     article, form
-      transition: all 1s ease !important
+      transition: all 1s ease
       opacity: 0
 
   article, form

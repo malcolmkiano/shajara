@@ -4,9 +4,8 @@ import './dashboard.sass'
 
 import { API, TokenService } from '../../utils'
 import { Loader, TabBar, Popup } from '../../components'
-import EntryForm from './entry-form'
 import AppContext from './dashboard-context'
-import tabs from './tabs'
+import tabs, { Home, Entries, Moods, Search, Settings, EntryForm } from './tabs'
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class Dashboard extends Component {
     }
   }
 
-  componentDidMount() {
+  getEntries = () => {
     API.getEntries()
       .then(data => {
         this.setState({
@@ -30,7 +29,6 @@ export default class Dashboard extends Component {
         })
       })
       .catch(err => {
-
         let message = err.message
         if (err.code === 401) message = 'Could not log you in'
 
@@ -39,6 +37,10 @@ export default class Dashboard extends Component {
           error: true
         })
       })
+  }
+
+  componentDidMount() {
+    this.getEntries()
   }
 
   handleEntryCreated = entry => {
@@ -95,22 +97,17 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    // set up the different routes
-    const location = this.props.location.pathname
-    const routes = tabs.map(tab => {
-      const Child = tab.component
-      return (
-        <Route key={tab.route} exact={!!tab.exact} path={tab.route}>
-          <Child onLogOut={this.handleLogOut} />
-        </Route>
-      )
-    })
-
+    
     // set up the context values
+    const location = this.props.location.pathname
     const { user_name, entries, loading, message, error } = this.state
     const contextValues = {
       user_name,
-      entries
+      entries,
+      error,
+      onCreateEntry: this.handleEntryCreated,
+      onEditEntry: this.handleEntryEdited,
+      onLogOut: this.handleLogOut
     }
 
     return (
@@ -118,12 +115,13 @@ export default class Dashboard extends Component {
         <section className={`dashboard ${loading ? 'loading' : ''}`}>
 
           <Switch>
-            {routes}
-            <Route path="/dashboard/entry/:date" component={props => (
-              <EntryForm
-                {...props}
-                onCreateEntry={this.handleEntryCreated}
-                onEditEntry={this.handleEntryEdited} />
+            <Route exact path="/dashboard" component={Home} />
+            <Route path="/dashboard/entries" component={Entries} />
+            <Route path="/dashboard/moods" component={Moods} />
+            <Route path="/dashboard/search" component={Search} />
+            <Route path="/dashboard/settings" component={Settings} />
+            <Route path="/dashboard/entry/:date" render={props => (
+              <EntryForm {...props} entries={entries} />
             )} />
           </Switch>
 
@@ -134,7 +132,7 @@ export default class Dashboard extends Component {
             onDismiss={message === 'Could not log you in' ? this.handleLogOut : this.clearMessage} />
 
           <Loader status={loading} />
-          <TabBar tabs={tabs} location={location} onClick={this.closeEntry} />
+          <TabBar tabs={tabs.filter(tab => !tab.hide)} location={location} onClick={this.closeEntry} />
         </section>
       </AppContext.Provider>
     )

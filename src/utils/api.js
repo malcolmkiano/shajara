@@ -12,7 +12,7 @@ const ENTRIES_ENDPOINT = '/entries'
  */
 function makeRequest(url, options) {
   let error;
-  return fetch(config.API_ENDPOINT + url, options)
+  return fetch(config.API_BASE_URL + url, options)
     .then(res => {
       if (!res.ok) error = { code: res.status }
       if (res.status !== 204 &&

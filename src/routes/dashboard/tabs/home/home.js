@@ -18,11 +18,11 @@ export default class Home extends Component {
     const time = parseInt(moment().format('H'))
     return (time >= 4 && time < 12)
       ? 'The morning is the best time to write your plan or expectations for the day.'
-      : (time >= 12 && time < 16)
+      : (time >= 12 && time < 18)
         ? 'Have any reflections you want to write about this afternoon?'
-        : (time >= 16 && time < 20)
+        : (time >= 18 && time < 22)
           ? 'The evening is a great time to meditate and write about your reflections this day.'
-          : (time >= 20 || time < 23)
+          : (time >= 22)
             ? 'An entry before bed might be exactly what you need.'
             : 'It\'s time for a late night glass of water and some reflection.'
   }

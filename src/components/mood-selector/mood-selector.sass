@@ -1,0 +1,37 @@
+// ==========================================
+// mood selector styles
+.mood-selector
+  text-align: center
+  margin: 2em auto 0
+  position: relative
+
+  svg
+    height: 1.5em
+    width: 1.5em
+    cursor: pointer
+    fill: var(--colorTextSecondary)
+    transition: all .2s ease
+
+    &:hover
+      fill: var(--colorTextDim)
+
+  .mood-list
+    margin: 0
+    padding: 0
+    list-style: none
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: .5em
+    transition: all .3s ease
+
+    li
+      margin: 0 .8em
+      padding: 0
+
+      input
+        display: none
+      
+        &:checked + label svg
+          opacity: 1
+          fill: var(--colorAccentDark)

@@ -5,11 +5,28 @@
   flex-direction: column
   position: relative
   z-index: 5
+  overflow-y: auto
   background: var(--colorBackground)
+  border-bottom: 1px solid var(--colorPale)
   
   @media screen and (min-width: 480px)
     height: 100%
     overflow-y: auto
+    border-bottom: none
+  
+  header
+    // background: var(--colorPale)
+    margin: calc(-1 * var(--sizePadding))
+    padding: var(--sizePadding)
+    margin-top: -4em
+    margin-bottom: 0
+    padding-bottom: 1em
+    padding-top: 4em
+
+    @media screen and (min-width: 480px)
+      background: none
+      margin-bottom: 0em
+
   
   .top-bar
     display: flex
@@ -24,7 +41,7 @@
         pointer-events: none
 
   .subtitle
-    margin: -.5em
+    margin-top: -.5em
     line-height: 1
     text-align: center
     color: var(--colorTextDim)
@@ -32,12 +49,8 @@
   textarea
     font-family: inherit
     font-size: 1.1em
-    margin-top: 2em
-    width: 100%
     resize: none
     border: none
     outline: none
     background: none
-    flex: 1
     line-height: inherit
-    transition: all .1s ease

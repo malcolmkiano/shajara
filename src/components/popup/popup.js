@@ -13,10 +13,10 @@ export default class Popup extends Component {
   }
 
   auto() {
-    if (!!this.props.autoDismiss) {
+    if (!!this.props.autoDismiss && !!this.props.message) {
       setTimeout(() => {
         this.dismiss()
-      }, 4000)
+      }, 3000)
     }
   }
 

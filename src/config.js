@@ -1,5 +1,5 @@
 export default {
-  API_ENDPOINT: 'https://shajara-api.herokuapp.com/api',
+  API_BASE_URL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api',
   FIRST_NAME_KEY: 'shajara-user-first-name',
   TOKEN_KEY: 'shajara-auth-token'
 }

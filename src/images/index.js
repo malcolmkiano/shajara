@@ -21,6 +21,13 @@ import { ReactComponent as MoodsIcon } from './tab-moods.svg'
 import { ReactComponent as SearchIcon } from './tab-search.svg'
 import { ReactComponent as SettingsIcon } from './tab-settings.svg'
 
+// mood icons
+import { ReactComponent as Mood1 } from './mood-1.svg'
+import { ReactComponent as Mood2 } from './mood-2.svg'
+import { ReactComponent as Mood3 } from './mood-3.svg'
+import { ReactComponent as Mood4 } from './mood-4.svg'
+import { ReactComponent as Mood5 } from './mood-5.svg'
+
 // misc icons
 import { ReactComponent as PremiumIcon } from './crown.svg'
 
@@ -36,6 +43,9 @@ export {
 
   // tab icons
   HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon,
+
+  // mood icons
+  Mood1, Mood2, Mood3, Mood4, Mood5,
 
   // misc icons
   PremiumIcon
