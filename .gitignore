@@ -10,7 +10,6 @@
 
 # production
 /build
-now.json
 
 # misc
 .DS_Store

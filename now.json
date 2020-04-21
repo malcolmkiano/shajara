@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "src": "/dashboard.*",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/register",
+      "dest": "/index.html"
+    }
+  ]
+}

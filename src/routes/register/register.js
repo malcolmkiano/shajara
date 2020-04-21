@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import './register.sass'
 
-import { Nav, AuthForm } from '../../components'
+import { Loader, Nav, AuthForm } from '../../components'
 import { API, TokenService } from '../../utils'
 import { RegisterImage } from '../../images'
 
@@ -10,6 +11,7 @@ class Register extends Component {
     super(props)
     this.state = {
       error: null,
+      loading: false,
       fields: [
         {
           label: 'First Name',
@@ -51,6 +53,9 @@ class Register extends Component {
 
   handleCreateAccount = newUser => {
 
+    // load
+    this.setState({ loading: true })
+
     // send the info up to the server
     API.register(newUser)
       .then(() => {
@@ -72,14 +77,16 @@ class Register extends Component {
           })
           .catch(err => {
             this.setState({
-              error: err.message
+              error: err.message,
+              loading: false
             })
           })
 
       })
       .catch(err => {
         this.setState({
-          error: err.message
+          error: err.message,
+          loading: false
         })
       })
 
@@ -111,6 +118,8 @@ class Register extends Component {
           buttonText="Create Account"
           disclaimer="By creating an account, you agree to let us securely store your information for use only in this application."
           onSubmit={this.handleCreateAccount} />
+        
+        <Loader status={this.state.loading} />
       </section>
     )
   }
