@@ -72,7 +72,7 @@ class AuthForm extends Component {
           <p className="description">{description}</p>
 
           {!!error ? (
-            <p className="error">{error}</p>
+            <p className="error" role="alert">{error}</p>
           ) : ''}
 
           <div className="fields">

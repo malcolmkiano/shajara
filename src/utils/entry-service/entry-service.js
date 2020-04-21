@@ -39,7 +39,7 @@ function getWeek(entries) {
  */
 function sort(entries) {
   return (entries && [...entries].sort((a, b) => 
-    !!(m(a.date_created).isBefore(b.date, 'day')) // if second date is before current date
+    !!(m(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
       ? 1 // put second date first
       : -1 // put first date first
 
