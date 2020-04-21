@@ -88,7 +88,7 @@ class Dashboard extends Component {
 
   handleLogOut = () => {
     TokenService.clearAuthToken()
-    window.location.reload()
+    this.props.history.push('/')
   }
 
   clearMessage = () => {
@@ -120,7 +120,9 @@ class Dashboard extends Component {
             <Route exact path="/dashboard" component={Home} />
             <Route path="/dashboard/entries" component={Entries} />
             <Route path="/dashboard/moods" component={Moods} />
-            <Route path="/dashboard/search" component={Search} />
+            <Route path="/dashboard/search/:query?" render={props => (
+              <Search {...props} entries={entries} /> 
+            )} />
             <Route path="/dashboard/settings" component={Settings} />
             <Route path="/dashboard/entry/:date" render={props => (
               <EntryForm {...props} entries={entries} />

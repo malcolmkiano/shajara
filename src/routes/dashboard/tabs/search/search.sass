@@ -1,3 +1,38 @@
 // ==========================================
 // search tab styles
 .search
+  position: relative
+
+  .search-field
+    display: flex
+    align-items: center
+    justify-content: space-between
+    position: relative
+
+    .input
+      margin: 0
+      width: 100%
+
+    .btn
+      position: absolute
+      right: -.5rem
+      margin-top: 0.2em
+      background: none
+      font-size: 1.3rem
+
+  .results
+    margin: 0
+    padding: 0
+
+  .entry-list-empty
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    flex-direction: column-reverse
+
+    p
+      position: relative
+      line-height: 1
+      text-align: center
+      width: 60%

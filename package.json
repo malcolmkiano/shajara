@@ -12,6 +12,7 @@
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -22,9 +23,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "npm run test",
     "build": "react-scripts build",
+    "postbuild": "cp now.json build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build && cp now.json build",
+    "deploy": "now --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "now": "^18.0.0"
   }
 }
