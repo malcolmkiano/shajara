@@ -1,5 +1,5 @@
-import config from '../config'
-import TokenService from './token-service'
+import config from '../../config'
+import { TokenService } from '..'
 
 
 const REGISTER_ENDPOINT = '/users'
@@ -16,7 +16,7 @@ function makeRequest(url, options) {
     .then(res => {
       if (!res.ok) error = { code: res.status }
       if (res.status !== 204 &&
-          !res.headers.get('content-type').includes('json')) {
+        !res.headers.get('content-type').includes('json')) {
         error.message = res.statusText
         return Promise.reject(error)
       }
@@ -34,7 +34,7 @@ function makeRequest(url, options) {
 }
 
 
-function makeSecureRequest(url, options={}) {
+function makeSecureRequest(url, options = {}) {
   const authToken = TokenService.getAuthToken()
 
   if (!options.headers) options.headers = {}

@@ -5,7 +5,7 @@ import { Nav, AuthForm } from '../../components'
 import { API, TokenService } from '../../utils'
 import { RegisterImage } from '../../images'
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -115,3 +115,5 @@ export default class Register extends Component {
     )
   }
 }
+
+export default Register

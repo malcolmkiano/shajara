@@ -1,14 +1,14 @@
 import React from 'react'
 import m from 'moment'
 
-import { Entry } from '../components'
+import { Entry } from '../../components'
 
 
 /** returns a single entry for the date today
  * @param {[]} entries array of entries to search through
 */
 function getToday(entries) {
-  return entries.filter(e => m().isSame(e.date_created, 'day'))[0]
+  return entries && entries.filter(e => m().isSame(e.date_created, 'day'))[0]
 }
 
 
@@ -38,13 +38,13 @@ function getWeek(entries) {
  * @param {[]} entries array of entries to sort
  */
 function sort(entries) {
-  return [...entries].sort((a, b) => {
-    return !!(m(a.date_created).isBefore(b.date, 'day')) // if second date is before current date
+  return (entries && [...entries].sort((a, b) => 
+    !!(m(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
       ? 1 // put second date first
       : -1 // put first date first
 
     // we don't need to check for the "same date" since only one entry can exist per date
-  })
+  )) || []
 }
 
 
@@ -57,7 +57,7 @@ function sort(entries) {
 function makeComponent(entry, onClick, isToday = false) {
   return (
     <Entry
-      type={isToday ? 'today' : ''}
+      isToday={isToday}
       onClick={onClick}
       item={entry} />
   )

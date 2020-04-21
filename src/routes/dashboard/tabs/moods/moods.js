@@ -4,7 +4,7 @@ import './moods.sass'
 import { Premium } from '../../../../components'
 import AppContext from '../../dashboard-context'
 
-export default class Moods extends Component {
+class Moods extends Component {
   static contextType = AppContext
 
   componentDidMount() {
@@ -20,3 +20,5 @@ export default class Moods extends Component {
     )
   }
 }
+
+export default Moods

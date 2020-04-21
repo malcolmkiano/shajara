@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import './dashboard.sass'
 
 import { API, TokenService } from '../../utils'
 import { Loader, TabBar, Popup } from '../../components'
-import AppContext from './dashboard-context'
-import tabs, { Home, Entries, Moods, Search, Settings, EntryForm } from './tabs'
+import { Home, Entries, Moods, Search, Settings, EntryForm } from './tabs'
 
-export default class Dashboard extends Component {
+import AppContext from './dashboard-context'
+
+class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -132,10 +134,16 @@ export default class Dashboard extends Component {
             onDismiss={message === 'Could not log you in' ? this.handleLogOut : this.clearMessage} />
 
           <Loader status={loading} />
-          <TabBar tabs={tabs.filter(tab => !tab.hide)} location={location} onClick={this.closeEntry} />
+          <TabBar location={location} />
         </section>
       </AppContext.Provider>
     )
 
   }
 }
+
+Dashboard.propTypes = {
+  location: PropTypes.object.isRequired
+}
+
+export default Dashboard

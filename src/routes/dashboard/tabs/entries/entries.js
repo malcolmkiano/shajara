@@ -7,7 +7,7 @@ import { Button, EntryList } from '../../../../components'
 import { EntryService } from '../../../../utils'
 import AppContext from '../../dashboard-context'
 
-export default class Entries extends Component {
+class Entries extends Component {
   state = {
     month: moment()
   }
@@ -69,3 +69,5 @@ export default class Entries extends Component {
     )
   }
 }
+
+export default Entries

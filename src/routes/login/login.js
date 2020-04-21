@@ -5,7 +5,7 @@ import { Nav, AuthForm } from '../../components'
 import { API, TokenService } from '../../utils'
 import { LoginImage } from '../../images'
 
-export default class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -47,7 +47,9 @@ export default class Register extends Component {
         TokenService.saveAuthInfo(first_name, authToken)
 
         // callback for successful login
-        this.props.history.push('/dashboard')
+        const { location, history } = this.props
+        const destination = (location.state || {}).from || '/dashboard'
+        history.push(destination)
 
       })
       .catch(err => {
@@ -88,3 +90,5 @@ export default class Register extends Component {
     )
   }
 }
+
+export default Login

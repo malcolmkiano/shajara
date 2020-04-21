@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Prompt } from 'react-router-dom'
 import m from 'moment'
 import './entry-form.sass'
 
 import { Button, MoodSelector } from '../../../../components'
+
 import AppContext from '../../dashboard-context'
 
-export default class EntryForm extends Component {
+class EntryForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       entry: {
         date_created: new Date().toISOString(),
         content: '',
-        mood: null,
+        mood: 5,
         id: null,
       },
       saved: true
@@ -36,7 +38,7 @@ export default class EntryForm extends Component {
     if (!entry) entry = {
       date_created: new Date().toISOString(),
       content: '',
-      mood: 3,
+      mood: 5,
       id: null,
     }
 
@@ -50,7 +52,7 @@ export default class EntryForm extends Component {
   // this exists to scale the textarea (mainly for mobile views)
   resizeTextarea() {
     const txt = this.txt.current
-    txt.style.height = txt.scrollHeight + 'px'
+    if (txt) txt.style.height = txt.scrollHeight + 'px'
   }
 
   // if opened directly from the parent
@@ -163,3 +165,13 @@ export default class EntryForm extends Component {
     )
   }
 }
+
+EntryForm.propTypes = {
+  entries: PropTypes.arrayOf(PropTypes.shape({
+    date_created: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    mood: PropTypes.oneOf([1, 2, 3, 4, 5]).isRequired
+  }))
+}
+
+export default EntryForm

@@ -6,7 +6,7 @@ import './landing-page.sass'
 import { HeroImage, StoryImage, MoodImage, CustomizeImage } from '../../images'
 import { Nav, Button, OnboardingItem, Dots } from '../../components'
 
-export default class LandingPage extends React.Component {
+class LandingPage extends React.Component {
   state = {
     step: 0,
     onboardingItems: [
@@ -83,9 +83,12 @@ export default class LandingPage extends React.Component {
 
     // onboarding items in JSX
     const items = onboardingItems.map((item, index) => {
-      const activeState = step === index + 1 ? 'active' : ''
       return (
-        <OnboardingItem key={item.title} handleSwipe={this.handleSwipe} item={item} activeState={activeState} />
+        <OnboardingItem
+          key={item.title}
+          onSwiped={this.handleSwipe}
+          item={item}
+          activeState={step === index + 1} />
       )
     })
 
@@ -173,3 +176,5 @@ export default class LandingPage extends React.Component {
     )
   }
 }
+
+export default LandingPage

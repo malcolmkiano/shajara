@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import './entry.sass'
 
 import { Mood1, Mood2, Mood3, Mood4, Mood5 } from '../../images'
 
-export default class Entry extends Component {
+class Entry extends Component {
   render() {
-    const { item, type } = this.props
+    const { isToday, item } = this.props
 
     const moods = [
       { image: Mood1, title: 'Terrible' },
@@ -19,17 +20,20 @@ export default class Entry extends Component {
 
     const mDate = !!item ? moment(item.date_created) : moment()
     const url = mDate.format('YYYY-MM-DD');
-    const preview = type === 'today'
+    const preview = isToday
       ? (item && 'Continue today\'s entry') || 'Write something'
-      : item.content
+      : item && item.content
 
     let MoodImage
 
-    if (item) MoodImage = moods[item.mood - 1].image
+    if (item && item.mood) {
+      const mood = item.mood <= moods.length ? item.mood - 1 : 1
+      MoodImage = moods[mood].image
+    }
 
     return (
-      <Link to={`/dashboard/entry/${url}`} className={`entry ${type}`}>
-        {type !== 'today' ? (
+      <Link to={`/dashboard/entry/${url}`} className={`entry ${isToday ? 'today' : ''}`}>
+        {!isToday ? (
           <span className="date">
             {mDate.format('ddd')}
             <strong>{mDate.format('DD')}</strong>
@@ -38,8 +42,19 @@ export default class Entry extends Component {
         <span className="preview">
           {preview}
         </span>
-        {type !== 'today' && item ? (<MoodImage />) : ''}
+        {!isToday && item ? (<MoodImage />) : ''}
       </Link>
     )
   }
 }
+
+Entry.propTypes = {
+  isToday: PropTypes.bool.isRequired,
+  item: PropTypes.shape({
+    date_created: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    mood: PropTypes.oneOf([1, 2, 3, 4, 5]).isRequired
+  })
+}
+
+export default Entry

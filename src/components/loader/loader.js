@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './loader.sass'
 
-export default class Loader extends Component {
+class Loader extends Component {
   state = {
     hidden: false
   }
@@ -24,3 +25,9 @@ export default class Loader extends Component {
     )
   }
 }
+
+Loader.propTypes = {
+  status: PropTypes.bool.isRequired
+}
+
+export default Loader

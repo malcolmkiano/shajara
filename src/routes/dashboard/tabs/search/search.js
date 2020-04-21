@@ -4,7 +4,7 @@ import './search.sass'
 import { Premium } from '../../../../components'
 import AppContext from '../../dashboard-context'
 
-export default class Search extends Component {
+class Search extends Component {
   static contextType = AppContext
 
   componentDidMount() {
@@ -20,3 +20,5 @@ export default class Search extends Component {
     )
   }
 }
+
+export default Search

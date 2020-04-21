@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './mood-selector.sass'
 
 import { Mood1, Mood2, Mood3, Mood4, Mood5 } from '../../images'
 
-export default class MoodSelector extends Component {
+class MoodSelector extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -71,3 +72,10 @@ export default class MoodSelector extends Component {
     )
   }
 }
+
+MoodSelector.propTypes = {
+  mood: PropTypes.number.isRequired,
+  disabled: PropTypes.bool.isRequired
+}
+
+export default MoodSelector

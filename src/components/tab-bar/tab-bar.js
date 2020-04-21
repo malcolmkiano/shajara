@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import './tab-bar.sass'
 
-export default class TabBar extends Component {
+import { HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon } from '../../images'
+const withBase = (path = '') => '/dashboard/' + path
+const tabs = [
+  { url: withBase(), title: 'Home', icon: HomeIcon },
+  { url: withBase('entries'), title: 'Entries', icon: EntriesIcon },
+  { url: withBase('moods'),  title: 'Moods', icon: MoodsIcon },
+  { url: withBase('search'), title: 'Search', icon: SearchIcon },
+  { url: withBase('settings'), title: 'Settings', icon: SettingsIcon }
+]
+
+class TabBar extends Component {
   render() {
-    const { tabs } = this.props
 
     const tabButtons = tabs.map(tab => {
       const Icon = tab.icon
-      if (tab.route.endsWith('/')) tab.route = tab.route.substring(0, tab.route.length - 1)
-      const activeState = this.props.location === tab.route ? 'active' : ''
+      if (tab.url.endsWith('/')) tab.url = tab.url.substring(0, tab.url.length - 1)
+      const activeState = this.props.location === tab.url ? 'active' : ''
 
       return (
-        <li key={tab.route}>
-          <Link to={tab.route} className={activeState} onClick={this.props.onClick}>
+        <li key={tab.url}>
+          <Link to={tab.url} className={activeState} onClick={this.props.onClick}>
             <Icon />
             <span className="media-tablet">{tab.title}</span>
           </Link>
@@ -22,9 +32,15 @@ export default class TabBar extends Component {
     })
 
     return (
-      <ul className="tab-bar">
+      <ul className="tab-bar" role="navigation">
         {tabButtons}
       </ul>
     )
   }
 }
+
+TabBar.propTypes = {
+  location: PropTypes.string
+}
+
+export default TabBar

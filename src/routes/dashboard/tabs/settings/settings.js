@@ -4,7 +4,7 @@ import './settings.sass'
 import { Button } from '../../../../components'
 import AppContext from '../../dashboard-context'
 
-export default class Settings extends Component {
+class Settings extends Component {
   static contextType = AppContext
 
   componentDidMount() {
@@ -23,3 +23,5 @@ export default class Settings extends Component {
     )
   }
 }
+
+export default Settings
