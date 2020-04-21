@@ -24,7 +24,6 @@ describe('AuthForm', () => {
         description="This is just a test"
         fields={fields} />
     )
-
     expect(wrapper.find('Input')).toHaveLength(1)
   })
 
