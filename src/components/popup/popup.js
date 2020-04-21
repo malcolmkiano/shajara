@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Swipeable } from 'react-swipeable'
 import './popup.sass'
 
 import { Button } from '..'
 
-export default class Popup extends Component {
+class Popup extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -65,3 +66,12 @@ export default class Popup extends Component {
     )
   }
 }
+
+Popup.propTypes = {
+  message: PropTypes.string,
+  isError: PropTypes.bool.isRequired,
+  autoDismiss: PropTypes.bool.isRequired,
+  onDismiss: PropTypes.func.isRequired
+}
+
+export default Popup

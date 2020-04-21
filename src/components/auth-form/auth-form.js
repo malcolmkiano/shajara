@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './auth-form.sass'
 
+import { RegisterImage as DefaultImage } from '../../images'
 import { Button, Input } from '../../components'
 import { validateField } from '../../utils'
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       error: props.error,
-      fields: props.fields
+      fields: props.fields || []
     }
   }
 
@@ -93,3 +95,21 @@ export default class AuthForm extends Component {
     )
   }
 }
+
+AuthForm.propTypes = {
+  error: PropTypes.string,
+  fields: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  Image: PropTypes.object,
+  buttonText: PropTypes.string,
+  disclaimer: PropTypes.string,
+  imageBG: PropTypes.string
+}
+
+AuthForm.defaultProps = {
+  Image: DefaultImage,
+  buttonText: 'Submit'
+}
+
+export default AuthForm

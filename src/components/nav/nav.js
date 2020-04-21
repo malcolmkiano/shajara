@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './nav.sass'
 
-export default class Nav extends Component {
+class Nav extends Component {
   render() {
     return (
       <nav>
@@ -12,3 +13,9 @@ export default class Nav extends Component {
     )
   }
 }
+
+Nav.propTypes = {
+  children: PropTypes.node.isRequired
+}
+
+export default Nav

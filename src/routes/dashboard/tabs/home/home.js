@@ -7,7 +7,7 @@ import { EntryList } from '../../../../components'
 import { EntryService } from '../../../../utils'
 import AppContext from '../../dashboard-context'
 
-export default class Home extends Component {
+class Home extends Component {
   static contextType = AppContext
 
   componentDidMount() {
@@ -71,3 +71,5 @@ export default class Home extends Component {
     )
   }
 }
+
+export default Home

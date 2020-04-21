@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './button.sass'
 
 import { NextArrow, PrevArrow, CloseIcon, SaveIcon } from '../../images'
 
-export default class Button extends Component {
+class Button extends Component {
   render() {
     let content = this.props.children
     const { type, htmlType, hasLink, variant, disabled, title } = this.props
@@ -19,7 +20,6 @@ export default class Button extends Component {
       content = (<Arrow />)
     }
 
-    if (!content) content = 'Forgetting something?'
     return (
       <button
         type={htmlType}
@@ -32,3 +32,21 @@ export default class Button extends Component {
     )
   }
 }
+
+Button.propTypes = {
+  type: PropTypes.string,
+  htmlType: PropTypes.string,
+  hasLink: PropTypes.bool,
+  variant: PropTypes.string,
+  disabled: PropTypes.bool,
+  title: PropTypes.string
+}
+
+Button.defaultProps = {
+  htmlType: 'button',
+  disabled: false,
+  title: '',
+  onClick: () => {}
+}
+
+export default Button

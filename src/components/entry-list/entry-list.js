@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './entry-list.sass'
 
-export default class EntryList extends Component {
+import { WriteImage as DefaultImage } from '../../images'
+
+class EntryList extends Component {
   render() {
     const { entries, EmptyImage, showText, title } = this.props;
     let output;
@@ -26,3 +29,17 @@ export default class EntryList extends Component {
     return output
   }
 }
+
+EntryList.propTypes = {
+  entries: PropTypes.arrayOf(PropTypes.element),
+  EmptyImage: PropTypes.object,
+  showText: PropTypes.string,
+  title: PropTypes.string
+}
+
+EntryList.defaultProps = {
+  entries: [],
+  EmptyImage: DefaultImage
+}
+
+export default EntryList

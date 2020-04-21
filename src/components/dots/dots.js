@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './dots.sass'
 
-export default class Dots extends Component {
+class Dots extends Component {
   render() {
     let output = []
     const { count, active } = this.props
@@ -18,3 +19,10 @@ export default class Dots extends Component {
     )
   }
 }
+
+Dots.propTypes = {
+  count: PropTypes.number.isRequired,
+  active: PropTypes.number.isRequired
+}
+
+export default Dots
