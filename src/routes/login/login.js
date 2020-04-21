@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import './login.sass'
 
-import { Nav, AuthForm } from '../../components'
+import { Loader, Nav, AuthForm } from '../../components'
 import { API, TokenService } from '../../utils'
 import { LoginImage } from '../../images'
 
@@ -10,6 +11,7 @@ class Login extends Component {
     super(props)
     this.state = {
       error: null,
+      loading: false,
       fields: [
         {
           label: 'Email Address',
@@ -39,6 +41,10 @@ class Login extends Component {
 
   handleLogin = credentials => {
 
+    // load
+    this.setState({ loading: true })
+
+    // send it up
     API.login(credentials)
       .then(res => {
 
@@ -54,7 +60,8 @@ class Login extends Component {
       })
       .catch(err => {
         this.setState({
-          error: err.message
+          error: err.message,
+          loading: false
         })
       })
 
@@ -86,6 +93,8 @@ class Login extends Component {
           error={this.state.error}
           buttonText="Log In"
           onSubmit={this.handleLogin} />
+        
+        <Loader status={this.state.loading} />
       </section>
     )
   }
