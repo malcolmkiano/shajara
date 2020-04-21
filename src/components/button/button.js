@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './button.sass'
 
-import { NextArrow, PrevArrow, CloseIcon, SaveIcon } from '../../images'
+import { NextArrow, PrevArrow, CloseIcon, SaveIcon, SearchButton } from '../../images'
 
 class Button extends Component {
   render() {
@@ -12,12 +12,13 @@ class Button extends Component {
       next: NextArrow,
       prev: PrevArrow,
       close: CloseIcon,
-      save: SaveIcon
+      save: SaveIcon,
+      search: SearchButton
     }
 
     if (type && Object.keys(validTypes).includes(type)) {
-      const Arrow = validTypes[type]
-      content = (<Arrow />)
+      const Icon = validTypes[type]
+      content = (<Icon />)
     }
 
     return (
