@@ -6,6 +6,7 @@ import { ReactComponent as CustomizeImage } from './customize.svg'
 import { ReactComponent as LoginImage } from './login.svg'
 import { ReactComponent as RegisterImage } from './register.svg'
 import { ReactComponent as WriteImage } from './write.svg'
+import { ReactComponent as SearchImage } from './search.svg'
 import { ReactComponent as PremiumImage } from './premium.svg'
 
 // button icons
@@ -13,6 +14,7 @@ import { ReactComponent as NextArrow } from './arrow-next.svg'
 import { ReactComponent as PrevArrow } from './arrow-prev.svg'
 import { ReactComponent as CloseIcon } from './close.svg'
 import { ReactComponent as SaveIcon } from './save.svg'
+import { ReactComponent as SearchButton } from './btn-search.svg'
 
 // tab icons
 import { ReactComponent as HomeIcon } from './tab-home.svg'
@@ -36,10 +38,10 @@ import { ReactComponent as PremiumIcon } from './crown.svg'
 export {
   // regular SVGs
   HeroImage, StoryImage, MoodImage, CustomizeImage,
-  LoginImage, RegisterImage, WriteImage, PremiumImage,
+  LoginImage, RegisterImage, WriteImage, SearchImage, PremiumImage,
 
   // button icons
-  NextArrow, PrevArrow, CloseIcon, SaveIcon,
+  NextArrow, PrevArrow, CloseIcon, SaveIcon, SearchButton,
 
   // tab icons
   HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon,
