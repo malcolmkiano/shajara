@@ -63,16 +63,32 @@ function makeComponent(entry, onClick, isToday = false) {
 }
 
 
+function group(entries=[]) {
+  const months = {}
+  entries.forEach(entry => {
+    const month = m(entry.date_created).format('MMM YYYY')
+    if (!months[month]) months[month] = []
+    months[month].push(entry)
+  })
+  return Object.entries(months)
+}
+
+
 /**
  * searches through an array of entries using a keyword
  * @param {string} keyword keyword to search for
  * @param {[]} entries array of entries to search through
  */
 function search(keyword, entries=[]) {
-  return keyword
-    ? sort(entries).filter(e => 
+  let output = []
+  if (keyword) {
+    const results = sort(entries).filter(e =>
       e.content.toLowerCase().includes(keyword.toLowerCase()))
-    : []
+    const months = group(results)
+    output = months
+  }
+
+  return output
 }
 
 
