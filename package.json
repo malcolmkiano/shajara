@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "npm run test",
+    "prebuild": "npm run test -- --watchAll",
     "build": "react-scripts build",
     "postbuild": "cp now.json build",
     "test": "react-scripts test",

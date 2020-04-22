@@ -116,18 +116,20 @@ class Dashboard extends Component {
       <AppContext.Provider value={contextValues}>
         <section className={`dashboard ${loading ? 'loading' : ''}`}>
 
-          <Switch>
-            <Route exact path="/dashboard" component={Home} />
-            <Route path="/dashboard/entries" component={Entries} />
-            <Route path="/dashboard/moods" component={Moods} />
-            <Route path="/dashboard/search/:query?" render={props => (
-              <Search {...props} entries={entries} /> 
-            )} />
-            <Route path="/dashboard/settings" component={Settings} />
-            <Route path="/dashboard/entry/:date" render={props => (
-              <EntryForm {...props} entries={entries} />
-            )} />
-          </Switch>
+          <div className="dashboard-content">
+            <Switch>
+              <Route exact path="/dashboard" component={Home} />
+              <Route path="/dashboard/entries" component={Entries} />
+              <Route path="/dashboard/moods" component={Moods} />
+              <Route path="/dashboard/settings" component={Settings} />
+              <Route path="/dashboard/search/:query?" render={props => (
+                <Search {...props} entries={entries} /> 
+              )} />
+              <Route path="/dashboard/entry/:date" render={props => (
+                <EntryForm {...props} entries={entries} />
+              )} />
+            </Switch>
+          </div>
 
           <Popup
             message={message}
