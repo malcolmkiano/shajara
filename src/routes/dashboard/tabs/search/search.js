@@ -55,21 +55,35 @@ class Search extends Component {
 
   render() {
     const { query, results } = this.state
-    const list = results.map(entry => EntryService.makeComponent(entry))
+    const months = results.map(([month, entries]) => {
+      const list = entries.map(entry => EntryService.makeComponent(entry))
+      return (
+        <div key={month} className="month">
+          <EntryList title={month} entries={list} />
+        </div>
+      )
+    })
 
     return (
       <form className="wrapper search">
         <h2>Search</h2>
         <div className="search-field">
-          <Input value={query} onChange={this.handleUpdate} label="Query" autoFocus={true} />
+          <Input
+            value={query}
+            onChange={this.handleUpdate}
+            label="Query"
+            placeholder="Query"
+            autoFocus={true} />
+            
           <Button type="search" variant="alt" disabled={true} />
         </div>
-        <ul className="results">
-          <EntryList
-            entries={list}
-            EmptyImage={SearchImage}
-            showText={query ? 'No entries matched your query' : 'Search for entries using keywords'} />
-        </ul>
+        {results.length
+          ? months
+          : (
+            <EntryList
+              EmptyImage={SearchImage}
+              showText={query ? 'No entries matched your query' : 'Search for entries using keywords'} />
+          )}
       </form>
     )
   }
