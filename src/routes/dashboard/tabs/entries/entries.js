@@ -19,9 +19,17 @@ class Entries extends Component {
   }
 
   changeMonth(n = -1) {
-    const m = moment(this.state.month).add(n, 'months')
+    const month = moment(this.state.month).add(n, 'months')
     this.setState({
-      month: m
+      month: month
+    })
+  }
+
+  handleMonthChanged = e => {
+    const monthString = e.target.value
+    const month = moment(monthString, 'MMM YYYY')
+    this.setState({
+      month: month
     })
   }
 
@@ -39,7 +47,11 @@ class Entries extends Component {
     })
 
     // gets the name of the current month
-    const date = this.state.month.format('MMM YYYY')
+    const current = this.state.month.format('MMM YYYY')
+    const months = EntryService.listMonths(entries)
+    const options = months.map(month => (
+      <option key={month} value={month}>{month}</option>
+    ))
 
     return (
       <article className="wrapper entries">
@@ -48,9 +60,16 @@ class Entries extends Component {
             type="prev"
             variant="alt"
             title="Previous month"
+            disabled={!months.length || current === months[months.length - 1]}
             onClick={() => this.changeMonth()} />
 
-          <h2>{date}</h2>
+          <h2>
+            {months.length
+              ? (<select name="month" value={current} onChange={this.handleMonthChanged}>
+                  {options}
+                </select>)
+              : (<span>{current}</span>)}
+          </h2>
 
           <Button
             type="next"

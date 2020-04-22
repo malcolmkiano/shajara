@@ -50,10 +50,7 @@ class Search extends Component {
       const list = entries.map(entry => EntryService.makeComponent(entry))
       return (
         <div key={month} className="month">
-          <h3 className="h5">{month}</h3>
-          <ul className="results">
-            <EntryList entries={list} />
-          </ul>
+          <EntryList title={month} entries={list} />
         </div>
       )
     })
