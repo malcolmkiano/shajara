@@ -11,7 +11,7 @@ class EntryList extends Component {
     if (entries.length) {
       output = (
         <>
-          {!!title ? (<h4>{title}</h4>) : ''}
+          {!!title ? (<h4 className="entry-list-title">{title}</h4>) : ''}
           <ul className="entry-list">
             {entries}
           </ul>
