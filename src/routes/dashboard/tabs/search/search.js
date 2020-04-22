@@ -49,12 +49,12 @@ class Search extends Component {
     const months = results.map(([month, entries]) => {
       const list = entries.map(entry => EntryService.makeComponent(entry))
       return (
-        <article key={month}>
+        <div key={month} className="month">
           <h3 className="h5">{month}</h3>
           <ul className="results">
             <EntryList entries={list} />
           </ul>
-        </article>
+        </div>
       )
     })
 
@@ -62,7 +62,13 @@ class Search extends Component {
       <form className="wrapper search">
         <h2>Search</h2>
         <div className="search-field">
-          <Input value={query} onChange={this.handleUpdate} label="Query" autoFocus={true} />
+          <Input
+            value={query}
+            onChange={this.handleUpdate}
+            label="Query"
+            placeholder="Query"
+            autoFocus={true} />
+            
           <Button type="search" variant="alt" disabled={true} />
         </div>
         {results.length

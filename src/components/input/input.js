@@ -14,12 +14,19 @@ class Input extends Component {
           {...props}
           className={!!props.value.trim() ? 'dirty' : ''}
           aria-invalid={!!this.props.error}
+          placeholder={this.props.placeholder}
           id={this.props.id} />
-        <label htmlFor={this.props.id}>
-          {this.props.label || 'Label'}
-          {!!this.props.required ? (<span aria-hidden={true}>*</span>) : ''}
-        </label>
-        {this.props.error ? (<span className="error" role="alert">{this.props.error}</span>) : ''}
+
+        {!this.props.placeholder
+          ? (<label htmlFor={this.props.id}>
+              {this.props.label || 'Label'}
+              {!!this.props.required ? (<span aria-hidden={true}>*</span>) : ''}
+            </label>)
+          : ''}
+
+        {this.props.error
+          ? (<span className="error" role="alert">{this.props.error}</span>)
+          : ''}
       </div>
     )
   }
@@ -27,6 +34,7 @@ class Input extends Component {
 
 Input.propTypes = {
   label: PropTypes.string,
+  placeholder: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string,
   type: PropTypes.string,

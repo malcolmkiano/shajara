@@ -31,6 +31,9 @@ class LandingPage extends React.Component {
   componentDidMount() {
     document.title = 'Shajara - Journal App'
 
+    // onboarding is meant only for mobile devices
+    // if the window resizes after app is started
+    // restart the onboarding process
     window.onresize = () => {
       if (this.state.step > 0) {
         this.setState({ step: 0 })
