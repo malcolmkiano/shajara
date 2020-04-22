@@ -23,16 +23,16 @@ class Settings extends Component {
 
         <hr></hr>
 
-        <h6 className="centered">Credits</h6>
+        <h5 className="centered">Credits</h5>
         <ul className="credits">
           <li>
-            Mood icons made by <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/authors/alfredo-hernandez" title="Alfredo Hernandez">Alfredo Hernandez</a> from <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+            Mood icons by <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/authors/alfredo-hernandez" title="Alfredo Hernandez on Flaticon">Alfredo Hernandez</a>
           </li>
           <li>
-            Tab icons made by <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols">Prosymbols</a> from <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+            Tab icons by <a target="_blank" rel="noreferrer noopener" href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols on Flaticon">Prosymbols</a>
           </li>
           <li>
-            Illustrations made by <a target="_blank" rel="noreferrer noopener" href="https://jamesdaly.me" title="James Daly">James Daly</a> from <a target="_blank" rel="noreferrer noopener" href="https://drawkit.io" title="DrawKit">DrawKit</a>
+            Illustrations by <a target="_blank" rel="noreferrer noopener" href="https://jamesdaly.me" title="James Daly">James Daly</a>
           </li>
         </ul>
       </article>

@@ -7,7 +7,7 @@ import { Entry } from '../../components'
 /** returns a single entry for the date today
  * @param {[]} entries array of entries to search through
 */
-function getToday(entries=[]) {
+function getToday(entries = []) {
   return entries && entries.filter(e => m().isSame(e.date_created, 'day'))[0]
 }
 
@@ -17,7 +17,7 @@ function getToday(entries=[]) {
  * @param {[]} entries array of entries to filter
  * @param {Date} [date] the date to get the month data from
  */
-function getMonth(entries=[], date = m()) {
+function getMonth(entries = [], date = m()) {
   return sort(entries).filter(e => m(e.date_created).isSame(date, 'month'))
 }
 
@@ -26,7 +26,7 @@ function getMonth(entries=[], date = m()) {
  * returns a list of entries for the week
  * @param {[]} entries array of entries to search through
  */
-function getWeek(entries=[]) {
+function getWeek(entries = []) {
   return getMonth(entries).filter(e => (
     !m(e.date_created).isBefore(m().subtract(7, 'days'))
   ))
@@ -34,15 +34,26 @@ function getWeek(entries=[]) {
 
 
 /**
- * sorts a list of entries from most recent to oldest
- * @param {[]} entries array of entries to sort
+ * searches through an array of entries using a keyword
+ * @param {string} keyword keyword to search for
+ * @param {[]} entries array of entries to search through
  */
-function sort(entries=[]) {
-  return [...entries].sort((a, b) => 
-    !!(m(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
-      ? 1 // put second date first
-      : -1 // put first date first
-    )
+function search(keyword, entries = []) {
+  let output = []
+  if (keyword) {
+    const results = sort(entries).filter(e =>
+      e.content.toLowerCase().includes(keyword.toLowerCase()))
+    const months = group(results)
+    output = months
+  }
+
+  return output
+}
+
+
+function listMonths(entries = []) {
+  const months = group(entries).map(e => e[0]) // grabs month name from each group
+  return months
 }
 
 
@@ -63,7 +74,24 @@ function makeComponent(entry, onClick, isToday = false) {
 }
 
 
-function group(entries=[]) {
+/**
+ * sorts a list of entries from most recent to oldest
+ * @param {[]} entries array of entries to sort
+ */
+function sort(entries = []) {
+  return [...entries].sort((a, b) =>
+    !!(m(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
+      ? 1 // put second date first
+      : -1 // put first date first
+  )
+}
+
+
+/**
+ * groups a list of entries by month
+ * @param {[]} entries list of entries to group
+ */
+function group(entries = []) {
   const months = {}
   entries.forEach(entry => {
     const month = m(entry.date_created).format('MMM YYYY')
@@ -74,28 +102,11 @@ function group(entries=[]) {
 }
 
 
-/**
- * searches through an array of entries using a keyword
- * @param {string} keyword keyword to search for
- * @param {[]} entries array of entries to search through
- */
-function search(keyword, entries=[]) {
-  let output = []
-  if (keyword) {
-    const results = sort(entries).filter(e =>
-      e.content.toLowerCase().includes(keyword.toLowerCase()))
-    const months = group(results)
-    output = months
-  }
-
-  return output
-}
-
-
 export default {
   getToday,
   getWeek,
   getMonth,
   search,
+  listMonths,
   makeComponent
 }
