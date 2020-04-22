@@ -13,11 +13,14 @@
     article, form
       transition: all 1s ease
       opacity: 0
-
-  article, form
+  
+  .dashboard-content
     flex: 1
     overflow-y: auto
     padding-top: var(--sizeDashPadding)
+
+  article, form
+    min-height: 100%
     max-width: 800px
 
     h2
@@ -25,17 +28,6 @@
       margin-bottom: 1.6rem
       color: var(--colorAccentDark)
 
-  @media screen and (min-width: 480px)
+  @media screen and (min-width: 640px)
     flex-direction: row-reverse
     width: 100%
-
-    ::-webkit-scrollbar
-      width: .5em
-      display: none // testing hiding the scrollbar for now
-    
-    ::-webkit-scrollbar-track
-      background: var(--colorPale)
-
-    ::-webkit-scrollbar-thumb 
-      background-color: var(--colorDim)
-      border-radius: .5em

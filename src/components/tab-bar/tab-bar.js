@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom'
 import './tab-bar.sass'
 
 import { HomeIcon, EntriesIcon, MoodsIcon, SearchIcon, SettingsIcon } from '../../images'
-const withBase = (path = '') => '/dashboard/' + path
 const tabs = [
-  { url: withBase(), title: 'Home', icon: HomeIcon },
-  { url: withBase('entries'), title: 'Entries', icon: EntriesIcon },
-  { url: withBase('moods'),  title: 'Moods', icon: MoodsIcon },
-  { url: withBase('search'), title: 'Search', icon: SearchIcon },
-  { url: withBase('settings'), title: 'Settings', icon: SettingsIcon }
+  { url: '/dashboard', title: 'Home', icon: HomeIcon },
+  { url: '/dashboard/entries', title: 'Entries', icon: EntriesIcon },
+  { url: '/dashboard/moods',  title: 'Moods', icon: MoodsIcon },
+  { url: '/dashboard/search', title: 'Search', icon: SearchIcon },
+  { url: '/dashboard/settings', title: 'Settings', icon: SettingsIcon }
 ]
 
 class TabBar extends Component {
