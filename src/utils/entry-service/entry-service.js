@@ -1,5 +1,5 @@
 import React from 'react'
-import m from 'moment'
+import moment from 'moment'
 
 import { Entry } from '../../components'
 
@@ -8,17 +8,7 @@ import { Entry } from '../../components'
  * @param {[]} entries array of entries to search through
 */
 function getToday(entries = []) {
-  return entries && entries.filter(e => m().isSame(e.date_created, 'day'))[0]
-}
-
-
-/**
- * returns entries for a given month
- * @param {[]} entries array of entries to filter
- * @param {Date} [date] the date to get the month data from
- */
-function getMonth(entries = [], date = m()) {
-  return sort(entries).filter(e => m(e.date_created).isSame(date, 'month'))
+  return entries && entries.filter(e => moment().isSame(e.date_created, 'day'))[0]
 }
 
 
@@ -28,8 +18,29 @@ function getMonth(entries = [], date = m()) {
  */
 function getWeek(entries = []) {
   return getMonth(entries).filter(e => (
-    !m(e.date_created).isBefore(m().subtract(7, 'days'))
+    // !moment(e.date_created).isBefore(moment().subtract(7, 'days')) // absolute 7 days
+    moment(e.date_created).isSame(moment(), 'week') // calendar week
   ))
+}
+
+
+/**
+ * returns entries for a given month
+ * @param {[]} entries array of entries to filter
+ * @param {Date} [date] the date to get the month data from
+ */
+function getMonth(entries = [], date = moment()) {
+  return sort(entries).filter(e => moment(e.date_created).isSame(date, 'month'))
+}
+
+
+/**
+ * returns entries for a given year
+ * @param {[]} entries array of entries to filter
+ * @param {Date} [date] the date to get the year data from
+ */
+function getYear(entries = [], date = moment()) {
+  return sort(entries).filter(e => moment(e.date_created).isSame(date, 'year'))
 }
 
 
@@ -51,6 +62,10 @@ function search(keyword, entries = []) {
 }
 
 
+/**
+ * returns a list of months from entries
+ * @param {[]} entries array of entries to grab months from
+ */
 function listMonths(entries = []) {
   const months = group(entries).map(e => e[0]) // grabs month name from each group
   return months
@@ -80,7 +95,7 @@ function makeComponent(entry, onClick, isToday = false) {
  */
 function sort(entries = []) {
   return [...entries].sort((a, b) =>
-    !!(m(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
+    !!(moment(a.date_created).isBefore(b.date_created, 'day')) // if second date is before current date
       ? 1 // put second date first
       : -1 // put first date first
   )
@@ -94,7 +109,7 @@ function sort(entries = []) {
 function group(entries = []) {
   const months = {}
   entries.forEach(entry => {
-    const month = m(entry.date_created).format('MMM YYYY')
+    const month = moment(entry.date_created).format('MMM YYYY')
     if (!months[month]) months[month] = []
     months[month].push(entry)
   })
@@ -103,10 +118,7 @@ function group(entries = []) {
 
 
 export default {
-  getToday,
-  getWeek,
-  getMonth,
-  search,
-  listMonths,
+  getToday, getWeek, getMonth, getYear,
+  search, listMonths, sort,
   makeComponent
 }

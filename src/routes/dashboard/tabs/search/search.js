@@ -10,29 +10,8 @@ import AppContext from '../../dashboard-context'
 class Search extends Component {
   static contextType = AppContext
 
-  state = {
-    results: []
-  }
-
-  performSearch = () => {
-    const query = this.props.location && queryString.parse(this.props.location.search).q
-    const { entries } = this.context
-    this.setState({
-      query: query,
-      results: query ? EntryService.search(query, entries) : []
-    })
-  }
-
   componentDidMount() {
     document.title = 'Search - Shajara - Journal App'
-    this.performSearch()
-  }
-
-  componentDidUpdate(props) {
-    if ((props.entries !== this.props.entries) ||
-      (props.location && props.location.search !== this.props.location.search)) {
-      this.performSearch()
-    }
   }
 
   handleUpdate = e => {
@@ -45,7 +24,9 @@ class Search extends Component {
   }
 
   render() {
-    const { query, results } = this.state
+    const query = this.props.location && queryString.parse(this.props.location.search).q
+    const { entries } = this.context
+    const results = query ? EntryService.search(query, entries) : []
     const months = results.map(([month, entries]) => {
       const list = entries.map(entry => EntryService.makeComponent(entry))
       return (

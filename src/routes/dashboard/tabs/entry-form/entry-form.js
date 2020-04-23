@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Prompt } from 'react-router-dom'
-import m from 'moment'
+import moment from 'moment'
 import './entry-form.sass'
 
 import { Button, MoodSelector } from '../../../../components'
@@ -30,11 +30,11 @@ class EntryForm extends Component {
     const { entries } = this.props
 
     const d = this.props.match.params.date
-    const isToday = m().isSame(d, 'day')
-    let title = isToday ? 'Today' : m(d).format('dddd')
+    const isToday = moment().isSame(d, 'day')
+    let title = isToday ? 'Today' : moment(d).format('dddd')
     document.title = `${title} - Shajara - Journal App`
 
-    let entry = entries.find(e => m(e.date_created).isSame(d, 'day'))
+    let entry = entries.find(e => moment(e.date_created).isSame(d, 'day'))
     if (!entry) entry = {
       date_created: new Date().toISOString(),
       content: '',
@@ -111,9 +111,9 @@ class EntryForm extends Component {
 
     // grab the date from the params
     const d = this.props.match.params.date
-    const isToday = m().isSame(d, 'day')
-    let title = isToday ? 'Today' : m(d).format('dddd')
-    let subtitle = m(d).format('MMM D, YYYY')
+    const isToday = moment().isSame(d, 'day')
+    let title = isToday ? 'Today' : moment(d).format('dddd')
+    let subtitle = moment(d).format('MMM D, YYYY')
 
     // grab the entry out of state
     const { entry, saved } = this.state
