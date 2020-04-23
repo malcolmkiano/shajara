@@ -5,13 +5,24 @@
   margin: 0
   padding: 0
 
-.entry-list-title
+.entry-list-header
+  display: flex
+  align-items: center
+  justify-content: space-between
   background: var(--colorBackground)
   position: sticky
   top: calc(-1 * var(--sizeDashPadding))
   z-index: 5
   padding: 2em 0 1em
   margin-bottom: -1em
+
+  &.collapsed
+    height: 0
+    padding: 0
+    overflow: hidden
+
+  .entry-list-link
+    color: var(--colorTextDim)
 
 .entry-list-empty
   width: 100%

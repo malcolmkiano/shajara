@@ -26,7 +26,14 @@ class Dashboard extends Component {
     API.getEntries()
       .then(data => {
         this.setState({
-          entries: data,
+          entries: data.map(entry => {
+            // allow for display of these characters without
+            // performing any unsafe actions (these would've been placed by XSS)
+            entry.content = entry.content
+              .replace(/(&lt;)/g, '<')
+              .replace(/(&gt;)/g, '>')
+            return entry
+          }),
           loading: false
         })
       })
@@ -120,11 +127,10 @@ class Dashboard extends Component {
             <Switch>
               <Route exact path="/dashboard" component={Home} />
               <Route path="/dashboard/entries" component={Entries} />
-              <Route path="/dashboard/moods" component={Moods} />
               <Route path="/dashboard/settings" component={Settings} />
-              <Route path="/dashboard/search/:query?" render={props => (
-                <Search {...props} entries={entries} /> 
-              )} />
+              <Route path="/dashboard/moods" component={Moods} />
+              <Route path="/dashboard/search/:query?" component={Search} />
+              
               <Route path="/dashboard/entry/:date" render={props => (
                 <EntryForm {...props} entries={entries} />
               )} />
