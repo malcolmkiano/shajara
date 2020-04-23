@@ -2,9 +2,6 @@ import React from 'react'
 import { Pie, Line } from 'react-chartjs-2'
 import moment from 'moment'
 
-import ColorService from '../color-service'
-const appAccent = ColorService.getAccent()
-
 const MOODLIST = [
   { name: 'Terrible', color: '#D36135'},
   { name: 'Meh', color: '#F78154'},
@@ -28,7 +25,7 @@ function makeChart(entries, theme, type = 'line') {
         x: moment(e.date_created).toDate(),
         y: e.mood}) ),
       backgroundColor: '#00000000',
-      borderColor: appAccent
+      borderColor: theme && theme.accent
     }]
   }
 

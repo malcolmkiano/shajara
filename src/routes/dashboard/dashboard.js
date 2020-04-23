@@ -162,7 +162,6 @@ class Dashboard extends Component {
               <Route path="/dashboard/settings" component={Settings} />
               <Route path="/dashboard/moods" component={Moods} />
               <Route path="/dashboard/search/:query?" component={Search} />
-
               <Route path="/dashboard/entry/:date" render={props => (
                 <EntryForm {...props} entries={entries} />
               )} />
