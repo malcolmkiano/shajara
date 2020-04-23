@@ -1,3 +1,56 @@
 // ==========================================
 // moods tab styles
 .moods
+  display: flex
+  flex-direction: column
+
+  .views
+    display: flex
+    justify-content: space-evenly
+    max-width: 600px
+    margin: 1em auto
+  
+    .view-option
+      flex: 1
+
+    input
+      position: absolute
+      height: 0
+      width: 0
+      overflow: hidden
+      opacity: 0
+    
+    label
+      display: block
+      font-weight: bold
+      font-size: 0.9em
+      margin: 0 .3em
+      text-transform: uppercase
+      text-align: center
+      padding: .3em .6em
+      background: var(--colorPale)
+      color: var(--colorTextDim)
+      border-radius: .3em
+      transition: all .2s ease
+      cursor: pointer
+
+      @media (hover: hover)
+        &:hover
+          background: var(--colorDim)
+
+    input:checked + label
+      background: var(--colorAccentDark)
+      color: var(--colorBackground)
+  
+  .charts
+    flex: 1
+    margin: 2em 0
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    @media screen and (min-width: 640px)
+      justify-content: center
+
+      .chart
+        margin: 4em 0
