@@ -18,6 +18,7 @@ class Dashboard extends Component {
       loading: true,
 
       theme: ColorService.getTheme(),
+      accent: ColorService.getAccent(),
 
       message: null,
       error: false
@@ -104,6 +105,12 @@ class Dashboard extends Component {
     }, () => ColorService.saveTheme(theme))
   }
 
+  handleAccentChanged = color => {
+    this.setState({
+      accent: color
+    }, () => ColorService.saveAccent(color))
+  }
+
   handleLogOut = () => {
     TokenService.clearAuthToken()
     this.props.history.push('/')
@@ -120,15 +127,17 @@ class Dashboard extends Component {
 
     // set up the context values
     const location = this.props.location.pathname
-    const { user_name, entries, loading, message, error, theme } = this.state
+    const { user_name, entries, loading, message, error, theme, accent } = this.state
     const contextValues = {
       user_name,
       entries,
       error,
       theme,
+      accent,
       onCreateEntry: this.handleEntryCreated,
       onEditEntry: this.handleEntryEdited,
       onThemeChanged: this.handleThemeChanged,
+      onAccentChanged: this.handleAccentChanged,
       onLogOut: this.handleLogOut
     }
 
@@ -136,6 +145,9 @@ class Dashboard extends Component {
     Object.entries(theme).forEach(([varName, value]) => {
       colorVars[`--${varName}`] = value
     })
+
+    // add accent
+    colorVars['--colorAccent'] = accent
 
     return (
       <AppContext.Provider value={contextValues}>

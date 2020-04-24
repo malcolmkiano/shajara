@@ -16,6 +16,22 @@
       margin: 0
       padding: 0
 
+      &.color-picker
+        display: flex
+        align-items: center
+        justify-content: space-between
+      
+      .colors
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        & > span
+          height: 0.8em
+          width: 0.8em
+          margin-left: 0.8em
+          cursor: pointer
+
       input
         height: 0
         width: 0
@@ -23,33 +39,54 @@
         opacity: 0
         position: absolute
 
+      input[type=checkbox]      
+        & + label
+          display: block
+          position: relative
+          cursor: pointer
+          color: var(--colorText)
+
+          &::before, &::after
+            content: ''
+            height: 0.8em
+            width: 0.8em
+            position: absolute
+            top: 50%
+            right: 0
+            transform: translateY(-50%)
+            border-radius: 0.5em
+            transition: all .2s ease      
+          &::before
+            width: 1.6em
+            background: var(--colorDim)
+          &::after
+            right: 0.8em
+            background: var(--colorTextDim)
+        
         &:checked + label
           &::after
             right: 0
             background: var(--colorAccent)
       
-      label
-        display: block
-        position: relative
-        cursor: pointer
-        color: var(--colorText)
+      input[type=radio]      
+        & + label
+          span
+            display: block
+            height: 0.8em
+            width: 0.8em
+            border-radius: 50%
+            opacity: 0.5
+            cursor: pointer
+            transition: all .2s ease
 
-        &::before, &::after
-          content: ''
-          height: 0.8em
-          width: 0.8em
-          position: absolute
-          top: 50%
-          right: 0
-          transform: translateY(-50%)
-          border-radius: 0.5em
-          transition: all .2s ease      
-        &::before
-          width: 1.6em
-          background: var(--colorDim)
-        &::after
-          right: 0.8em
-          background: var(--colorTextDim)
+            @media (hover: hover)
+              &:hover
+                opacity: 1
+        
+        &:checked + label
+          span
+            border: .1em solid var(--colorText)
+            opacity: 1
   
   hr
     width: 40%

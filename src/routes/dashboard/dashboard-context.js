@@ -5,9 +5,11 @@ const AppContext = React.createContext({
   entries: [], // to hold the journal entries from the server
   error: null, // to hold any errors
   theme: {}, // to hold theme colors
+  accent: null, // to hold the accent color
   onCreateEntry: () => null, // to hold the callback function for entry creation
   onEditEntry: () => null, // to hold the callback function for entry editing (current day only)
   onThemeChanged: () => null, // to hold the callback function for when app theme is changed
+  onAccentChanged: () => null, // to hold callback for when accent is changed
   onLogout: () => null, // to hold callback function for logging out
 })
 

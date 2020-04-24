@@ -17,9 +17,30 @@ class Settings extends Component {
     this.context.onThemeChanged(darkMode)
   }
 
+  handleAccentChange = e => {
+    const color = e.target.value
+    this.context.onAccentChanged(color)
+  }
+
   render() {
-    const { theme } = this.context
+    const { theme, accent } = this.context
     const isDarkMode = (theme && theme.colorBackground === ColorService.defaults.darkMode.colorBackground)
+
+    const colors = ['#FEB931', '#EE6352', '#59CD90']
+    const colorDots = colors.map((color, index) => (
+      <span key={`color-${index}`}>
+        <input
+          type="radio"
+          name="accent"
+          value={color}
+          onChange={this.handleAccentChange}
+          checked={color === accent}
+          id={`color-${index}`} />
+        <label htmlFor={`color-${index}`}>
+          <span style={{background: color}}/>
+        </label>
+      </span>
+    ))
 
     return (
       <article className="wrapper settings">
@@ -29,9 +50,16 @@ class Settings extends Component {
             <input
               type="checkbox"
               id="darkmode"
+              name="darkmode"
               checked={isDarkMode}
               onChange={this.handleThemeChange} />
             <label htmlFor="darkmode">Dark mode</label>
+          </li>
+          <li className="color-picker">
+            <p>Accent</p>
+            <div className="colors">
+              {colorDots}
+            </div>
           </li>
         </ul>
 
