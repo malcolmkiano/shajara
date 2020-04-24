@@ -21,7 +21,7 @@ class Moods extends Component {
   }
 
   render() {
-    const { entries } = this.context
+    const { entries, theme } = this.context
     const { view } = this.state
 
     const options = ['week', 'month', 'year', 'all']
@@ -48,8 +48,8 @@ class Moods extends Component {
       list = EntryService.getYear(entries)
     }
 
-    const lineChart = ChartService.makeChart(list)
-    const pieChart = ChartService.makeChart(list, 'pie')
+    const lineChart = ChartService.makeChart(list, theme)
+    const pieChart = ChartService.makeChart(list, theme, 'pie')
 
     return (
       <article className="wrapper moods">

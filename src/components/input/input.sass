@@ -6,7 +6,7 @@
 
   .error
     display: inline-block
-    color: var(--colorTextError)
+    color: var(--colorError)
     font-size: 0.9em
     margin-top: 0.5em
     line-height: 1
@@ -17,6 +17,8 @@
     font-size: inherit
     border: none
     outline: none
+    background: none
+    color: var(--colorText)
     border-radius: 0
     padding: .6em 0
     border-bottom: 1px solid var(--colorTextSecondary)
@@ -35,7 +37,7 @@
         user-select: none
         display: inline-block
         margin-left: 0.2em
-        color: var(--colorTextError)
+        color: var(--colorError)
     
     &:focus
       border-color: var(--colorText)

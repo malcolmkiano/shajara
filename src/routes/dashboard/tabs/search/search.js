@@ -37,7 +37,7 @@ class Search extends Component {
     })
 
     return (
-      <form className="wrapper search">
+      <form className="wrapper search-tab">
         <h2>Search</h2>
         <div className="search-field">
           <Input
