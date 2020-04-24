@@ -23,7 +23,7 @@ class LandingPage extends React.Component {
       {
         image: CustomizeImage,
         title: 'Make it yours',
-        content: 'Customize each entry with a unique color to make Shajara truly yours.'
+        content: 'Set a theme color for the app to make Shajara truly yours.'
       }
     ]
   }
