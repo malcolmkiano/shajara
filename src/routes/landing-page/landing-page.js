@@ -141,16 +141,16 @@ class LandingPage extends React.Component {
                   Mood tracking statistics.
                 </li>
                 <li>
-                  <span role="img" aria-label="Color">🎨</span>
-                  Entry color customization.
-                </li>
-                <li>
                   <span role="img" aria-label="Streaks">🔥</span>
                   Streaks to keep you in the habit of writing.
                 </li>
                 <li>
                   <span role="img" aria-label="Dark mode">🌙</span>
-                  Dark mode (manual or scheduled).
+                  Dark mode, because you deserve it.
+                </li>
+                <li>
+                  <span role="img" aria-label="Color">🎨</span>
+                  App color customization.
                 </li>
               </ul>
             </div>
