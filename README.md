@@ -6,7 +6,8 @@
 ![mobile](https://malcolmkiano.com/img/shajara.jpg)
 
 ## Summary
-Shajara (_sha-JAR-ah_) lets you take down your daily thoughts and mood in a beautiful way. Get in touch with your personal development, and read and relive your great memories!
+Shajara (_sha-JAR-ah_) lets you take down your daily thoughts and mood in a beautiful way. Get in touch with your personal development, and read and relive your great memories!<br>
+**Demo credentials:** `demo@shajara.now.sh` `Demo1234`
 
 ## Technologies Used:
 - Shajara is built on React using HTML, Sass and JavaScript.
