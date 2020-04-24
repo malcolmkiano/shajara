@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './settings.sass'
 
+import { ColorService } from '../../../../utils'
 import { Button } from '../../../../components'
 import AppContext from '../../dashboard-context'
 
@@ -11,12 +12,29 @@ class Settings extends Component {
     document.title = 'Settings - Shajara - Journal App'
   }
 
+  handleThemeChange = e => {
+    const darkMode = e.target.checked
+    this.context.onThemeChanged(darkMode)
+  }
+
   render() {
+    const { theme } = this.context
+    const isDarkMode = (theme && theme.colorBackground === ColorService.defaults.darkMode.colorBackground)
+
     return (
       <article className="wrapper settings">
         <h2>Settings</h2>
-        <p className="centered">Customization options coming soon!</p>
-        
+        <ul className="setting-list">
+          <li>
+            <input
+              type="checkbox"
+              id="darkmode"
+              checked={isDarkMode}
+              onChange={this.handleThemeChange} />
+            <label htmlFor="darkmode">Dark mode</label>
+          </li>
+        </ul>
+
         <Button type="fill" variant="alt" onClick={this.context.onLogOut}>
           Log Out
         </Button>

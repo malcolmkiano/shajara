@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import './dashboard.sass'
 
-import { API, TokenService } from '../../utils'
+import { API, TokenService, ColorService } from '../../utils'
 import { Loader, TabBar, Popup } from '../../components'
 import { Home, Entries, Moods, Search, Settings, EntryForm } from './tabs'
 
@@ -16,6 +16,8 @@ class Dashboard extends Component {
       user_name: TokenService.getUserName(),
       entries: [],
       loading: true,
+
+      theme: ColorService.getTheme(),
 
       message: null,
       error: false
@@ -93,6 +95,15 @@ class Dashboard extends Component {
       })
   }
 
+  handleThemeChanged = isDarkMode => {
+    let theme = ColorService.defaults.lightMode
+    if (isDarkMode) theme = ColorService.defaults.darkMode
+
+    this.setState({
+      theme: theme
+    }, () => ColorService.saveTheme(theme))
+  }
+
   handleLogOut = () => {
     TokenService.clearAuthToken()
     this.props.history.push('/')
@@ -106,22 +117,31 @@ class Dashboard extends Component {
   }
 
   render() {
-    
+
     // set up the context values
     const location = this.props.location.pathname
-    const { user_name, entries, loading, message, error } = this.state
+    const { user_name, entries, loading, message, error, theme } = this.state
     const contextValues = {
       user_name,
       entries,
       error,
+      theme,
       onCreateEntry: this.handleEntryCreated,
       onEditEntry: this.handleEntryEdited,
+      onThemeChanged: this.handleThemeChanged,
       onLogOut: this.handleLogOut
     }
 
+    const colorVars = {}
+    Object.entries(theme).forEach(([varName, value]) => {
+      colorVars[`--${varName}`] = value
+    })
+
     return (
       <AppContext.Provider value={contextValues}>
-        <section className={`dashboard ${loading ? 'loading' : ''}`}>
+        <section
+          className={`dashboard ${loading ? 'loading' : ''}`}
+          style={colorVars} >
 
           <div className="dashboard-content">
             <Switch>
@@ -130,7 +150,7 @@ class Dashboard extends Component {
               <Route path="/dashboard/settings" component={Settings} />
               <Route path="/dashboard/moods" component={Moods} />
               <Route path="/dashboard/search/:query?" component={Search} />
-              
+
               <Route path="/dashboard/entry/:date" render={props => (
                 <EntryForm {...props} entries={entries} />
               )} />

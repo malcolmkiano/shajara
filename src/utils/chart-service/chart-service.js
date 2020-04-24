@@ -2,39 +2,25 @@ import React from 'react'
 import { Pie, Line } from 'react-chartjs-2'
 import moment from 'moment'
 
-const APP_COLORS = {
-  accent: '#FEB931'
-}
+import ColorService from '../color-service'
+const appAccent = ColorService.getAccent()
 
 const MOODLIST = [
-  { name: 'Terrible', color: '#a10702'},
-  { name: 'Meh', color: '#f44708'},
-  { name: 'Neutral', color: APP_COLORS.accent},
-  { name: 'Good', color: '#688e26'},
-  { name: 'Great', color: '#66cc00'}
+  { name: 'Terrible', color: '#D36135'},
+  { name: 'Meh', color: '#F78154'},
+  { name: 'Neutral', color: '#E6C79C'},
+  { name: 'Good', color: '#A0CA92'},
+  { name: 'Great', color: '#D8F793'}
 ]
-const defaultOptions = {
-  layout: {
-    padding: 10
-  },
-  scales: {
-    xAxes: [{
-      type: 'time',
-      distribution: 'series',
-      ticks: { reverse: true }
-    }],
-    yAxes: [{
-      ticks: { display: false }
-    }]
-  }
-}
+
 
 /**
  * returns a chart component
  * @param {[]} entries array of entries to base the data on
+ * @param {{}} theme color theme being used in the app
  * @param {string} [type] type of chart to make
  */
-function makeChart(entries, type = 'line') {
+function makeChart(entries, theme, type = 'line') {
   let Chart = Line
   let chartData = {
     datasets: [{
@@ -42,17 +28,37 @@ function makeChart(entries, type = 'line') {
         x: moment(e.date_created).toDate(),
         y: e.mood}) ),
       backgroundColor: '#00000000',
-      borderColor: APP_COLORS.accent
+      borderColor: appAccent
     }]
   }
 
   let chartOptions = {
-    ...defaultOptions,
+    layout: {
+      padding: 10
+    },
     legend: { display: false },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        distribution: 'series',
+        ticks: { reverse: true }
+      }],
+      yAxes: [{
+        ticks: { display: false },
+        gridLines: {
+          color: theme && theme.colorPale
+        }
+      }]
+    },
     tooltips: {
       callbacks: {
-        label: function (tooltipItem, data) {
-          return MOODLIST[tooltipItem.yLabel - 1] + ' mood'
+        label: function (tooltipItem) {
+          return MOODLIST[tooltipItem.yLabel - 1].name + ' mood'
+        },
+        labelColor: function(tooltipItem) {
+          return {
+            backgroundColor: MOODLIST[tooltipItem.yLabel - 1].color
+          }
         }
       }
     }
@@ -75,18 +81,23 @@ function makeChart(entries, type = 'line') {
       datasets: [{
         data: Object.values(moods),
         backgroundColor: colors,
+        borderWidth: 0
       }]
     }
 
     chartOptions = {
+      ...chartOptions,
+      scales: {},
+      tooltips: {},
       legend: {
         display: true,
         position: 'right',
-        labels: { boxWidth: 15 }
+        labels: {
+          boxWidth: 15,
+          fontColor: theme && theme.colorText
+        }
       }
     }
-
-    console.log(chartData)
   }
 
   return (
