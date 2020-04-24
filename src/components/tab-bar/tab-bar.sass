@@ -4,7 +4,7 @@
   display: flex
   align-items: center
   background: var(--colorBackground)
-  box-shadow: 0 0 .5em var(--colorDim)
+  box-shadow: 0 0 .5em var(--colorPale)
   position: relative
   z-index: 4
   margin: 0
@@ -37,7 +37,7 @@
       opacity: 0.5
     
     &.active
-      color: var(--colorAccentDark)
+      color: var(--colorAccent)
 
       svg
         opacity: 1
@@ -65,8 +65,8 @@
         background: var(--colorDim)
 
       &.active
-        background: var(--colorAccentDark)
-        color: var(--colorBackground)
+        background: var(--colorAccent)
+        color: var(--colorTextAlt)
 
       svg
         margin-right: 1.5em

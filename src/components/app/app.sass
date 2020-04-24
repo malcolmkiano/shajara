@@ -7,7 +7,7 @@
 // global
 *
   box-sizing: border-box
-  outline-color: var(--colorAccentDark)
+  outline-color: var(--colorAccent)
 
 html, body
   height: 100%
@@ -21,19 +21,25 @@ html
   font-size: 62.5%
   font-family: 'interstate', sans-serif
 
-  // variables for everyone
-  --colorAccent: #FFD98E
-  --colorAccentDark: #FEB931
+  // these don't change
+  --colorError: #EC7272
   --colorHighlight1: #5584B4
   --colorHighlight2: #A76D99
+
+  // these do
   --colorBackground: #FFFFFF
+  --colorBackgroundAlt: #000000
+  --colorText: #000000
+  --colorTextAlt: #FFFFFF
   --colorPale: #F5F5F5
   --colorDim: #E9E9E9
-  --colorText: #000000
   --colorTextDim: #8D8D8D
   --colorTextSecondary: #BCBCBC
-  --colorTextError: #EC7272
-  
+
+  // this is changed separately
+  --colorAccent: #FEB931
+
+  // sizes
   --sizePadding: 3rem
   --sizeMaxWidth: 1000px
 
@@ -112,10 +118,11 @@ h6, .h6
 
   ::-webkit-scrollbar-thumb 
     background: var(--colorAccent)
+    opacity: 0.7
     border-radius: .5em
 
     &:hover, &:active
-      background: var(--colorAccentDark)
+      opacity: 1
 
   ::selection
     background: var(--colorAccent)
