@@ -47,6 +47,9 @@ class Home extends Component {
       )
     })
 
+    // streak
+    const streak = EntryService.getStreak(entries)
+
     // today's entry component
     const entry = EntryService.makeComponent(entryToday, onEntryOpen, true)
 
@@ -59,6 +62,7 @@ class Home extends Component {
             : 'Pick up from where you left off:'}
         </p>
 
+        {streak}
         {entry}
 
         <EntryList

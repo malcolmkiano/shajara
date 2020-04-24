@@ -13,12 +13,41 @@ function getToday(entries = []) {
 
 
 /**
+ * returns the number of consecutive days the user has made entries 
+ * @param {[]} entries array of entries to search through
+ */
+function getStreak(entries = []) {
+  let streak = 0
+  let output = ''
+
+  const includeToday = getToday(entries) ? 0 : 1
+
+  for (const entry of sort(entries)) {
+    const dayBefore = moment().subtract(streak + includeToday, 'days')
+    if (moment(entry.date_created).isSame(dayBefore, 'day')) {
+      streak++
+    } else {
+      break
+    }
+  }
+
+  if (streak > 0) output = (
+    <p className="streak">
+      <span role="img" aria-label="streak">🔥</span>
+      You've got a {streak} day streak!
+    </p>
+  )
+  
+  return output
+}
+
+
+/**
  * returns a list of entries for the week
  * @param {[]} entries array of entries to search through
  */
 function getWeek(entries = []) {
   return getMonth(entries).filter(e => (
-    // !moment(e.date_created).isBefore(moment().subtract(7, 'days')) // absolute 7 days
     moment(e.date_created).isSame(moment(), 'week') // calendar week
   ))
 }
@@ -118,7 +147,7 @@ function group(entries = []) {
 
 
 export default {
-  getToday, getWeek, getMonth, getYear,
+  getStreak, getToday, getWeek, getMonth, getYear,
   search, listMonths, sort,
   makeComponent
 }

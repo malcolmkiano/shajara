@@ -149,6 +149,10 @@ class Dashboard extends Component {
     // add accent
     colorVars['--colorAccent'] = accent
 
+    // force log out?
+    const forceLogOut = message === 'Could not log you in'
+      || message === 'Failed to fetch'
+
     return (
       <AppContext.Provider value={contextValues}>
         <section
@@ -172,7 +176,7 @@ class Dashboard extends Component {
             message={message}
             isError={error}
             autoDismiss={!error}
-            onDismiss={message === 'Could not log you in' ? this.handleLogOut : this.clearMessage} />
+            onDismiss={forceLogOut ? this.handleLogOut : this.clearMessage} />
 
           <Loader status={loading} />
           <TabBar location={location} />
