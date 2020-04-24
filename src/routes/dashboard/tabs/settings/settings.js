@@ -62,7 +62,6 @@ class Settings extends Component {
             </div>
           </li>
         </ul>
-
         <Button type="fill" variant="alt" onClick={this.context.onLogOut}>
           Log Out
         </Button>

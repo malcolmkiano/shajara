@@ -13,7 +13,6 @@ const MOODLIST = [
   { name: 'Great', color: '#D8F793'}
 ]
 
-
 /**
  * returns a chart component
  * @param {[]} entries array of entries to base the data on
@@ -28,7 +27,7 @@ function makeChart(entries, theme, type = 'line') {
         x: moment(e.date_created).toDate(),
         y: e.mood}) ),
       backgroundColor: '#00000000',
-      borderColor: appAccent
+      borderColor: APP_COLORS.accent
     }]
   }
 
