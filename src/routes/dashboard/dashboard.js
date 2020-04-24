@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import MetaTags from 'react-meta-tags'
 import { Switch, Route } from 'react-router-dom'
 import './dashboard.sass'
 
@@ -155,6 +156,12 @@ class Dashboard extends Component {
 
     return (
       <AppContext.Provider value={contextValues}>
+
+        <MetaTags>
+          <meta name="theme-color" content={accent} />
+          <meta name="apple-mobile-web-app-status-bar" content={theme.colorBackground} />
+        </MetaTags>
+
         <section
           className={`dashboard ${loading ? 'loading' : ''}`}
           style={colorVars} >
