@@ -44,14 +44,31 @@
         opacity: 1
   
   @media screen and (min-width: 640px)
+    position: absolute
+    z-index: 10
+    height: 100%
     background: var(--colorPale)
     flex-direction: column
-    width: 20%
-    min-width: 13em
+    width: 4em
     max-width: 25em
     overflow-y: auto
     box-shadow: none
     padding-top: var(--sizeDashPadding)
+    transition: all .2s ease
+
+    span
+      opacity: 0
+      width: 0
+      overflow: hidden
+
+    &:hover
+      width: 15em
+      box-shadow: -2em 0 8em var(--colorTextSecondary)
+
+      span
+        opacity: 1
+        width: initial
+        margin-left: 1.5em
 
     li
       flex: initial
@@ -68,6 +85,3 @@
       &.active
         background: var(--colorAccent)
         color: var(--colorTextAlt)
-
-      svg
-        margin-right: 1.5em
