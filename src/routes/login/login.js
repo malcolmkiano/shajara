@@ -59,6 +59,7 @@ class Login extends Component {
 
       })
       .catch(err => {
+        if (typeof err.message !== 'string') err.message = 'Something went wrong. Please try again later.'
         this.setState({
           error: err.message,
           loading: false

@@ -18,7 +18,7 @@ class Loader extends Component {
     const { hidden } = this.state
     return (
       <div
-        onTransitionEnd={this.handleHidden}
+        onTransitionEnd={!this.props.status && this.handleHidden}
         className={`loader ${!status ? 'complete' : ''} ${hidden ? 'out' : ''}`}>
         <span></span>
       </div>

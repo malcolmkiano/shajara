@@ -56,7 +56,7 @@ class Settings extends Component {
             <label htmlFor="darkmode">Dark mode</label>
           </li>
           <li className="color-picker">
-            <p>Accent</p>
+            <p>Theme</p>
             <div className="colors">
               {colorDots}
             </div>
