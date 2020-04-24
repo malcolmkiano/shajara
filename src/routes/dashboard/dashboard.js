@@ -150,6 +150,9 @@ class Dashboard extends Component {
     // add accent
     colorVars['--colorAccent'] = accent
 
+    // check if in dark mode
+    const isDarkMode = (theme.colorBackground === ColorService.defaults.darkMode.colorBackground)
+
     // force log out?
     const forceLogOut = message === 'Could not log you in'
       || message === 'Failed to fetch'
@@ -159,7 +162,7 @@ class Dashboard extends Component {
 
         <MetaTags>
           <meta name="theme-color" content={accent} />
-          <meta name="apple-mobile-web-app-status-bar" content={theme.colorBackground} />
+          <meta name="apple-mobile-web-app-status-bar-style" content={isDarkMode ? 'black-translucent' : 'default'} />
         </MetaTags>
 
         <section
