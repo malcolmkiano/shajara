@@ -20,7 +20,7 @@ const defaults = {
     colorTextAlt: '#FFFFFF',
     colorPale: '#F5F5F5',
     colorDim: '#E9E9E9',
-    colorTextDim: '#8D8D8D',
+    colorTextDim: '#4E4E4E',
     colorTextSecondary: '#BCBCBC'
   },
 
