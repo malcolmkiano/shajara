@@ -135,9 +135,10 @@ class EntryForm extends Component {
               type="save"
               htmlType="submit"
               variant={`accent ${!isToday ? 'invisible' : ''}`}
-              title="Save entry"
               disabled={saved}
-              onClick={this.handleSave} />
+              onClick={this.handleSave}>
+                Save
+              </Button>
           </div>
 
           <p className="subtitle">{subtitle}</p>

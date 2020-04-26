@@ -31,7 +31,8 @@ function getStreak(entries = []) {
     }
   }
 
-  if (streak > 0) output = (
+  // only show streak message if they've got more than 1 day
+  if (streak > 1) output = (
     <p className="streak">
       <span role="img" aria-label="streak">🔥</span>
       You've got a {streak} day streak!
