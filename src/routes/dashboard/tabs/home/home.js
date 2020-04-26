@@ -67,7 +67,6 @@ class Home extends Component {
 
         <EntryList
           title="This week"
-          link="/dashboard/entries"
           entries={list}
           EmptyImage={WriteImage}
           showText="You haven't made any entries this week" />

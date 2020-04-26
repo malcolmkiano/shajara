@@ -13,6 +13,10 @@
   list-style: none
   transition: all .2s ease
 
+  span
+    margin-top: .5em
+    font-size: 0.75em
+
   li
     flex: 1
     margin: 0
@@ -23,6 +27,7 @@
     display: flex
     align-items: center
     justify-content: center
+    flex-direction: column
     padding: 1.5em 0
     color: var(--colorTextDim)
     transition: all .2s ease
@@ -57,10 +62,12 @@
     transition: all .2s ease
 
     span
+      margin-top: 0
+      font-size: initial
       opacity: 0
       width: 0
       overflow: hidden
-
+  
     &:hover
       width: 15em
       box-shadow: -2em 0 8em var(--colorTextSecondary)
@@ -74,11 +81,12 @@
       flex: initial
 
     a
+      flex-direction: row
       padding: 1.5em
       width: 100%
       justify-content: flex-start
       font-weight: bold
-
+      
       &:hover
         background: var(--colorDim)
 

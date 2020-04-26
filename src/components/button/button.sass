@@ -46,7 +46,7 @@
       &:hover
         background: var(--colorAccent)
 
-  &.next, &.prev, &.close, &.save, &.search
+  &.next, &.prev, &.close, &.search
     display: flex
     border-radius: 50%
     width: 3em
@@ -54,6 +54,19 @@
     padding: 0
     align-items: center
     justify-content: center
+  
+  &.clear
+    width: initial
+    padding: .4em 0
+    color: inherit
+    background: none !important
+
+    @media screen and (hover: hover)
+      &:hover
+        color: var(--colorTextSecondary)
+      
+        &.accent
+          color: var(--colorAccent)
   
   &.link
     padding: 0

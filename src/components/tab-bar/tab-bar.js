@@ -24,7 +24,7 @@ class TabBar extends Component {
         <li key={tab.url}>
           <Link to={tab.url} className={activeState} onClick={this.props.onClick}>
             <Icon />
-            <span className="media-tablet">{tab.title}</span>
+            <span>{tab.title}</span>
           </Link>
         </li>
       )

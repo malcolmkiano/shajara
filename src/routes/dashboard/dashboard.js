@@ -60,6 +60,7 @@ class Dashboard extends Component {
     API.createEntry(entry)
       .then(newEntry => {
         const { entries } = this.state
+        console.log(newEntry)
         entries.push(newEntry)
 
         this.setState({
@@ -78,14 +79,19 @@ class Dashboard extends Component {
 
   handleEntryEdited = (id, entry) => {
     API.updateEntry(id, entry)
-      .then(() => {
+      .then(updatedEntry => {
         const { entries } = this.state
         const index = entries.findIndex(e => e.id === id)
-        entries[index] = entry
+        entries[index] = updatedEntry
+
+        let message = 'Entry saved successfully'
+        if (entry.content !== updatedEntry.content) {
+          message = 'Unsafe content was filtered out'
+        }
 
         this.setState({
           entries: entries,
-          message: 'Entry saved successfully',
+          message: message,
           error: false
         })
       })
@@ -177,7 +183,10 @@ class Dashboard extends Component {
               <Route path="/dashboard/moods" component={Moods} />
               <Route path="/dashboard/search/:query?" component={Search} />
               <Route path="/dashboard/entry/:date" render={props => (
-                <EntryForm {...props} entries={entries} />
+                <EntryForm
+                  {...props}
+                  entries={entries}
+                  update={message === 'Unsafe content was filtered out'} />
               )} />
             </Switch>
           </div>

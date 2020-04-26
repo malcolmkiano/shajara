@@ -87,7 +87,6 @@ class Login extends Component {
         <AuthForm
           title="Welcome back!"
           description="Please fill in the form to sign in to your Shajara&nbsp;account."
-          disclaimer="demo@shajara.now.sh / Demo1234"
           Image={LoginImage}
           imageBG="alt"
           onClearError={this.handleClearError}

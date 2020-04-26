@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './button.sass'
 
-import { NextArrow, PrevArrow, CloseIcon, SaveIcon, SearchButton } from '../../images'
+import { NextArrow, PrevArrow, CloseIcon, SearchButton } from '../../images'
 
 class Button extends Component {
   render() {
@@ -12,7 +12,6 @@ class Button extends Component {
       next: NextArrow,
       prev: PrevArrow,
       close: CloseIcon,
-      save: SaveIcon,
       search: SearchButton
     }
 
