@@ -55,9 +55,18 @@
     align-items: center
     justify-content: center
   
-  &.save
-    width: 6em
-    margin-left: -3em
+  &.clear
+    width: initial
+    padding: .4em 0
+    color: inherit
+    background: none !important
+
+    @media screen and (hover: hover)
+      &:hover
+        color: var(--colorTextSecondary)
+      
+        &.accent
+          color: var(--colorAccent)
   
   &.link
     padding: 0

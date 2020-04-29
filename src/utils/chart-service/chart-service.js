@@ -36,8 +36,7 @@ function makeChart(entries, theme, type = 'line') {
     scales: {
       xAxes: [{
         type: 'time',
-        distribution: 'series',
-        ticks: { reverse: true }
+        distribution: 'series'
       }],
       yAxes: [{
         ticks: { display: false },

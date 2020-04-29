@@ -63,7 +63,8 @@ class EntryForm extends Component {
   // get entries from parent once they're loaded
   // happens if user navigates directly to this route
   componentDidUpdate(props) {
-    if (props.entries !== this.props.entries) {
+    if (props.entries !== this.props.entries
+      || props.update === true ) {
       this.getEntry()
     }
 
@@ -83,10 +84,12 @@ class EntryForm extends Component {
       this.context.onCreateEntry(entry)
     }
 
-    // sonly mark as saved if there were no errors
+    // only mark as saved if there were no errors
     if (!this.context.error)
       this.setState({
         saved: true
+      }, () => {
+        this.handleClose()
       })
   }
 
@@ -132,10 +135,10 @@ class EntryForm extends Component {
             <h2>{title}</h2>
 
             <Button
-              type="save"
+              type="clear"
               htmlType="submit"
               variant={`accent ${!isToday ? 'invisible' : ''}`}
-              disabled={saved}
+              disabled={saved || !entry.content}
               onClick={this.handleSave}>
                 Save
               </Button>
