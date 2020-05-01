@@ -85,7 +85,7 @@ class Dashboard extends Component {
 
         let message = 'Entry saved successfully'
         if (entry.content !== updatedEntry.content) {
-          message = 'Unsafe content was filtered out'
+          message = 'Entry saved, filtered out unsafe content'
         }
 
         this.setState({
@@ -183,10 +183,7 @@ class Dashboard extends Component {
               <Route path="/dashboard/search/:query?" component={Search} />
 
               <Route path="/dashboard/entry/:date" render={props => (
-                <EntryForm
-                  {...props}
-                  entries={entries}
-                  update={message === 'Unsafe content was filtered out'} />
+                <EntryForm {...props} entries={entries} />
               )} />
             </Switch>
           </div>
