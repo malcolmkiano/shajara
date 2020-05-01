@@ -60,7 +60,6 @@ class Dashboard extends Component {
     API.createEntry(entry)
       .then(newEntry => {
         const { entries } = this.state
-        console.log(newEntry)
         entries.push(newEntry)
 
         this.setState({
@@ -160,8 +159,8 @@ class Dashboard extends Component {
     const isDarkMode = (theme.colorBackground === ColorService.defaults.darkMode.colorBackground)
 
     // force log out?
-    const forceLogOut = message === 'Could not log you in'
-      || message === 'Failed to fetch'
+    const fatalMessages = ['Could not log you in', 'Failed to fetch']
+    const forceLogOut = fatalMessages.includes(message)
 
     return (
       <AppContext.Provider value={contextValues}>
