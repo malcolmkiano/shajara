@@ -48,7 +48,7 @@ function getStreak(entries = []) {
  * @param {[]} entries array of entries to search through
  */
 function getWeek(entries = []) {
-  return getMonth(entries).filter(e => (
+  return sort(entries).filter(e => (
     moment(e.date_created).isSame(moment(), 'week') // calendar week
   ))
 }
@@ -97,7 +97,13 @@ function search(keyword, entries = []) {
  * @param {[]} entries array of entries to grab months from
  */
 function listMonths(entries = []) {
-  const months = group(entries).map(e => e[0]) // grabs month name from each group
+  // grabs month name from each group
+  let months = group(entries).map(e => e[0])
+
+  // adds in the current month even if there aren't any entries
+  const currentMonth = moment().format('MMM YYYY')
+  if (!months.includes(currentMonth)) months = [currentMonth, ...months]
+
   return months
 }
 
@@ -138,7 +144,7 @@ function sort(entries = []) {
  */
 function group(entries = []) {
   const months = {}
-  entries.forEach(entry => {
+  sort(entries).forEach(entry => {
     const month = moment(entry.date_created).format('MMM YYYY')
     if (!months[month]) months[month] = []
     months[month].push(entry)

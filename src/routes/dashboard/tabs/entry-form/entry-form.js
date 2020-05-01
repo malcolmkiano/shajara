@@ -63,8 +63,7 @@ class EntryForm extends Component {
   // get entries from parent once they're loaded
   // happens if user navigates directly to this route
   componentDidUpdate(props) {
-    if (props.entries !== this.props.entries
-      || props.update === true ) {
+    if (props.entries !== this.props.entries) {
       this.getEntry()
     }
 
