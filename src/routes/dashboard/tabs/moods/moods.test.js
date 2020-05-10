@@ -1,13 +1,10 @@
-import React from 'react'
-import Moods from './moods'
+import React from "react";
+import Moods from "./moods";
 
-import { shallow } from 'enzyme'
+import { shallow } from "enzyme";
 
-describe('Moods', () => {
-
-  it('renders without crashing', () => {
-    shallow(<Moods />)
-  })
-
-})
-
+describe("Moods", () => {
+  it("renders without crashing", () => {
+    shallow(<Moods />);
+  });
+});

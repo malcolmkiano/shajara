@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import MetaTags from 'react-meta-tags'
-import { Switch, Route } from 'react-router-dom'
-import './dashboard.sass'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import MetaTags from "react-meta-tags";
+import { Switch, Route } from "react-router-dom";
+import "./dashboard.sass";
 
-import { API, TokenService, ColorService } from '../../utils'
-import { Loader, TabBar, Popup } from '../../components'
-import { Home, Entries, Moods, Search, Settings, EntryForm } from './tabs'
+import { API, TokenService, ColorService } from "../../utils";
+import { Loader, TabBar, Popup } from "../../components";
+import { Home, Entries, Moods, Search, Settings, EntryForm } from "./tabs";
 
-import AppContext from './dashboard-context'
+import AppContext from "./dashboard-context";
 
 class Dashboard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       user_name: TokenService.getUserName(),
       entries: [],
@@ -22,118 +22,131 @@ class Dashboard extends Component {
       accent: ColorService.getAccent(),
 
       message: null,
-      error: false
-    }
+      error: false,
+    };
   }
 
   getEntries = () => {
     API.getEntries()
-      .then(data => {
+      .then((data) => {
         this.setState({
-          entries: data.map(entry => {
+          entries: data.map((entry) => {
             // allow for display of these characters without
             // performing any unsafe actions (these would've been placed by XSS)
             entry.content = entry.content
-              .replace(/(&lt;)/g, '<')
-              .replace(/(&gt;)/g, '>')
-            return entry
+              .replace(/(&lt;)/g, "<")
+              .replace(/(&gt;)/g, ">");
+            return entry;
           }),
-          loading: false
-        })
+          loading: false,
+        });
       })
-      .catch(err => {
-        let message = err.message
-        if (err.code === 401) message = 'Could not log you in'
+      .catch((err) => {
+        let message = err.message;
+        if (err.code === 401) message = "Could not log you in";
 
         this.setState({
           message: message,
-          error: true
-        })
-      })
-  }
+          error: true,
+        });
+      });
+  };
 
   componentDidMount() {
-    this.getEntries()
+    this.getEntries();
   }
 
-  handleEntryCreated = entry => {
+  handleEntryCreated = (entry) => {
     API.createEntry(entry)
-      .then(newEntry => {
-        const { entries } = this.state
-        entries.push(newEntry)
+      .then((newEntry) => {
+        const { entries } = this.state;
+        entries.push(newEntry);
 
         this.setState({
           entries: entries,
-          message: 'Entry saved successfully',
-          error: false
-        })
+          message: "Entry saved successfully",
+          error: false,
+        });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           message: err.message,
-          error: true
-        })
-      })
-  }
+          error: true,
+        });
+      });
+  };
 
   handleEntryEdited = (id, entry) => {
     API.updateEntry(id, entry)
-      .then(updatedEntry => {
-        const { entries } = this.state
-        const index = entries.findIndex(e => e.id === id)
-        entries[index] = updatedEntry
+      .then((updatedEntry) => {
+        const { entries } = this.state;
+        const index = entries.findIndex((e) => e.id === id);
+        entries[index] = updatedEntry;
 
-        let message = 'Entry saved successfully'
+        let message = "Entry saved successfully";
         if (entry.content !== updatedEntry.content) {
-          message = 'Entry saved, filtered out unsafe content'
+          message = "Entry saved, filtered out unsafe content";
         }
 
         this.setState({
           entries: entries,
           message: message,
-          error: false
-        })
+          error: false,
+        });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           message: err.message,
-          error: true
-        })
-      })
-  }
+          error: true,
+        });
+      });
+  };
 
-  handleThemeChanged = isDarkMode => {
-    let theme = ColorService.defaults.lightMode
-    if (isDarkMode) theme = ColorService.defaults.darkMode
+  handleThemeChanged = (isDarkMode) => {
+    let theme = ColorService.defaults.lightMode;
+    if (isDarkMode) theme = ColorService.defaults.darkMode;
 
-    this.setState({
-      theme: theme
-    }, () => ColorService.saveTheme(theme))
-  }
+    this.setState(
+      {
+        theme: theme,
+      },
+      () => ColorService.saveTheme(theme)
+    );
+  };
 
-  handleAccentChanged = color => {
-    this.setState({
-      accent: color
-    }, () => ColorService.saveAccent(color))
-  }
+  handleAccentChanged = (color) => {
+    this.setState(
+      {
+        accent: color,
+      },
+      () => ColorService.saveAccent(color)
+    );
+  };
 
   handleLogOut = () => {
-    TokenService.clearAuthToken()
-    this.props.history.push('/')
-  }
+    TokenService.clearAuthToken();
+    this.props.history.push("/");
+  };
 
   clearMessage = () => {
     this.setState({
       message: null,
-      isError: false
-    })
-  }
+      isError: false,
+    });
+  };
 
   render() {
-
     // set up the context values
-    const location = this.props.location.pathname
-    const { user_name, entries, loading, message, error, theme, accent } = this.state
+    const location = this.props.location.pathname;
+    const {
+      user_name,
+      entries,
+      loading,
+      message,
+      error,
+      theme,
+      accent,
+    } = this.state;
     const contextValues = {
       user_name,
       entries,
@@ -144,36 +157,39 @@ class Dashboard extends Component {
       onEditEntry: this.handleEntryEdited,
       onThemeChanged: this.handleThemeChanged,
       onAccentChanged: this.handleAccentChanged,
-      onLogOut: this.handleLogOut
-    }
+      onLogOut: this.handleLogOut,
+    };
 
-    const colorVars = {}
+    const colorVars = {};
     Object.entries(theme).forEach(([varName, value]) => {
-      colorVars[`--${varName}`] = value
-    })
+      colorVars[`--${varName}`] = value;
+    });
 
     // add accent
-    colorVars['--colorAccent'] = accent
+    colorVars["--colorAccent"] = accent;
 
     // check if in dark mode
-    const isDarkMode = (theme.colorBackground === ColorService.defaults.darkMode.colorBackground)
+    const isDarkMode =
+      theme.colorBackground === ColorService.defaults.darkMode.colorBackground;
 
     // force log out?
-    const fatalMessages = ['Could not log you in', 'Failed to fetch']
-    const forceLogOut = fatalMessages.includes(message)
+    const fatalMessages = ["Could not log you in", "Failed to fetch"];
+    const forceLogOut = fatalMessages.includes(message);
 
     return (
       <AppContext.Provider value={contextValues}>
-
         <MetaTags>
           <meta name="theme-color" content={accent} />
-          <meta name="apple-mobile-web-app-status-bar-style" content={isDarkMode ? 'black-translucent' : 'default'} />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content={isDarkMode ? "black-translucent" : "default"}
+          />
         </MetaTags>
 
         <section
-          className={`dashboard ${loading ? 'loading' : ''}`}
-          style={colorVars} >
-
+          className={`dashboard ${loading ? "loading" : ""}`}
+          style={colorVars}
+        >
           <div className="dashboard-content">
             <Switch>
               <Route exact path="/dashboard" component={Home} />
@@ -181,9 +197,10 @@ class Dashboard extends Component {
               <Route path="/dashboard/settings" component={Settings} />
               <Route path="/dashboard/moods" component={Moods} />
               <Route path="/dashboard/search/:query?" component={Search} />
-              <Route path="/dashboard/entry/:date" render={props => (
-                <EntryForm {...props} entries={entries} />
-              )} />
+              <Route
+                path="/dashboard/entry/:date"
+                render={(props) => <EntryForm {...props} entries={entries} />}
+              />
             </Switch>
           </div>
 
@@ -191,19 +208,19 @@ class Dashboard extends Component {
             message={message}
             isError={error}
             autoDismiss={!error}
-            onDismiss={forceLogOut ? this.handleLogOut : this.clearMessage} />
+            onDismiss={forceLogOut ? this.handleLogOut : this.clearMessage}
+          />
 
           <Loader status={loading} />
           <TabBar location={location} />
         </section>
       </AppContext.Provider>
-    )
-
+    );
   }
 }
 
 Dashboard.propTypes = {
-  location: PropTypes.object.isRequired
-}
+  location: PropTypes.object.isRequired,
+};
 
-export default Dashboard
+export default Dashboard;

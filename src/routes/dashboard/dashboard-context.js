@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const AppContext = React.createContext({
   user_name: null, // to hold the user name
@@ -11,6 +11,6 @@ const AppContext = React.createContext({
   onThemeChanged: () => null, // to hold the callback function for when app theme is changed
   onAccentChanged: () => null, // to hold callback for when accent is changed
   onLogout: () => null, // to hold callback function for logging out
-})
+});
 
-export default AppContext
+export default AppContext;

@@ -1,11 +1,9 @@
-import config from '../../config'
-import { TokenService } from '..'
+import config from "../../config";
+import { TokenService } from "..";
 
-
-const REGISTER_ENDPOINT = '/users'
-const LOGIN_ENDPOINT = '/auth/login'
-const ENTRIES_ENDPOINT = '/entries'
-
+const REGISTER_ENDPOINT = "/users";
+const LOGIN_ENDPOINT = "/auth/login";
+const ENTRIES_ENDPOINT = "/entries";
 
 /**
  * abstracts making API calls with error handling built in
@@ -13,38 +11,38 @@ const ENTRIES_ENDPOINT = '/entries'
 function makeRequest(url, options) {
   let error;
   return fetch(config.API_BASE_URL + url, options)
-    .then(res => {
-      if (!res.ok) error = { code: res.status }
-      if (res.status !== 204 &&
-        !res.headers.get('content-type').includes('json')) {
-        error.message = res.statusText
-        return Promise.reject(error)
+    .then((res) => {
+      if (!res.ok) error = { code: res.status };
+      if (
+        res.status !== 204 &&
+        !res.headers.get("content-type").includes("json")
+      ) {
+        error.message = res.statusText;
+        return Promise.reject(error);
       }
 
-      return res.status !== 204 && res.json()
+      return res.status !== 204 && res.json();
     })
-    .then(data => {
+    .then((data) => {
       if (error) {
-        error.message = data.error
-        return Promise.reject(error)
+        error.message = data.error;
+        return Promise.reject(error);
       }
 
-      return data
-    })
+      return data;
+    });
 }
-
 
 function makeSecureRequest(url, options = {}) {
-  const authToken = TokenService.getAuthToken()
+  const authToken = TokenService.getAuthToken();
 
-  if (!options.headers) options.headers = {}
+  if (!options.headers) options.headers = {};
   options.headers = {
     ...options.headers,
-    'Authorization': `Bearer ${authToken}`
-  }
-  return makeRequest(url, options)
+    Authorization: `Bearer ${authToken}`,
+  };
+  return makeRequest(url, options);
 }
-
 
 /**
  * creates a new user account on the server
@@ -55,12 +53,11 @@ function makeSecureRequest(url, options = {}) {
  */
 function register(user) {
   return makeRequest(REGISTER_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(user)
-  })
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  });
 }
-
 
 /**
  * gets an authorization token from the server
@@ -70,20 +67,18 @@ function register(user) {
  */
 function login(credentials) {
   return makeRequest(LOGIN_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials)
-  })
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
 }
-
 
 /**
  * gets all user entried given a user token
  */
 function getEntries() {
-  return makeSecureRequest(ENTRIES_ENDPOINT)
+  return makeSecureRequest(ENTRIES_ENDPOINT);
 }
-
 
 /**
  * creates a new entry on the server
@@ -91,12 +86,11 @@ function getEntries() {
  */
 function createEntry(entry) {
   return makeSecureRequest(ENTRIES_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entry)
-  })
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(entry),
+  });
 }
-
 
 /**
  * updates an entry on the server
@@ -105,12 +99,11 @@ function createEntry(entry) {
  */
 function updateEntry(id, entry) {
   return makeSecureRequest(`${ENTRIES_ENDPOINT}/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entry)
-  })
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(entry),
+  });
 }
-
 
 export default {
   register,
@@ -119,5 +112,5 @@ export default {
   createEntry,
   updateEntry,
 
-  makeRequest
-}
+  makeRequest,
+};

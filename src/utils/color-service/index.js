@@ -1,1 +1,1 @@
-export { default } from './color-service'
+export { default } from "./color-service";

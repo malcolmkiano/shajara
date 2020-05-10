@@ -1,16 +1,13 @@
-import React from 'react'
-import Home from './home'
+import React from "react";
+import Home from "./home";
 
-import { shallow } from 'enzyme'
+import { shallow } from "enzyme";
 
-describe('Home', () => {
-
+describe("Home", () => {
   // set up context
-  const context = { entries: [] }
+  const context = { entries: [] };
 
-  it('renders without crashing', () => {
-    shallow(<Home />, { context })
-  })
-
-})
-
+  it("renders without crashing", () => {
+    shallow(<Home />, { context });
+  });
+});

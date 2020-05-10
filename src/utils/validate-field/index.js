@@ -1,1 +1,1 @@
-export { default } from './validate-field'
+export { default } from "./validate-field";

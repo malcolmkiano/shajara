@@ -1,1 +1,1 @@
-export { default } from './token-service'
+export { default } from "./token-service";

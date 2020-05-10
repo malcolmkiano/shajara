@@ -1,86 +1,87 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import './login.sass'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./login.sass";
 
-import { Loader, Nav, AuthForm } from '../../components'
-import { API, TokenService } from '../../utils'
-import { LoginImage } from '../../images'
+import { Loader, Nav, AuthForm } from "../../components";
+import { API, TokenService } from "../../utils";
+import { LoginImage } from "../../images";
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       error: null,
       loading: false,
       fields: [
         {
-          label: 'Email Address',
-          id: 'email_address',
-          value: '',
-          type: 'email',
+          label: "Email Address",
+          id: "email_address",
+          value: "",
+          type: "email",
           pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-          format: 'Must be a valid email address',
+          format: "Must be a valid email address",
           required: true,
-          error: null
+          error: null,
         },
         {
-          label: 'Password',
-          id: 'password',
-          value: '',
-          type: 'password',
+          label: "Password",
+          id: "password",
+          value: "",
+          type: "password",
           required: true,
-          error: null
-        }
-      ]
-    }
+          error: null,
+        },
+      ],
+    };
   }
 
   componentDidMount() {
-    document.title = 'Log In - Shajara - Journal App'
+    document.title = "Log In - Shajara - Journal App";
   }
 
-  handleLogin = credentials => {
-
+  handleLogin = (credentials) => {
     // load
-    this.setState({ loading: true })
+    this.setState({ loading: true });
 
     // send it up
     API.login(credentials)
-      .then(res => {
-
+      .then((res) => {
         // save the auth info in localStorage
-        const { first_name, authToken } = res
-        TokenService.saveAuthInfo(first_name, authToken)
+        const { first_name, authToken } = res;
+        TokenService.saveAuthInfo(first_name, authToken);
 
         // callback for successful login
-        const { location, history } = this.props
-        const destination = (location.state || {}).from || '/dashboard'
-        history.push(destination)
-
+        const { location, history } = this.props;
+        const destination = (location.state || {}).from || "/dashboard";
+        history.push(destination);
       })
-      .catch(err => {
-        if (typeof err.message !== 'string') err.message = 'Something went wrong. Please try again later.'
+      .catch((err) => {
+        if (typeof err.message !== "string")
+          err.message = "Something went wrong. Please try again later.";
         this.setState({
           error: err.message,
-          loading: false
-        })
-      })
-
-  }
+          loading: false,
+        });
+      });
+  };
 
   handleClearError = () => {
     this.setState({
-      error: null
-    })
-  }
+      error: null,
+    });
+  };
 
   render() {
     return (
       <section className="login form-view">
         <Nav>
-          <Link to="/" className="h3 logo">Shajara</Link>
+          <Link to="/" className="h3 logo">
+            Shajara
+          </Link>
           <ul className="links">
-            <li><Link to="/register">Register</Link></li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
           </ul>
         </Nav>
 
@@ -93,12 +94,13 @@ class Login extends Component {
           fields={this.state.fields}
           error={this.state.error}
           buttonText="Log In"
-          onSubmit={this.handleLogin} />
-        
+          onSubmit={this.handleLogin}
+        />
+
         <Loader status={this.state.loading} />
       </section>
-    )
+    );
   }
 }
 
-export default Login
+export default Login;

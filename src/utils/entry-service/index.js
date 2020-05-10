@@ -1,1 +1,1 @@
-export { default } from './entry-service'
+export { default } from "./entry-service";

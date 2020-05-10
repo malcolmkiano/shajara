@@ -1,49 +1,50 @@
-import React, { Component } from 'react'
-import queryString from 'query-string'
-import './search.sass'
+import React, { Component } from "react";
+import queryString from "query-string";
+import "./search.sass";
 
-import { SearchImage } from '../../../../images'
-import { Input, Button, EntryList } from '../../../../components'
-import { EntryService } from '../../../../utils'
-import AppContext from '../../dashboard-context'
+import { SearchImage } from "../../../../images";
+import { Input, Button, EntryList } from "../../../../components";
+import { EntryService } from "../../../../utils";
+import AppContext from "../../dashboard-context";
 
 class Search extends Component {
-  static contextType = AppContext
+  static contextType = AppContext;
 
   componentDidMount() {
-    document.title = 'Search - Shajara - Journal App'
+    document.title = "Search - Shajara - Journal App";
   }
 
-  handleUpdate = e => {
-    const query = e.target.value
+  handleUpdate = (e) => {
+    const query = e.target.value;
 
     this.props.history.push({
-      pathname: '/dashboard/search',
-      search: query && '?q=' + query
-    })
-  }
+      pathname: "/dashboard/search",
+      search: query && "?q=" + query,
+    });
+  };
 
-  handleUpdate = e => {
-    const query = e.target.value
+  handleUpdate = (e) => {
+    const query = e.target.value;
 
     this.props.history.push({
-      pathname: '/dashboard/search',
-      search: query && '?q=' + query
-    })
-  }
+      pathname: "/dashboard/search",
+      search: query && "?q=" + query,
+    });
+  };
 
   render() {
-    const query = this.props.location && queryString.parse(this.props.location.search).q
-    const { entries } = this.context
-    const results = query ? EntryService.search(query, entries) : []
+    const query =
+      this.props.location && queryString.parse(this.props.location.search).q;
+    const { entries } = this.context;
+    const results = query ? EntryService.search(query, entries) : [];
     const months = results.map(([month, entries]) => {
-      const list = entries.map(entry => EntryService.makeComponent(entry))
+      const list = entries.map((entry) => EntryService.makeComponent(entry));
       return (
         <div key={month} className="month">
           <EntryList title={month} entries={list} />
         </div>
-      )
-    })
+      );
+    });
 
     return (
       <form className="wrapper search">
@@ -54,20 +55,26 @@ class Search extends Component {
             onChange={this.handleUpdate}
             label="Query"
             placeholder="Query"
-            autoFocus={true} />
-            
+            autoFocus={true}
+          />
+
           <Button type="search" variant="alt" disabled={true} />
         </div>
-        {results.length
-          ? months
-          : (
-            <EntryList
-              EmptyImage={SearchImage}
-              showText={query ? 'No entries matched your query' : 'Search for entries using keywords'} />
-          )}
+        {results.length ? (
+          months
+        ) : (
+          <EntryList
+            EmptyImage={SearchImage}
+            showText={
+              query
+                ? "No entries matched your query"
+                : "Search for entries using keywords"
+            }
+          />
+        )}
       </form>
-    )
+    );
   }
 }
 
-export default Search
+export default Search;

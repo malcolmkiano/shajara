@@ -1,21 +1,18 @@
-import React from 'react'
-import moment from 'moment'
-import EntryForm from './entry-form'
+import React from "react";
+import moment from "moment";
+import EntryForm from "./entry-form";
 
-import { shallow } from 'enzyme'
+import { shallow } from "enzyme";
 
-describe('EntryForm', () => {
-
+describe("EntryForm", () => {
   // set up props
   const match = {
     params: {
-      date: moment().format('YYYY-MM-DD')
-    }
-  }
+      date: moment().format("YYYY-MM-DD"),
+    },
+  };
 
-  it('renders without crashing', () => {
-    shallow(<EntryForm entries={[]} match={match} />)
-  })
-
-})
-
+  it("renders without crashing", () => {
+    shallow(<EntryForm entries={[]} match={match} />);
+  });
+});

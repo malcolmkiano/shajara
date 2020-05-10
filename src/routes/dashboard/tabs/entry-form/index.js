@@ -1,1 +1,1 @@
-export { default } from './entry-form'
+export { default } from "./entry-form";
