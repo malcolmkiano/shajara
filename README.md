@@ -1,7 +1,6 @@
 # Shajara
 
 📓 The better way to keep track of your days.<br />
-🚀 Live now at https://shajara.now.sh<br />
 
 ## Screenshots
 
