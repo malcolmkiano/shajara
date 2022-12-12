@@ -19,7 +19,7 @@
     "react-dom": "^16.13.1",
     "react-meta-tags": "^0.7.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-scroll": "^1.7.16",
     "react-swipeable": "^5.5.1",
     "react-test-renderer": "^16.13.1"
